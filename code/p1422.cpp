@@ -15,5 +15,4 @@ int main(){
   }
   printf("%.1lf",ans);
   return 0;
-
 }

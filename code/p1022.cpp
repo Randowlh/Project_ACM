@@ -1,0 +1,216 @@
+#include<cstdio>
+#include<cstring>
+char ar[1000],sub[1000];
+int main(){
+  gets(ar);
+  int isleft=0;
+  int stat=0;
+  int isx=0;
+  int tmp=0;
+  char x;
+  int flag=0;
+  double cntx=0,cntc=0;
+  double ans=0;
+  int tail=0;
+  for(int i=0;i<strlen(ar);i++){
+    if('a'<=ar[i]&&ar[i]<='z'){
+      isx=1;
+      x=ar[i];
+      if(flag==0){
+        sub[tail]='1';
+        tail++;
+        flag=1;
+      }
+      continue;
+    }//判断是否为未知数项
+    if(ar[i]=='+'&&isleft==0){
+      if(flag){
+      if(stat==0){
+        if(isx==0){
+          sscanf(sub,"%d",&tmp);
+          cntc-=tmp;
+
+        }//判断前一项为常数
+        else{
+          sscanf(sub,"%d",&tmp);
+          cntx+=tmp;
+          isx=0;
+
+        }//前一项为未知数项
+      }else{
+        if(isx==0){
+          sscanf(sub,"%d",&tmp);
+          cntc+=tmp;
+
+        }//判断前一项为常数
+        else{
+          sscanf(sub,"%d",&tmp);
+          cntx-=tmp;
+          isx=0;
+
+        }//前一项为未知数项
+      }
+    }
+      stat=0;
+      memset(sub,0,sizeof(sub));
+      tail=0;
+      flag=0;
+      continue;
+    }
+    //////////////////////////////////////////////////////
+    if(ar[i]=='+'&&isleft==1){
+      if(flag){
+      if(stat==0){
+        if(isx==0){
+          sscanf(sub,"%d",&tmp);
+          cntc+=tmp;
+        }//判断前一项为常数
+        else{
+          sscanf(sub,"%d",&tmp);
+          cntx-=tmp;
+          isx=0;
+        }//前一项为未知数项
+      }else{
+        if(isx==0){
+          sscanf(sub,"%d",&tmp);
+          cntc-=tmp;
+        }//判断前一项为常数
+        else{
+          sscanf(sub,"%d",&tmp);
+          cntx+=tmp;
+          isx=0;
+        }//前一项为未知数项
+      }
+    }
+      stat=0;
+      memset(sub,0,sizeof(sub));
+      tail=0;
+      flag=0;
+      continue;
+    }
+    //////////////////////////////////////////////////////
+    if(ar[i]=='-'&&isleft==0){
+      if(flag){
+      if(stat==0){
+        if(isx==0){
+          sscanf(sub,"%d",&tmp);
+          cntc-=tmp;
+        }//判断前一项为常数
+        else{
+          sscanf(sub,"%d",&tmp);
+          cntx+=tmp;
+          isx=0;
+        }//前一项为未知数项
+      }else{
+        if(isx==0){
+          sscanf(sub,"%d",&tmp);
+          cntc+=tmp;
+        }//判断前一项为常数
+        else{
+          sscanf(sub,"%d",&tmp);
+          cntx-=tmp;
+          isx=0;
+        }//前一项为未知数项
+      }
+    }
+      stat=1;
+      memset(sub,0,sizeof(sub));
+      tail=0;
+      flag=0;
+      continue;
+    }
+    //////////////////////////////////////////////////////
+    if(ar[i]=='-'&&isleft==1){
+      if(flag){
+      if(stat==0){
+        if(isx==0){
+          sscanf(sub,"%d",&tmp);
+          cntc+=tmp;
+        }//判断前一项为常数
+        else{
+          sscanf(sub,"%d",&tmp);
+          cntx-=tmp;
+          isx=0;
+        }//前一项为未知数项
+      }else{
+        if(isx==0){
+          sscanf(sub,"%d",&tmp);
+          cntc-=tmp;
+        }//判断前一项为常数
+        else{
+          sscanf(sub,"%d",&tmp);
+          cntx+=tmp;
+          isx=0;
+        }//前一项为未知数项
+      }
+      }
+      stat=1;
+      memset(sub,0,sizeof(sub));
+      tail=0;
+      flag=0;
+      continue;
+    }
+    //////////////////////////////////////////////////////
+    if(ar[i]=='='){
+      if(stat==0){
+        if(isx==0){
+          sscanf(sub,"%d",&tmp);
+          cntc-=tmp;
+        }//判断前一项为常数
+        else{
+          sscanf(sub,"%d",&tmp);
+          cntx+=tmp;
+          isx=0;
+        }//前一项为未知数项
+      }else{
+        if(isx==0){
+          sscanf(sub,"%d",&tmp);
+          cntc+=tmp;
+        }//判断前一项为常数
+        else{
+          sscanf(sub,"%d",&tmp);
+          cntx-=tmp;
+          isx=0;
+        }//前一项为未知数项
+      }
+      stat=0;
+      memset(sub,0,sizeof(sub));
+      tail=0;
+    isleft=1;
+    flag=0;
+    continue;
+    }
+    if('0'<=ar[i]&&ar[i]<='9'){
+      flag=1;
+      sub[tail]=ar[i];
+      tail++;
+    }
+  }
+  if(stat==0){
+    if(isx==0){
+      sscanf(sub,"%d",&tmp);
+      cntc+=tmp;
+    }//判断前一项为常数
+    else{
+      sscanf(sub,"%d",&tmp);
+      cntx-=tmp;
+      isx=0;
+    }//前一项为未知数项
+  }else{
+    if(isx==0){
+      sscanf(sub,"%d",&tmp);
+      cntc-=tmp;
+    }//判断前一项为常数
+    else{
+      sscanf(sub,"%d",&tmp);
+      cntx+=tmp;
+      isx=0;
+    }//前一项为未知数项
+  }
+  if(cntc==0){
+    printf("%c=0.000",x );
+  }
+  else
+  printf("%c=%.3f",x,cntc/cntx );
+  return 0;
+}

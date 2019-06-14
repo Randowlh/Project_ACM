@@ -11,7 +11,6 @@ int main(){
       if(a[i]>a[j])
       tmp++;
 
-
     }
     b[i]=tmp;
   }

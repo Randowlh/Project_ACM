@@ -93,7 +93,7 @@ int Menu(void)
     printf("6.Sort in dictionary order by name\n");
     printf("7.Search by number\n");
     printf("8.Search by name\n");
-    printf("9.Statistic analysis by everycurse\n");
+    printf("9.Statistic analysis by everycourse\n");
     printf("10.List record\n");
     printf("0.Exit\n");
     printf("Please Input your choice:\n");

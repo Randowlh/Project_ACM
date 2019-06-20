@@ -39,5 +39,7 @@ int main(){
         for(int i=n-1; i>n-1-cnt; i--) {
                 printf("%d %d\n",ar[i].k,ar[i].s);
         }
+
+
         return 0;
 }

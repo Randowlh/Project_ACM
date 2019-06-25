@@ -75,7 +75,8 @@ void inputman(){
                         or[tail].money=tmpm;
                         sname[tailn].money=tmpm;
                         smoney[tailm].money=tmpm;
-                        for(int i=0; i<strlen(tmp); i++) {
+                        int i=0
+                        for( i=0; i<strlen(tmp); i++) {
                                 or[tail].name[i]=tmp[i];
                                 sname[tailn].name[i]=tmp[i];
                                 smoney[tailm].name[i]=tmp[i];
@@ -104,7 +105,8 @@ void inputbyfile(){
                         or[tail].money=tmpm;
                         sname[tailn].money=tmpm;
                         smoney[tailm].money=tmpm;
-                        for(int i=0; i<strlen(tmp); i++) {
+                        int i;
+                        for( i=0; i<strlen(tmp); i++) {
                                 or[tail].name[i]=tmp[i];
                                 sname[tailn].name[i]=tmp[i];
                                 smoney[tailm].name[i]=tmp[i];
@@ -119,7 +121,8 @@ void inputbyfile(){
 void caltol(){
         printf("the total number of record : %d\n",tail );
         int ans=0;
-        for(int i=0; i<tail; i++) {
+        int i;
+        for( i=0; i<tail; i++) {
                 ans+=or[i].money;
         }
         printf("the totol money is : %d\n",ans );
@@ -128,7 +131,8 @@ void caltol(){
 void caleva(){
         printf("the total number of record : %d\n",tail );
         int ans=0;
-        for(int i=0; i<tail; i++) {
+        int i;
+        for( i=0; i<tail; i++) {
                 ans+=or[i].money;
         }
         printf("the average  money of each record is : %lf\n",(double)ans/(double)tail );
@@ -164,7 +168,8 @@ void saveonfile(){
         FILE *fout;
         fout = fopen(ftmp,"wb");
         if(x==1) {
-                for(int i=0; i<tail; i++) {
+                int i;
+                for( i=0; i<tail; i++) {
                         fprintf(fout, "%s %d\n",or[i].name,or[i].money );
                 }
         }else if(x==2)

@@ -269,7 +269,7 @@ int main(){
   printf("16.导出VIP客户名单\n");
   printf("17.退出\n");
   while(1){
-    scanf("%d\n", &x);
+    scanf("%d", &x);
     if(x==1){
       inhandjinhuo();
     }

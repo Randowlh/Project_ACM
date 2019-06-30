@@ -23,7 +23,7 @@ void inhandvip() {
   int tmpv[100];
   while(1){
     scanf("%s",tmp);
-    if(tmp[0]=='q'&&sizeof(tmp)==1){
+    if(tmp[0]=='q'&&strlen(tmp)==1){
       return;
     }
     scanf("%d\n",&tmpv);
@@ -128,7 +128,7 @@ void inhandyuangong(){
   int tmpv[100];
   while(1){
     scanf("%s",tmp);
-    if(tmp[0]=='q'&&sizeof(tmp)==1){
+    if(tmp[0]=='q'&&strlen(tmp)==1){
       return;
     }
     scanf("%d\n",&tmpv);
@@ -185,7 +185,7 @@ void inhandxiaoshou() {
   int tmpv[100];
   while(1){
     scanf("%s",tmp);
-    if(tmp[0]=='q'&&sizeof(tmp)==1){
+    if(tmp[0]=='q'&&strlen(tmp)==1){
       return;
     }
     scanf("%d\n",&tmpv);
@@ -221,7 +221,7 @@ void inhandjinhuo() {
   int tmpv[100];
   while(1){
     scanf("%s",tmp);
-    if(tmp[0]=='q'&&sizeof(tmp)==1){
+    if(tmp[0]=='q'&&strlen(tmp)==1){
       return;
     }
     scanf("%d\n",&tmpv);

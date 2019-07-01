@@ -20,13 +20,13 @@ void outputvip(){
 void inhandvip() {
   printf("输入完毕输入q退出\n");
   char tmp[100];
-  int tmpv[100];
+  int tmpv;
   while(1){
     scanf("%s",tmp);
     if(tmp[0]=='q'&&strlen(tmp)==1){
       return;
     }
-    scanf("%d\n",&tmpv);
+    scanf("%d",&tmpv);
     strcpy(vip[tailvip].name,tmp);
     vip[tailvip].val=tmpv;
     tailvip++;
@@ -91,17 +91,21 @@ void yuangongpaixu() {
     return;
   }
   //在此采用冒泡排序
-  for(int i=1;i<=tailyuangong-1;i++){
+  for(int i=0;i<tailyuangong-1;i++){
     for(int j=0;j<tailyuangong-i-1;j++){
       if(yuangong[j].val<yuangong[j+1].val){
         int t=yuangong[j].val;
         yuangong[j].val=yuangong[j+1].val;
         yuangong[j+1].val=t;
+        char tm[100];
+        strcpy(tm,yuangong[j].name);
+        strcpy(yuangong[j].name,yuangong[j+1].name);
+        strcpy(yuangong[j+1].name,tm);
       }
     }
   }
-  for (int i = 0; i < tailyuangong; i++) {
-    printf("%s %d\n",yuangong[i].name,yuangong[i].val);
+  for (int i = 0; i < tailjinhuo; i++) {
+    printf("%s %d\n",jinhuo[i].name,jinhuo[i].val);
   }
   return;
 }
@@ -125,13 +129,13 @@ void infileyuangong(){
 void inhandyuangong(){
   printf("输入完毕输入q退出\n");
   char tmp[100];
-  int tmpv[100];
+  int tmpv;
   while(1){
     scanf("%s",tmp);
     if(tmp[0]=='q'&&strlen(tmp)==1){
       return;
     }
-    scanf("%d\n",&tmpv);
+    scanf("%d",&tmpv);
     strcpy(yuangong[tailyuangong].name,tmp);
     yuangong[tailyuangong].val=tmpv;
     tailyuangong++;
@@ -182,13 +186,13 @@ void infilexiaoshou(){
 void inhandxiaoshou() {
   printf("输入完毕输入q退出\n");
   char tmp[100];
-  int tmpv[100];
+  int tmpv;
   while(1){
     scanf("%s",tmp);
     if(tmp[0]=='q'&&strlen(tmp)==1){
       return;
     }
-    scanf("%d\n",&tmpv);
+    scanf("%d",&tmpv);
     strcpy(xiaoshou[tailxiaoshou].name,tmp);
     xiaoshou[tailxiaoshou].val=tmpv;
     tailxiaoshou++;
@@ -201,12 +205,16 @@ void jinhuopaixu() {
     return;
   }
   //在此采用冒泡排序
-  for(int i=1;i<=tailjinhuo-1;i++){
+  for(int i=0;i<tailjinhuo-1;i++){
     for(int j=0;j<tailjinhuo-i-1;j++){
       if(jinhuo[j].val<jinhuo[j+1].val){
         int t=jinhuo[j].val;
         jinhuo[j].val=jinhuo[j+1].val;
         jinhuo[j+1].val=t;
+        char tm[100];
+        strcpy(tm,jinhuo[j].name);
+        strcpy(jinhuo[j].name,jinhuo[j+1].name);
+        strcpy(jinhuo[j+1].name,tm);
       }
     }
   }
@@ -218,13 +226,13 @@ void jinhuopaixu() {
 void inhandjinhuo() {
   printf("输入完毕输入q退出\n");
   char tmp[100];
-  int tmpv[100];
+  int tmpv;
   while(1){
     scanf("%s",tmp);
     if(tmp[0]=='q'&&strlen(tmp)==1){
       return;
     }
-    scanf("%d\n",&tmpv);
+    scanf("%d",&tmpv);
     strcpy(jinhuo[tailjinhuo].name,tmp);
     jinhuo[tailjinhuo].val=tmpv;
     tailjinhuo++;

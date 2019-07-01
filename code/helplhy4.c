@@ -92,7 +92,7 @@ void yuangongpaixu() {
   }
   //在此采用冒泡排序
   for(int i=1;i<=tailyuangong-1;i++){
-    for(int j=0;j<tailyuangong-i;j++){
+    for(int j=0;j<tailyuangong-i-1;j++){
       if(yuangong[j].val<yuangong[j+1].val){
         int t=yuangong[j].val;
         yuangong[j].val=yuangong[j+1].val;
@@ -202,7 +202,7 @@ void jinhuopaixu() {
   }
   //在此采用冒泡排序
   for(int i=1;i<=tailjinhuo-1;i++){
-    for(int j=0;j<tailjinhuo-i;j++){
+    for(int j=0;j<tailjinhuo-i-1;j++){
       if(jinhuo[j].val<jinhuo[j+1].val){
         int t=jinhuo[j].val;
         jinhuo[j].val=jinhuo[j+1].val;
@@ -347,7 +347,6 @@ int main(){
     else{
       printf("错误，请重试\n");
     }
-    printf("欢迎进入超市管理系统\n");
     printf("1.手动输入进货商品信息\n");
     printf("2.从文件读入进货商品信息\n");
     printf("3.将进货数据从高到低进行排序\n");

@@ -18,7 +18,10 @@ void he(){
     printf("和为:%d\n",tmp );
   }
   else
-  printf("和为:%d+%d\n",tmp,tmpi);
+  if(tmpi>=0)
+  printf("和为:%d+%di\n",tmp,tmpi);
+  else
+  printf("和为:%d%di\n",tmp,tmpi);
   return;
 }
 void cha(){
@@ -36,7 +39,10 @@ void cha(){
     printf("差为:%d\n",tmp );
   }
   else
-  printf("差为:%d+%d\n",tmp,tmpi);
+  if(tmpi>=0)
+  printf("差为:%d+%di\n",tmp,tmpi);
+  else
+  printf("差为:%d%di\n",tmp,tmpi);
   return;
 }
 void ji(){
@@ -54,25 +60,31 @@ void ji(){
     printf("积为:%d\n",tmp );
   }
   else
-  printf("积为:%d+%d\n",tmp,tmpi);
+  if(tmpi>=0)
+  printf("积为:%d+%di\n",tmp,tmpi);
+  else
+  printf("积为:%d%di\n",tmp,tmpi);
   return;
 }
 void shang(){
-  int tmp=(double)(a[0]*a[2]+a[1]*a[3])/(double)(a[2]*a[2]+a[3]*a[3]);
-  int tmpi=(double)(a[1]*a[2]-a[0]*a[3])/(double)(a[2]*a[2]+a[3]*a[3]);
+  double tmp=((double)(a[0]*a[2]+a[1]*a[3]))/(double)(a[2]*a[2]+a[3]*a[3]);
+  double tmpi=((double)(a[1]*a[2]-a[0]*a[3]))/(double)(a[2]*a[2]+a[3]*a[3]);
   if(tmp==0&&tmpi==0){
-    printf("积为0\n");
+    printf("商为0\n");
     return;
   }
   else if(tmp==0){
-    printf("积为:%lfi\n",tmpi);
+    printf("商为:%lfi\n",tmpi);
     return;
   }
   else if(tmpi==0){
-    printf("积为:%lf\n",tmp );
+    printf("商为:%lf\n",tmp );
   }
   else
-  printf("积为:%lf+%lf\n",tmp,tmpi);
+  if(tmpi>=0)
+  printf("商为:%lf+%lfi\n",tmp,tmpi);
+  else
+  printf("商为:%lf%lfi\n",tmp,tmpi);
   return;
 }
 int main(){

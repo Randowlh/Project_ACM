@@ -1,13 +1,4 @@
-#include<iostream>
-
-#include <stdlib.h>
-
-#include <time.h>
-
-#include<string>
-
-#include<cstring>
-
+#include<bits/stdc++.h>
 using namespace std;
 
 class Person {
@@ -28,15 +19,6 @@ private:
 	string  m_C;
 };
 
-int max(int a, int b, int c) {
-
-	int max = 0;
-
-	max = ((a > b ? a : b) > c ? max : c);
-
-	return max;
-
-};
 
 int main() {
 	cout << "开始抢地主啦！" << endl;
@@ -59,7 +41,7 @@ int main() {
 	}
 Person p("张三", "李四", "王五");
 p.PrintPerson();
-	int maxs = max(q[0], q[1], q[2]);
+	int maxs = max(q[0],max(q[1],q[2]));
 
 	if (q[0] == maxs) { cout << "地主是张三" << endl; p.m_D = true; }
 

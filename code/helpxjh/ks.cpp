@@ -1,4 +1,26 @@
-#include<bits/stdc++.h>
+#include<numeric>
+#include<functional>
+#include<unordered_map>
+#include<unordered_set>
+
+#include<cstdio>
+#include<iostream>
+#include<sstream>
+#include<cstdlib>
+#include<cmath>
+#include<cctype>
+#include<string>
+#include<cstring>
+#include<algorithm>
+#include<stack>
+#include<queue>
+#include<set>
+#include<map>
+#include<ctime>
+#include<vector>
+#include<fstream>
+#include<list>
+#include <iomanip>
 using namespace std;
 
 class Person {

@@ -47,7 +47,7 @@ int main(){
       tmpy=0;
     }
     if(date[i]=='W'){
-      tmpw++;
+      tmpw++;；l
     }
     if(date[i]=='L'){
       tmpy++;
@@ -57,4 +57,4 @@ int main(){
 }
 
   return 0;
-}
+}36

@@ -62,7 +62,7 @@ void insent2(){
 }//sname链表的插入函数
 void inputman(){
         printf("please input the recordname and money\n");
-        printf("input q to quit\n");
+        printf("input q to quit\n");2
         while (1) {
                 char tmp[100];
                 int tmpm=0;

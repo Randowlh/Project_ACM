@@ -6,8 +6,7 @@ using namespace std;
 string in,lf,rt;
 int i,j,m,n;
 string check(string s){
-	int flag=0;
-	string s1;
+	int flag=0;r'r'r'r'r'r'r'r
 	s1.clear();
 	int j=0;
 	for(int i=0;i<s.length();i++){
@@ -29,7 +28,7 @@ void loop(){
 		string lf1;
 		for(int i=lf.length()-1;i>=0;i--){
 			lf1.push_back(lf[i]);
-		}
+		}78
 	
 		lf=check(lf1);
 	}

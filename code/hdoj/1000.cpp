@@ -1,8 +1,14 @@
 #include<cstdio>
+#include<iostream>
+using namespace std;
 int main(){
-    int a,b;
-    while(scanf("%d%d",&a,&b)!=EOF){
-    printf("%d\n",a+b);
-    }
+    int a;
+    cin >> a;
+    int b;
+    cin >> b;
+    endl;
+    int re;
+    re = a+b;
+    cout<< re;
     return 0;
 }

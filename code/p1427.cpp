@@ -1,17 +1,18 @@
-#include<cstdio>
+#include<iostream>
+#include<queue>
+#include<vector>
+using namespace std;
+struct node
+{
+ int x;
+	bool operator < (const node &a)const
+	{
+		return x < a.x;         
+}};
+bool cmp (struct node a,struct node b){
+  return a.x>b.x;
+}
 int main(){
-  int a[1000];
-  int tail=0;
-  int tmp;
-  while (true) {
-    scanf("%d",&tmp);
-    if(tmp==0)
-    break;
-    a[tail]=tmp;
-    tail++;
-  }
-  for(int i=tail-1;i>=0;i--){
-    printf("%d ",a[i] );
-  }
+  priority_queue<  node > pq;
   return 0;
 }

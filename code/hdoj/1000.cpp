@@ -6,7 +6,6 @@ int main(){
     cin >> a;
     int b;
     cin >> b;
-    endl;
     int re;
     re = a+b;
     cout<< re;

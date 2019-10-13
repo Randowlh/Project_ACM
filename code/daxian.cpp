@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 int a[4][4];
-int amin[4];
+int amin[3]={99999,99999,99999};
 int max(int a,int b){
     if(a>b){
         return a;

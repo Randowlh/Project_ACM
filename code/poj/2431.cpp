@@ -27,6 +27,12 @@ int main(){
     int ans=0;
     sort(date,date+n);
     for(int i=0;i<=n;i++){
+
+
+
+
+
+        
         if(pos>=l){
             printf("%d",ans);
             return 0;

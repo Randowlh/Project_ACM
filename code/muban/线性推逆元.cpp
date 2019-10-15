@@ -1,0 +1,1 @@
+for (inv[1] = 1, i = 2; i <= n; ++i) inv[i] = (ll)(mod - mod / i) * inv[mod % i] % mod;

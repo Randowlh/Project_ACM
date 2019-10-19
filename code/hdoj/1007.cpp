@@ -1,80 +1,116 @@
-#include <cstdio>
-#include <cmath>
 #include <iostream>
+#include <cstdio>
+#include <string>
+#include <string.h>
+#include <map>
+#include <vector>
+#include <cstdlib>
+#include <cmath>
 #include <algorithm>
+#include <cmath>
+#include <queue>
+#include <set>
+#include <stack>
 using namespace std;
+int min(int a, int b)
+{
+    if (a <= b)
+        return a;
+    return b;
+}
+int max(int a, int b)
+{
+    if (a >= b)
+        return a;
+    return b;
+}
+double min(double a, double b)
+{
+    if (a <= b)
+        return a;
+    return b;
+}
+double max(double a, double b)
+{
+    if (a >= b)
+        return a;
+    return b;
+}
+#define N 100100
+
 struct node
 {
-    double x;
-    double y;
-    bool operator<(const struct node a)
-    {
-        if (this->x < a.x)
-        {
-            return true;
-        }
-        else if (this->x == a.x && this->y < a.y)
-            return true;
-        else
-            return false;
-    }
-} date[100010];
-double dis(int x, int y)
+    double x, y;
+} g[N];
+
+node save[N];
+
+int cmp(node t, node t1)
 {
-    return sqrt((date[x].x - date[y].x) * (date[x].x - date[y].x) + (date[x].y - date[y].y) * (date[x].y - date[y].y));
+    return t.x < t1.x;
 }
-int k;
-int n;
-double fenzhi(int s, int e)
+
+int cmp1(node t, node t1)
 {
-    if (s == e)
+    return t.y < t1.y;
+}
+double cal(node t, node t1)
+{
+    return sqrt((t.x - t1.x) * (t.x - t1.x) + (t.y - t1.y) * (t.y - t1.y));
+}
+
+double fuc(int b, int d)
+{
+    if (d - b == 1)
+        return cal(g[b], g[d]);
+    if (d - b == 2)
     {
-        return 99999;
+        return min(cal(g[b], g[b + 1]), min(cal(g[b], g[d]), cal(g[b + 1], g[d])));
     }
-    else if (s + 1 == e)
+    int mid = (b + d) / 2;
+    double mi = min(fuc(b, mid), fuc(mid + 1, d));
+    for (int i = mid - 1; i >= b; i--)
     {
-        return dis(s, e);
-    }
-    int mid = (s + e) / 2;
-    double dl = fenzhi(s, mid);
-    double dr = fenzhi(mid + 1, e);
-    double d = min(dl, dr);
-    for (int i = mid; i >= s; i--)
-    {
-        if (date[mid].x - date[i].x >= d)
+        if (g[mid].x - g[i].x > mi)
         {
+            b = i;
             break;
         }
-        for (int j = mid + 1; j <= e; j++)
-            if (date[j].x - date[mid].x >= d)
-            {
-                break;
-            }
-            else
-            {
-                if (fabs(date[i].y - date[j].y < d) < d)
-                    d = min(d, dis(i, j));
-            }
     }
-
-    return d;
+    for (int i = mid; i <= d; i++)
+    {
+        if (g[i].x - g[mid - 1].x > mi)
+        {
+            d = i;
+            break;
+        }
+    }
+    int cnt = 0;
+    for (int i = b; i <= d; i++)
+        save[cnt++] = g[i];
+    sort(save, save + cnt, cmp1);
+    for (int i = 0; i < cnt; i++)
+        for (int j = i + 1; j < cnt; j++)
+        {
+            if (save[j].y - save[i].y > mi)
+                break;
+            if (cal(save[i], save[j]) < mi)
+                mi = cal(save[i], save[j]);
+        }
+    return mi;
 }
+
 int main()
 {
-    while (true)
+    int n;
+    while (scanf("%d", &n) && n)
     {
-
-        scanf("%d", &n);
-        if (n == 0)
-        {
-            break;
-        }
         for (int i = 0; i < n; i++)
         {
-            scanf("%lf%lf", &date[i].x, &date[i].y);
+            scanf("%lf%lf", &g[i].x, &g[i].y);
         }
-        sort(date, date + n);
-        printf("%.2f\n", fenzhi(0, n - 1) / 2);
+        sort(g, g + n, cmp);
+        printf("%.2lf\n", fuc(0, n - 1) / 2);
     }
     return 0;
 }

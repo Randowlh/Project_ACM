@@ -11,8 +11,6 @@ int main()
         top++;
     }
     for (int i = top - 1; i >= 0; i--)
-    {
-        printf("%d ", stak[i]);
+      printf("%d ", stak[i]);
     }
-    return 0;
-}
+    return 0;}

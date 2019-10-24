@@ -12,7 +12,7 @@ void Prime(int n)
 	for(int i=2;i<n;i++)
 	{
 		if(!vis[i])
-		{
+		{                   
 			prime[cnt++]=i;
 			phi[i]=i-1;
 		}

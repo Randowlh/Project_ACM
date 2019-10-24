@@ -75,7 +75,7 @@ int main()
                     map[i][j] = 1;
             }
         }
-        book[0][0] = 1;
+        book[sx][sy] = 1;
         dfs(sx, sy, 0);
         if (escape == 1)
         {

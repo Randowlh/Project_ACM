@@ -26,7 +26,7 @@ int main(){
             tail++;
         }else{
             if(abs(n-a[i])==max){
-                st[tail]=i;
+                st[tail]=i;]
                 tail++;
             }
         }

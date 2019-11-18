@@ -84,11 +84,11 @@ int main()
             }
             head++;
         }
-        if(dp[s/2][s/2][0]!=-1)
+        if(dp[s/2][s/2][0]!=-1&&s/2<=ar[1])
         ans=dp[s/2][s/2][0];
-        if(dp[s/2][s/2][0]!=-1)
+        if(dp[s/2][s/2][0]!=-1&&s/2<=ar[1]&&s/2<=ar[2])
         ans=min(ans,dp[0][s/2][s/2]);
-        if(dp[s/2][0][s/2]!=-1)
+        if(dp[s/2][0][s/2]!=-1&&s/2<=ar[2])
         ans=min(ans,dp[s/2][0][s/2]);
         if(ans!=1<<29)
         printf("%d\n",ans);

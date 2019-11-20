@@ -1,3 +1,33 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int gcd(int a, int b)
+{
+    return a % b ? gcd(b, a % b) : b;
+}
+
+void printddd(int x)
+{
+    if (x & 1)
+    {
+        cout << "NO\n";
+    }
+    else
+        cout << x - 1 << endl;
+}
+
+int main()
+{
+    int a, b, c;
+    while ((cin >> a >> b >> c) && (a || b || c))
+    {
+        a /= gcd(b, c);
+        printddd(a);
+    }
+}
+/*
 #include <cstdio>
 #include <iostream>
 #include <algorithm>
@@ -105,3 +135,4 @@ int main()
     }
     return 0;
 }
+*/

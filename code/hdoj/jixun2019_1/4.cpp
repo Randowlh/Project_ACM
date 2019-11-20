@@ -21,7 +21,7 @@ int book[300][300];
 priority_queue<node> pee;
 int main()
 {
-    freopen("a.in", "r", stdin);
+    //freopen("a.in", "r", stdin);
     int n, m;
     //cin>>t
     while (cin >> n >> m)

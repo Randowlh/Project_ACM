@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
+#include <algorithm>
 using namespace std;
 bool cmp(string a, string b)
 {
@@ -8,107 +9,111 @@ bool cmp(string a, string b)
     {
         return true;
     }
+    int fu1;
+    int fu2;
+    if (a[0] == '-')
+        fu1 = 1;
     else
+        fu1 = 0;
+    if (b[0] == '-')
+        fu2 = 1;
+    else
+        fu2 = 0;
+    if (fu1 != fu2)
     {
-        int flag1 = 0;
-        int flag2 = 0;
-        for (int i = 0; i <a.size();i++){
-            if(a[i]!='0'&&a[i]!='-'){
-                flag1=1;
-                break;
-            }
-        }
-        for (int i = 0; i <b.size();i++){
-            if(b[i]!='0'&&b[i]!='-'){
-                flag1=1;
-                break;
-            }
-        }
-    if(flag1==0&&flag2==0){
-        return true;
-    }else{
-        return false;
-    }
-    }
-}
-int main()
-{   string zro;
-    zro="0";
-    string a, b;
-    while (cin >> a >> b)
-    {   int fu1=0;
-        int fu2=0;
-        string da, db, za, zb;
-        da.clear();
-        db.clear();
-        za.clear();
-        zb.clear();
         int flag = 0;
         for (int i = 0; i < a.size(); i++)
         {
-            if (a[i] == '.')
+            if (a[i] <= '9' && a[i] >= '0')
             {
-                flag = 1;
-            }else if(a[i]=='-'){
-                fu1=1;
-            }
-            else
-            {
-                if (flag)
+                if (a[i] != '0')
                 {
-                    da.push_back(a[i]);
-                }
-                else
-                {
-                    za.push_back(a[i]);
+                    flag = 1;
+                    break;
                 }
             }
         }
-        flag = 0;
         for (int i = 0; i < b.size(); i++)
         {
-            if (b[i] == '.')
+            if (b[i] <= '9' && b[i] >= '0')
             {
-                flag = 1;
-            }else if(b[i]=='-'){
-                fu2=1;
+                if (b[i] != '0')
+                {
+                    flag = 1;
+                    break;
+                }
+            }
+        }
+        if (flag == 1)
+            return false;
+        else
+            return true;
+    }
+    int offse = 0;
+    if (fu1 == 1)
+    {
+        offse = 1;
+    }
+    string ta, tb;
+    int flag = 0;
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (flag == 1)
+        {
+            if (a[i] <= '9' && a[i] >= '0')
+            {
+                ta.push_back(a[i]);
+                continue;
             }
             else
             {
-                if (flag)
-                {
-                    db.push_back(b[i]);
-                }
-                else
-                {
-                    zb.push_back(b[i]);
-                }
+                break;
             }
         }
-        if (da.empty())
+        else if (a[i] >= '1' && a[i] <= '9')
         {
-            da.push_back('0');
+            flag = 1;
+            ta.push_back(a[i]);
+            continue;
         }
-        if (db.empty())
+    }
+    if(ta.empty()) ta="0";
+    flag = 0;
+    for (int i = 0; i < b.size(); i++)
+    {
+        if (flag == 1)
         {
-            db.push_back('0');
+            if (b[i] <= '9' && b[i] >= '0')
+            {
+                tb.push_back(b[i]);
+                continue;
+            }
+            else
+            {
+                break;
+            }
         }
-        if (za.empty())
+        else if (b[i] >= '1' && b[i] <= '9')
         {
-            za.push_back('0');
+            flag = 1;
+            tb.push_back(b[i]);
+            continue;
         }
-        if (zb.empty())
-        {
-            zb.push_back('0');
-        }
-        if(fu1!=fu2){
-            //if(cmp(za,zro)&&cmp(da,zro)&&cmp(zb,zro)&&cmp(db,zro)){
-             //   printf("YES\n");
-            //}else{
-                printf("NO\n");
-            //}
-        }else
-        if (cmp(zb, za) && cmp(da, db))
+    }
+    if(tb.empty()) tb="0";
+    if(ta!=tb){
+        return false;
+    }
+    ta.clear();
+    tb.clear();
+    return true;
+}
+int main()
+{
+    string a, b;
+    while (cin >> a >> b)
+    {
+        if (cmp(a, b))
         {
             printf("YES\n");
         }
@@ -116,7 +121,6 @@ int main()
         {
             printf("NO\n");
         }
-        
     }
     return 0;
 }

@@ -6,11 +6,27 @@ using namespace std;
 string s;
 int n;
 int k;
-int maps[2010];
-int fr[20100];
-int af[20100];
-stack<int> st;
+//int maps[2010];
+//int fr[20100];
+//int af[20100];
+//stack<int> st;
+int st[100010];
+int st2[100010];
 int tail;
+void swaps(int a,int b){
+    //cout<<a+1<<' '<<b+1<<endl;
+    st[tail]=a+1;
+    st2[tail]=b+1;
+    tail++;
+    if(a+2<b){
+    st[tail]=a+2;
+    st2[tail]=b;
+    tail++;
+    }
+    //cout<<a+2<<' '<<b<<endl;
+    swap(s[a],s[b]);
+    //cout<<s<<endl;
+}
 int main(){
     int  t;
     cin>>t;
@@ -18,41 +34,40 @@ int main(){
         cin>>n>>k;
         cin>>s;
         tail=0;
-        for(int i=0;i<n;i++){
-            maps[i]=0;
-        }
-        for(int i=0;i<n;i++){
-            if(s[i]=='(' ){
-                st.push(i);
+        for(int i=0;i<k-1;i++){
+            if(s[i*2]!='('){
+                for(int j=i*2+1;j<s.size();j++){
+                    if(s[j]=='('){
+                        swaps(i*2,j);
+                        break;
+                    }
+                }
             }
-            if(s[i]==')'&& !st.empty()){
-            maps[st.top()]=1;
-            maps[i]=1;
-            st.pop();
+            if(s[i*2+1]!=')'){
+                for(int j=i*2+2;j<s.size();j++){
+                    if(s[j]==')'){
+                        swaps(i*2+1,j);
+                        break;
+                    }
+                }
             }
-        }
-        while(!st.empty()){
-            st.pop();
-        }
-        //cout<<"yes"<<endl;
-        for(int i=0;i<n;i++){
-            if(maps[i]==0&&s[i]==')'){
-                st.push(i);
-                //cout<<"yes"<<endl;
-            }else
-            if(maps[i]==0&&s[i]=='('){
-                fr[tail]=st.top();
-               st.pop();
-                af[tail]=i;
-                tail++;
+       }
+       //cout<<s<<endl;
+       for(int i=(k-1)*2;i<((k-1)*2+n)/2;i++){
+           if(s[i]!='('){
+                for(int j=i+1;j<s.size();j++){
+                    if(s[j]=='('){
+                        swaps(i,j);
+                        break;
+                    }
+                }
             }
-        }
-       // cout<<"yes"<<endl;
-        for(int i=0;i<tail;i++){
-            swap(s[fr[i]],s[af[i]]);
-        }
-       // cout<<s<<endl;
-       
-    }
+       }
+       cout<<tail<<endl;
+       for(int i=0;i<tail;i++){
+           printf("%d %d\n",st[i],st2[i]);
+       }
+        //cout<<s<<endl;
+    }  
     return 0;
 }

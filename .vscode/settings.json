@@ -17,6 +17,7 @@
         "valarray": "cpp",
         "cstring": "cpp",
         "charconv": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "cstdio": "cpp"
     }
 }

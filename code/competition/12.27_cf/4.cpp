@@ -15,7 +15,7 @@ inline long long extend_gcd(long long a,long long b,long long &x,long long &y)
     }
     long long d=extend_gcd(b,a%b,y,x);
     y-=a/b*x;
-    return d;
+    return d; 
 }
 inline long long mod_reverse(long long a,long long n)
 {
@@ -28,11 +28,39 @@ inline long long mod_reverse(long long a,long long n)
     else
         return -1ll;
 }
+void work(){
+    vector<int> s[1000010];
+    int hash[1000010];
+    //set<int> ks;
+    //int k;
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int k;
+        scanf("%d",&k);
+        int tmp;
+        for(int j=0;j<k;j++){
+            scanf("%d",&tmp);
+            for(int i=0;i<n;i++){
+                scanf("%d",&tmp);
+                s[i].push_back(tmp);
+                hash[tmp]++;
+            }
+        }
+        for(int i=0;i<n;i++){
+            
+        }
+    }
+
+}
+/*
 int date[1000010];
 void work(){
     int n;
     cin>>n;
     set<int> s;
+    vector<int> x;
+    vector<int> y;
     ll tol=0;
     for(int i=0;i<n;i++){
         int tmp;
@@ -57,15 +85,11 @@ void work(){
     tol*=n;
     int k,y;
     y=mod_reverse(tol,md);
-   // cout<<x*y%md<<endl;
+    cout<<x*y%md<<endl;
     //cout<<mod_reverse(4,md)%md*3%md<<endl;
-    
-    for(int i=1;i<10;i++){
-        cout<<(md+1)%(124780545/i)<<endl;
-      //  cout<<mod_reverse(i,md)*6%md<<endl;
-    }
     //int date[] 
 }
+*/
 int main(){
     freopen("in.txt","r",stdin);
     int t=1;

@@ -7,7 +7,7 @@ void work(){
 }
 int main(){
     //freopen("in.txt","r",stdin);
-    int t;
+    int t=1;
     cin>>t;
     while(t--){
         work();

@@ -1,3 +1,3 @@
-A B C D F
-B F F C C A
-D C E F
+2
+25608
+24027

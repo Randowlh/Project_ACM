@@ -33,6 +33,8 @@ int main()
                     time[i][j][k]=999999;
                     book[i][j][k]=0;
                 }
+                head=0;
+                tail=0;
         queue[tail].x=0;
         queue[tail].y=0;
         queue[tail].z=0;

@@ -10,10 +10,22 @@ struct node
     int x;
     int y;
     int t;
+    bool operator<(node a) const{
+        return t>a.t;
+    }
 };
+int n, m;
+bool check(int x, int y)
+{
+    if (x < 0 || x >= n)
+        return false;
+    if (y < 0 || y >= m)
+        return false;
+    return true;
+}
 void work()
 {
-    int n, m;
+    // int n, m;
     while (cin >> n >> m)
     {
         int sx, sy, ex, ey;
@@ -21,7 +33,7 @@ void work()
             for (int j = 0; j < m; j++)
             {
                 cin >> mp[i][j];
-                book[i][j] = -1;
+                book[i][j] = inf;
                 if (mp[i][j] == 'S')
                 {
                     sx = i;
@@ -34,43 +46,93 @@ void work()
                     ey = j;
                 }
             }
-        queue<node> q;
+        //  cout<<sx<<" "<<sy<<endl;
+        priority_queue<node> q;
         node x;
         x.x = sx;
         x.t = 0;
         x.y = sy;
         q.push(x);
-        book[sx][sx] = 0;
+        book[sx][sy] = 0;
         while (!q.empty())
         {
             for (int i = 0; i < 4; i++)
             {
-                if (q.front().x + biao[i][0] >= 0 && q.front().x + biao[i][0] < n && q.front().y + biao[i][1] >= 0 && q.front().y + biao[i][1] < m)
+                if (check(q.top().x + biao[i][0], q.top().y + biao[i][1]))
                 {
-                    if (mp[q.front().x + biao[i][0]][q.front().y + biao[i][1]] != '*' && book[q.front().x + biao[i][0]][q.front().y + biao[i][1]] == -1)
+                    if (mp[q.top().x + biao[i][0]][q.top().y + biao[i][1]] != '*' && book[q.top().x + biao[i][0]][q.top().y + biao[i][1]] > q.top().t + 1)
                     {
-                        if (mp[q.front().x + biao[i][0]][q.front().y + biao[i][1]] == '|')
+                        if (mp[q.top().x + biao[i][0]][q.top().y + biao[i][1]] == '|')
                         {
-
+                            node x;
+                            x.x = q.top().x + biao[i][0] * 2;
+                            x.y = q.top().y + biao[i][1] * 2;
+                            if (check(x.x, x.y) && mp[x.x][x.y] != '*')
+                            {
+                                if (i+q.top().t % 2 == 0)
+                                {
+                                    x.t = q.top().t + 2;
+                                }
+                                else
+                                    x.t = q.top().t + 1;
+                                if (book[x.x][x.y] > x.t)
+                                {
+                                    book[x.x][x.y] = x.t;
+                                    q.push(x);
+                                }
+                            }
                         }
-                        else if (mp[q.front().x + biao[i][0]][q.front().y + biao[i][1]] == '-')
+                        else if (mp[q.top().x + biao[i][0]][q.top().y + biao[i][1]] == '-')
                         {
-                            
+                            node x;
+                            x.x = q.top().x + biao[i][0] * 2;
+                            x.y = q.top().y + biao[i][1] * 2;
+                            if (check(x.x, x.y) && mp[x.x][x.y] != '*')
+                            {
+                                if (i+q.top().t % 2 == 1)
+                                {
+                                    x.t = q.top().t + 2;
+                                }
+                                else
+                                    x.t = q.top().t + 1;
+                                if (book[x.x][x.y] > x.t)
+                                {
+                                    book[x.x][x.y] = x.t;
+                                    q.push(x);
+                                }
+                            }
                         }
                         else
                         {
                             node x;
-                            x.x = q.front().x + biao[i][0];
-                            x.y = q.front().y + biao[i][1];
-                            book[q.front().x + biao[i][0]][q.front().y + biao[i][1]] = q.front().t + 1;
-                            x.t = q.front().t + 1;
-                            q.push(x);
+                            x.x = q.top().x + biao[i][0];
+                            x.y = q.top().y + biao[i][1];
+                            x.t = q.top().t + 1;
+                            if (book[x.x][x.y] > x.t)
+                            {
+                                book[x.x][x.y] = x.t;
+                                q.push(x);
+                            }
                         }
                     }
                 }
             }
+            // for (int i = 0; i < n; i++)
+            // {
+            //     for (int j = 0; j < m; j++)
+            //         if (book[i][j] == inf)
+            //             cout << -1 << "  ";
+            //         else
+            //             cout << book[i][j] << "  ";
+            //     cout << endl;
+            // }
+            // cout << endl;
             q.pop();
         }
+        if (book[ex][ey] == inf)
+            cout << -1 << endl;
+        else
+            cout << book[ex][ey] << endl;
     }
 }
 int main()

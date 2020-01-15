@@ -1,7 +1,9 @@
-1
-5 5
-0 0 0 0 0
-0 0 0 0 0
-0 0 0 0 0
-1 1 2 1 1
-4 0 3 0 0
+6
+xiasha xiasha
+xiasha station 60
+xiasha ShoppingCenterofHangZhou 30
+station westlake 20
+ShoppingCenterofHangZhou supermarket 10
+xiasha supermarket 50
+supermarket westlake 10
+-1

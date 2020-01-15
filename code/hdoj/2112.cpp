@@ -13,30 +13,25 @@ struct node
     int date;
     /* data */
 };
-queue<int> q;
+int fl=0;
 map<string, int> mp;
 map<int,string> mq;
 //int u[10010];
 //int n;
 int cnt;
 int dis[10010];
-//int w[10010];
-//int v[10010];
-//int dis[10010];
 vector<node> c[10010];
 vector<int> road[10010];
 int flag[10010]; 
 bool spfa(){
+    queue<int> q;
     q.push(1);
     while(!q.empty()){
         for(int i=0;i<c[q.front()].size();i++){
-            //cout<<"yes"<<endl;
             if(dis[c[q.front()][i].num]>dis[q.front()]+c[q.front()][i].date){
                 int tmp=c[q.front()][i].num;                
-                //cout<<"no"<<endl;
                 dis[tmp]=dis[q.front()]+c[q.front()][i].date;
                 road[tmp].push_back(q.front());
-               // if(flag[tmp]>cnt)return false;
                 if(flag[tmp]%2==0){
                     flag[tmp]++;
                     q.push(tmp);
@@ -45,15 +40,14 @@ bool spfa(){
         }
         flag[q.front()]++;
         q.pop();
-        
     }
     return true;
 }
 int main()
-{
+{   freopen("in.txt","r",stdin);
     int n;
     while (true)
-    {
+    {   fl=0;
         cin >> n;
         if (n == -1)
             break;
@@ -68,6 +62,9 @@ int main()
         int v;
         int sx,sy;
         cin>>u>>w;
+        if(u==w){
+            fl=1;
+        }
         mp[u]=1;
         mq[1]=u;
         mp[w]=2;
@@ -97,24 +94,14 @@ int main()
             a.num=fr;
             c[ed].push_back(a);
         }
-        
         flag[1]=1;
+        
         dis[1]=0;
-       // n=cnt-1;
-       /*for(int i=1;i<cnt;i++){
-           for(int j=0;j<c[i].size();j++)
-           cout<<mq[c[i][j].num]<<' '<<i<<endl;
-       }*/
+        if(fl==1)
+        cout<<0<<endl;
+        else
         if(spfa()){
             cout<<dis[2]<<endl;
-            /*
-            cout<<mq[1]<<"->";
-            for(int i=0;i<road[2].size();i++){
-                cout<<mq[road[2][i]]<<"->";
-            }*/
-            //cout<<mq[2]<<endl;
-        }else{
-            cout<<"fuhuan"<<endl;
         }
     }
     return 0;

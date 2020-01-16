@@ -122,6 +122,7 @@ int main(){
     freopen("in.txt","r",stdin);
     //int t=1;
     while(cin>>n>>m>>t){
+        
       //  cout<<"no"<<endl;
         work();
     }

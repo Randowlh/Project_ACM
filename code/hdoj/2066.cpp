@@ -1,103 +1,67 @@
-#include<cstdio>
-#include<iostream>
-#include<queue>
-#include<string>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-const int inf =0x7FFFFFFF;
-//priority_queue<int> qe;
-int map[1010][1010];
+const int inf =1000000;
+typedef long long ll;
 int dis[1010];
-int book[1010];
-int n;
-struct node{
- int x;
- bool operator < (const node &a) const{
-     return dis[this->x]<dis[a.x];
- }
-};
-//bool cmp(int a,int b){
- //   return dis[a]<dis[b];
-//}
-//priority_queue<node> qe;
+int mp[1010][1010];
+int t,s,d;
 struct cmp
 {
     bool operator()(int a,int b){
-        return dis[a]<dis[b];
+        return  dis[a]>dis[b];
     }
 };
-void Dijkstra()
-{
-    priority_queue<int, std::vector<int>, cmp> pq;
-    pq.push(0);
-    dis[0] = 0;
-    while (!pq.empty())
-    {
-        int tmp = pq.top();pq.pop();
-        for (int i = 0;i < n;++i)
-        {
-            if (dis[i] > dis[tmp] + map[tmp][i])
-            {
-                dis[i] = dis[tmp] + map[tmp][i];
-                pq.push(i);
-            }
-        }
-    }
-}
-int main(){
-    int t,s,d;
-    //priority_queue<node> q;
-    //q.push(a.x);
-    while(cin>>t>>s>>d){
-        int b,e,v;
-         n=min(t+s+d+100,1010);
-        for(int i=0;i<n;i++)
-            for(int j=0;j<n;j++){
-                map[i][j]=inf;
-                if(i==j){
-                    map[i][j]=1;
-                }
-            }
-        for(int i=0;i<t;i++){
-            scanf("%d%d%d",&b,&e,&v);
-            map[s][t]=min(map[s][t],v);
-            map[t][s]=map[s][t];  
-        }
-        for(int i=0;i<s;i++){
-            scanf("%d",&s);
-            map[0][s]=0;
-        }
-        for(int i=0;i<n;i++){
-            book[i]=0;
-        }
-       dis[0]=0;
-       priority_queue<int,vector<int> ,cmp > qe;
-            qe.push(0);
+
+void work(){
+    int n=1010;
+    memset(mp,inf,sizeof(mp));
     for(int i=0;i<n;i++){
-        if(book[qe.top()]||qe.empty()==1){
-            break;
-        }
-        book[qe.top()]=1;
-        int tmp=qe.top();
-        qe.pop();
-        for(int j=0;j<n;j++){
-            if(map[tmp][j]<inf){
-                if(dis[j]>dis[tmp]+map[tmp][j]){
-                    dis[j]=dis[tmp]+map[tmp][j];
-                    qe.push(j); 
-                }
-            }
-        }
+        mp[i][i]=0;
     }
-    */
-    int mi=inf;
+    int w,u,v;
+    for(int i=0;i<t;i++){
+        scanf("%d%d%d",&w,&u,&v);
+        mp[w][u]=min(v,mp[w][u]);
+        mp[u][w]=mp[w][u];
+    }
+    for(int i=0;i<s;i++){
+        scanf("%d",&w);
+        mp[0][w]=0;
+        mp[w][0]=0;
+    }
+    vector<int> ans;
     for(int i=0;i<d;i++){
-        scanf("%d",&e);
-        if(dis[e]<mi)
-        mi=dis[e];
+        scanf("%d",&w);
+        ans.push_back(w);
+    }
+    for(int i=0;i<=n;i++){
+        dis[i]=inf;
+    }
+    dis[0]=0;
+    priority_queue<int,vector<int>,cmp> q;
+    for(int i=0;i<n;i++){
+        q.push(i);
+    }
+    while(!q.empty()){
+        for(int i=0;i<n;i++){
+            dis[i]=min(dis[i],dis[q.top()]+mp[q.top()][i]);
+        }
+        q.pop();
+    }
+    //cout<<t<<' '<<s<<' '<<d<<"lol"<<endl;
+    int mi=inf;
+    for(int i=0;i<d;i++){   
+        mi=min(dis[ans[i]],mi);
     }
     cout<<mi<<endl;
+    return;
+}
+int main(){
+    freopen("in.txt","r",stdin);
+  //  int t=1;
+    //cin>>t;
+    while(cin>>t>>s>>d){
+        work();
     }
     return 0;
-
-}
+} 

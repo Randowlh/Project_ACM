@@ -3,6 +3,7 @@ using namespace std;
 const int inf =1000000;
 typedef long long ll;
 int dis[1010];
+bool flag[1010];
 int mp[1010][1010];
 int t,s,d;
 struct cmp
@@ -15,6 +16,7 @@ struct cmp
 void work(){
     int n=1010;
     memset(mp,inf,sizeof(mp));
+    memset(flag,true,sizeof(flag));
     for(int i=0;i<n;i++){
         mp[i][i]=0;
     }
@@ -38,15 +40,21 @@ void work(){
         dis[i]=inf;
     }
     dis[0]=0;
-    priority_queue<int,vector<int>,cmp> q;
-    for(int i=0;i<n;i++){
-        q.push(i);
-    }
-    while(!q.empty()){
+    int cnt=0;
+    while(cnt<n){
+        int mi=inf+99999;
+        int mit=0;
         for(int i=0;i<n;i++){
-            dis[i]=min(dis[i],dis[q.top()]+mp[q.top()][i]);
+            if(flag[i]&&mi>dis[i]){
+                mi=dis[i];
+                mit=i;
+            }
         }
-        q.pop();
+        for(int i=0;i<n;i++){
+            dis[i]=min(dis[i],dis[mit]+mp[mit][i]);
+        }
+        flag[mit]=false;
+        cnt++;
     }
     //cout<<t<<' '<<s<<' '<<d<<"lol"<<endl;
     int mi=inf;

@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int inf =0x7FFFFFFF;
+const int inf =1000000;
 typedef long long ll;
 struct node {
     ll l;
@@ -16,6 +16,18 @@ struct node {
             return c>a.c;
         }else 
         return l>a.l;
+    }
+    node& operator=(node& value)
+    {
+        l = value.l;
+        c = value.c;
+        return *this;
+    }
+    node& operator+(node& value)
+    {
+        l += value.l;
+        c += value.l;
+        return *this;
     }
 }dis[1010];
 struct cmp{
@@ -46,7 +58,7 @@ void work(){
         for(int i=0;i<=n;i++){
             dis[i].c=inf;
             dis[i].l=inf;
-            flag[i]=false;
+            flag[i]=true;
         }
         ll w,u,l,c;
         for(int i=0;i<m;i++){
@@ -62,30 +74,35 @@ void work(){
             }
         }
         ll s,e;
+        node in;
+        in.c=inf+9999;
+        in.l=inf+9999;
         cin>>s>>e;
         dis[s].c=0;
         dis[s].l=0;
-        priority_queue<ll,vector<ll>,cmp> q;
-        for(int i=1;i<=n;i++){
-            q.push(i);
-        }
-        while(!q.empty()){
+        int cnt=0;
+        while(cnt<n){
+            node mi=in;
+            int mit=0;
+            for(int i=1;i<=n;i++){
+                if(flag[i]&&dis[i]<mi){
+                    mi=dis[i];
+                    mit=i;
+                }
+            }
            // cout<<q.top()<<' '<<dis[q.top()].l<<" "<<dis[q.top()].c<<endl;
             for(int i=1;i<=n;i++){
                 node x;
-                x.c=dis[q.top()].c+mp[q.top()][i].c;
-                x.l=dis[q.top()].l+mp[q.top()][i].l;
-                if(x<dis[i]&&flag[i]==false&&i!=q.top()){
+                x.c=dis[mit].c+mp[mit][i].c;
+                x.l=dis[mit].l+mp[mit][i].l;
+                if(x<dis[i]&&flag[i]){
                     dis[i].c=x.c;
                     dis[i].l=x.l;
                 }
             }
-            flag[q.top()]=true;
-            q.pop();
+            flag[mit]=false;
+            cnt++;
         }
-        if(dis[e].l==inf){
-            cout<<-1<<' '<<-1<<endl;
-        }else
         cout<<dis[e].l<<' '<<dis[e].c<<endl;
     }
     return ;

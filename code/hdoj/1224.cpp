@@ -4,7 +4,8 @@ const int inf = 0x7FFFFFF;
 int t;
 int mp[1010][1010], mp1[1010][1010], in[1010];
 void work(int x)
-{   int n,m;
+{
+    int n, m;
     scanf("%d", &n);
     for (int i = 1; i <= n; i++)
         scanf("%d", &in[i]);
@@ -12,7 +13,7 @@ void work(int x)
     scanf("%d", &m);
     memset(mp, -1, sizeof(mp));
     memset(mp1, 0, sizeof(mp1));
-    int w,u;
+    int w, u;
     for (int i = 1; i <= m; i++)
     {
         scanf("%d%d", &w, &u);
@@ -52,7 +53,7 @@ int main()
 {
     freopen("in.txt", "r", stdin);
     //  int t;
-   // cout<<"no"<<endl;
+    // cout<<"no"<<endl;
     cin >> t;
     int tmp = t;
     while (tmp > 0)

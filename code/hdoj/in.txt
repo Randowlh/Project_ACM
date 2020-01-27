@@ -1,7 +1,8 @@
-5 2000000000 4
-23131 11231 12312 21 312 
-1232  12321  123  213  213 
-123   1234   123   213 4 
-123    342    3 1    12
-123  21312 44443   12312 1231
-1 1 123124 1232131  12212
+4 2 5
+NewTroy Midvale Metrodale
+NewTroy   <-20-> Midvale
+Midvale   --50-> Bakerline
+NewTroy    <-5-- Bakerline
+Metrodale <-30-> NewTroy
+Metrodale  --5-> Bakerline
+0 0 0

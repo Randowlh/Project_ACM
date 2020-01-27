@@ -1,2 +1,5 @@
-
-                    ans = ans + date[i][k] * a.date[k][j];
+ for(int i=0;i<10;i++){
+        // for(int j=0;j<10;j++)
+        // cout<<x.date[i][j]<<' ';
+        // cout<<endl;
+        // }

@@ -31,7 +31,7 @@ void dijkstra(int v)
 
 int main()
 {
-    while (scanf("%d%d", &n, &m)!=EOF)
+    while (scanf("%d%d", &n, &m) != EOF)
     {
         if (n + m == 0)
             break;

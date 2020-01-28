@@ -1,10 +1,27 @@
-4 2 5
-NewTroy Midvale Metrodale
-NewTroy   <-20-> Midvale
-Midvale   --50-> Bakerline
-NewTroy    <-5-- Bakerline
-Metrodale <-30-> NewTroy
-Metrodale  --5-> Bakerline
-0 0 0
-
-
+20
+ad
+ae
+af
+ag
+ah
+ai
+aj
+ak
+al
+ads
+add
+ade
+adf
+adg
+adh
+adi
+adj
+adk
+adl
+aes
+5
+b
+a
+d
+ad
+s

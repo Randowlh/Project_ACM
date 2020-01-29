@@ -1,11 +1,14 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+#include <map>
 using namespace std;
 typedef long long ll;
 struct trie
 {
-    int next[100000][26], cnt;
-    bool flag[100000];
-    ll rt[100000];
+    int next[500000][26], cnt;
+    bool flag[500000];
+    ll rt[500000];
     void clear()
     {
         for (int i = 0; i <= cnt; i++)
@@ -15,6 +18,7 @@ struct trie
                 next[i][j] = 0;
             }
             flag[i] = 0;
+            rt[i]=0;
         }
         cnt = 0;
         return;
@@ -64,10 +68,11 @@ struct trie
         return rt[p];
     }
 } node;
-string biao[10] = {{}, {}, {"abc"}, {"def"}, {"ghi"}, {"jkl"}, {"mno"}, {"pqrs"}, {"tuv"}, {"wxyz"}};
+string biao[12] = {{"\0"}, {"\0"}, {"abc"}, {"def"}, {"ghi"}, {"jkl"}, {"mno"}, {"pqrs"}, {"tuv"}, {"wxyz"}};
 string t;
 string ans;
 string k;
+int ct = 0;
 int cnt = 0;
 int mx = 0;
 void dfs(int step)
@@ -79,6 +84,10 @@ void dfs(int step)
             mx = node.tj(t);
             ans = t;
         }
+        return;
+    }
+    if (node.tj(t) <= mx)
+    {
         return;
     }
     //cout<<step<<"sada"<<endl;
@@ -107,42 +116,55 @@ void work()
     scanf("%d", &m);
     cnt++;
     printf("Scenario #%d:\n", cnt);
-    for (int i = 0; i < m; i++)
+    for (int j = 0; j < m; j++)
     {
         cin >> tmp;
-        for (int i = 1; i < tmp.size(); i++)
-        {
+        int fl=0;
+        tmp.pop_back();
+        for (int i = 0; i < tmp.size(); i++)
+        {   
+            if(tmp[i]=='1'||fl==1){
+               // cout<<endl;
+                fl=1;
+                continue;
+            }
+            //continue;
             t.clear();
             mx = 0;
             ans.clear();
-            if (s.count(tmp.substr(0, i)) != 0)
-            {
-                printf("%s\n", s[tmp.substr(0, i)].begin());
+            if (s.count(tmp.substr(0, i+1)) != 0)
+            {  
+                cout<<s[tmp.substr(0, i+1)]<<endl;
             }
             else
             {
-                k = tmp.substr(0, i);
+                k = tmp.substr(0, i+1);
                 dfs(0);
                 if (mx == 0)
                 {
-                    puts("MANUALLY\n");
-                    s[tmp.substr(0, i)] = "MANUALLY";
+                    cout << "MANUALLY\n";
+                    s[tmp.substr(0, i+1)] = "MANUALLY";
                 }
                 else
                 {
-                    printf("%s\n", ans.begin());
-                    s[tmp.substr(0, i)] = ans;
+                    cout<<ans<<endl;
+                    s[tmp.substr(0, i+1)] = ans;
                 }
             }
         }
-        printf("\n");
+          //  if(cnt!=ct||j!=m-1)
+            printf("\n");
     }
+    //if(cnt!=ct)
+    printf("\n");
+    
 }
 int main()
 {
     freopen("in.txt", "r", stdin);
     int t = 1;
     cin >> t;
+    ct = t;
     while (t--)
     {
         work();

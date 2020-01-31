@@ -2,6 +2,7 @@
 using namespace std;
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
+ll x,y;
 ll gcd(ll a, ll b)
 {
     if (a % b == 0)
@@ -11,37 +12,32 @@ ll gcd(ll a, ll b)
 }
 void work()
 {
-    ll a, m;
-    cin >> a >> m;
-    ll k = gcd(a, m);
-    a /= k;
-    m /= k;
-    ll tol = m - a - 1;
-    vector<int> ys;
-    int tmp=m;
-    for (int i = 0; i <= sqrt(m); i++)
+    scanf("%lld%lld", &x, &y);
+    ll g = gcd(x, y);
+    ll ans = 1;
+    y /= g;
+    for (ll i = 2; i * i <= y; i++)
     {
-        if (m % i == 0)
+        if (y % i == 0)
         {
-            ys.push_back(i);
-            while(m%i==0){
-                m/=i;
+            ans *= (i - 1);
+            y /= i;
+            while (y % i == 0)
+            {
+                ans *= i;
+                y /= i;
             }
         }
     }
-    if(m!=1){
-        ys.push_back(m);
+    if (y != 1)
+    {
+        ans *= (y - 1);
     }
-    m=tmp;
-    int cnt;
-    for(int i=0;i<ys.size();i++){
-        ll e=(a/ys[i]+1)*ys[i];
-        cnt-=(m-e)/ys[i]  ;    
-    } 
+    printf("%lld\n", ans);
 }
 int main()
 {
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     int t = 1;
     cin >> t;
     while (t--)

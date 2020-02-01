@@ -1,0 +1,2 @@
+<endl;
+    int mixx=inf;

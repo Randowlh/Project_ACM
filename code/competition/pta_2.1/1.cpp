@@ -7,8 +7,9 @@ typedef long long ll;
 #define range(i, st, en) for (int(i) = (st); (i) <= (en); (i)++)
 #define rrange(i, st, en) for (int(i) = (en); (i) >= (st); (i)--)
 #define fill(ary, num) memset((ary), (num), sizeof(ary))
+int dis[10010];
 ll gcd(ll a, ll b)
-{
+{   
     if (a % b == 0)
     {
         return b;
@@ -17,7 +18,7 @@ ll gcd(ll a, ll b)
         return gcd(b, a % b);
 }
 void work()
-{
+{   
     int n;
     ll tmpa, tmpb;
     ll a, b;
@@ -50,7 +51,8 @@ void work()
         cout << a << '/' << b << endl;
 }
 int main()
-{
+{   
+    
     //freopen("in.txt","r",stdin);
     int t = 1;
     //cin>>t;
@@ -60,3 +62,9 @@ int main()
     }
     return 0;
 }
+
+
+
+
+
+

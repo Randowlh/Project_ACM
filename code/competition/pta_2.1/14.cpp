@@ -1,12 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int inf =1000000;
+const int inf =10000000;
 typedef long long ll;
-int n,m,k,d;
-int dis[110][1100];
-int mp[1100][1100];
-int read(string a){
-    int ans=0;
+ll n,m,k,d;
+ll dis[110][1100];
+ll mp[1100][1100];
+ll read(string a){
+    ll ans=0;
     int fl=0;
     if(a[0]=='G'){
         fl=1;
@@ -19,7 +19,7 @@ int read(string a){
     ans+=n;
     return ans;
 }
-double dij(int s){
+ll dij(int s){
     int c=s-n;
     memset(dis[c],inf,sizeof(dis[c]));
     dis[c][s]=0;
@@ -28,7 +28,7 @@ double dij(int s){
     int flag=1;
     while(true){
         flag=1;
-        int mx=inf+100;
+        ll mx=inf+100;
         int mix=-1;
         for(int i=0;i<=n+m;i++){
             if(dis[c][i]<mx&&fl[i]){
@@ -44,7 +44,7 @@ double dij(int s){
         }
         fl[mix]=false;
     }
-    int eva=inf;
+    ll eva=inf;
     for(int i=1;i<=n;i++){
         if(dis[c][i]>d){
             return -1;
@@ -64,9 +64,9 @@ void work(){
     }
     for(int i=0;i<=n+m;i++)
     mp[i][i]=inf;
-    int v;
+    ll v;
     string su,sw;
-    int u,w;
+    ll u,w;
     for(int i=0;i<k;i++){
         cin>>su>>sw>>v;
         u=read(su);
@@ -74,10 +74,10 @@ void work(){
         mp[u][w]=min(mp[u][w],v);
         mp[w][u]=mp[u][w];
     }
-    int mi=-1;
-    int mix=0;
+    ll mi=-1;
+    ll mix=0;
     for(int i=1+n;i<=m+n;i++){
-        int k=dij(i);
+        ll k=dij(i);
         if(k>mi){
             mi=k;
             mix=i-n;

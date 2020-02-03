@@ -1,0 +1,11 @@
+5
+2 4 1 3 0
+8
+2 is the root
+1 and 4 are siblings
+3 and 0 are on the same level
+2 is the parent of 4
+3 is the left child of 4
+1 is the right child of 2
+4 and 0 are on the same level
+100 is the right child of 3

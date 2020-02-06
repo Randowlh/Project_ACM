@@ -6,9 +6,9 @@ void work(){
 
 }
 int main(){
-    freopen("in.txt","r",stdin);
+    //freopen("in.txt","r",stdin);
     int t=1;
-    //cin>>t;
+    cin>>t;
     while(t--){
         work();
     }

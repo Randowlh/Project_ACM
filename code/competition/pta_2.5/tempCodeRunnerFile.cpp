@@ -1,0 +1,2 @@
+
+            int now=date[i];

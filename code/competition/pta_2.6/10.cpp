@@ -47,7 +47,7 @@ void work()
         }
     }
     for(int i=a.size()-b.size();i<a.size();i++){
-        printf("%.1f")
+        printf("%.1f");
     }
 }
 int main()

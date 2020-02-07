@@ -1,0 +1,6 @@
+5 4
+46 23 26 24 10
+24 is the root
+26 and 23 are siblings
+46 is the parent of 23
+23 is a child of 10

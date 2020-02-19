@@ -1,77 +1,85 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-struct SegmentTree{
-    #define lson (rt<<1)
-    #define rson (rt<<1|1)
-    #define mid  ((l+r)>>1)
-    ll sum[500000],flag[500000];
-    bool clr[500000];
-    int n;
-    void up(int l,int r,int rt,ll x){
-        sum[rt]+=(r-l+1)*x;
-        flag[rt]+=x;
+ll tree[500000];
+int n;
+int cnt = 0;
+int lowbit(int x)
+{
+    return x & -x;
+}
+int update(int x, int v)
+{
+    while (x <= n)
+    {
+        tree[x] += v;
+        x += lowbit(x);
     }
-    void pushdown(int l,int r,int rt){
-        if(clr[rt]==1){
-            clr[lson]=clr[rson]=1;
-            sum[lson]=sum[rson]=flag[lson]=flag[rson]=0;
-            clr[rt]=0;
+}
+ll query(int x)
+{
+    ll ans = 0;
+    while (x > 0)
+    {
+        ans += tree[x];
+        x -= lowbit(x);
+    }
+    return ans;
+}
+ll add_range(int l, int r)
+{
+    return query(r) - query(l - 1);
+}
+void work()
+{
+    cnt++;
+    int t;
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        tree[i] = 0;
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> t;
+        update(i, t);
+    }
+    cout << "Case " << cnt << ":" << endl;
+    string tmp;
+    while (cin >> tmp)
+    {
+        if (tmp == "End")
+        {
+            break;
         }
-        if(flag[rt]){
-            up(l,mid,lson,flag[rt]);
-            up(mid+1,r,rson,flag[rt]);
-            flag[rt]=0;
+        int a, b;
+        if (tmp == "Query")
+        {
+            cin >> a >> b;
+            cout << add_range(a, b) << endl;
+        }
+        else if (tmp == "Add")
+        {
+            cin >> a >> b;
+            update(a, b);
+        }
+        else
+        {
+            cin >> a >> b;
+            update(a, -b);
         }
     }
-    void pushup(int rt){
-        sum[rt]=sum[lson]+sum[rson];
+    return;
+}
+int main()
+{
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        work();
     }
-    void build(int l,int r,int rt){
-        flag[rt]=sum[rt]=clr[rt]=0;
-        if(l==r)return;
-        build(l,mid,lson);
-        build(mid+1,r,rson);
-        pushup(rt);
-    }
-    void init(int _n){
-        build(1,n,1);
-    }
-    void update(int l,int r,int rt,int x,int y,int z){
-        if(x<=l&&r<=y){
-            up(l,r,rt,z);
-            return;
-        }
-        pushdown(l,r,rt);
-        if(x<=mid)update(l,mid,lson,x,y,z);
-        if(y>mid)update(mid+1,r,rson,x,y,z);
-        pushup(rt);
-    }
-    int query(int l,int r,int rt,ll x){
-        if(l==r){
-            sum[rt]-=x;
-            return l;
-        }
-        pushdown(l,r,rt);
-        int re;
-        if(sum[lson]>=x)re=query(l,mid,lson,x);
-        else {
-            re=query(mid+1,r,rson,x-sum[lson]);
-            clr[lson]=1;
-            sum[lson]=flag[lson]=0;
-        }
-        pushup(rt);
-        return re;
-    }
-    int query(ll x){
-        if(sum[1]<x)return 0;
-        else return query(1,n,1,x);
-    }
-    void update(int l,int r,int x){
-        update(1,n,1,l,r,x);
-    }
-}st;
-int main(){
-    freopen("in.txt","r",stdin);
-    
+    return 0;
 }

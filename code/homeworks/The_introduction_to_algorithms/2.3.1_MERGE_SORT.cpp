@@ -30,7 +30,7 @@ void merge(int left, int mid, int right)
         {
             date[k] = r[j];
             j++;
-        }
+        }]
     }
     return;
 }

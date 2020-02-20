@@ -1,23 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-vector<int> prime;
-bool not_prime[1000000];
-void Prime()
-{
-    for (int i = 2; i < 1000000; i++)
-    {
-        if (!not_prime[i])
-            prime.push_back(i);
-        for (int j = 0; j < (int)prime.size() && i * prime[j] < 1000000; j++)
-        {
-            not_prime[i * prime[j]] = 1;
-            if (i % prime[j] == 0)
-                break;
-        }
-    }
-    return;
-}
 bool is_prime(int a)
 {
     for (int i = 2; i * i <= a; i++)
@@ -31,7 +13,6 @@ bool is_prime(int a)
 }
 int main()
 {
-    Prime();
     vector<int> V;
     queue<int> Q;
     stack<int> S1, S2;
@@ -45,7 +26,7 @@ int main()
             V.push_back(t);
             continue;
         }
-        if ((t < 1000000 && !not_prime[t]) || (is_prime(t)))
+        if (t < 1000000 && is_prime(t))
         {
             Q.push(t);
         }

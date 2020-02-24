@@ -8,13 +8,9 @@ void merge(int left, int mid, int right)
     int l2 = right - mid;
     vector<int> l, r;
     for (int i = 1; i <= l1; i++)
-    {
         l.push_back(date[left + i - 1]);
-    }
     for (int i = 1; i <= l2; i++)
-    {
         r.push_back(date[mid + i]);
-    }
     l.push_back(inf);
     r.push_back(inf);
     int i = 0;
@@ -30,7 +26,7 @@ void merge(int left, int mid, int right)
         {
             date[k] = r[j];
             j++;
-        }]
+        }
     }
     return;
 }

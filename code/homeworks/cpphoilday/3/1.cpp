@@ -72,9 +72,7 @@ public:
     void clear()
     {
         while (!empty())
-        {
             pop();
-        }
     }
     vector<int> bianli()
     {

@@ -40,61 +40,44 @@ int main()
         }
     }
     vector<vector<int>> ans;
+    ans.resize(4);
     t = 0;
-    while (true)
+    for (int i = 0; i < 4; i++)
     {
-        int flag = 0;
-        vector<int> k;
-        if ((int)V.size() > t)
+        if (i == 0)
         {
-            flag = 1;
-            k.push_back(V[t]);
-            t++;
+            ans[i] = V;
         }
-        else
-            k.push_back(0);
-        if (!Q.empty())
+        if (i == 1)
         {
-            k.push_back(Q.front());
-            Q.pop();
-            flag = 1;
+            while (!Q.empty())
+            {
+                ans[i].push_back(Q.front());
+                Q.pop();
+            }
         }
-        else
+        if (i == 2)
         {
-            k.push_back(0);
+            while (!S1.empty())
+            {
+                ans[i].push_back(S1.top());
+                S1.pop();
+            }
         }
-        if (!S1.empty())
+        if (i == 3)
         {
-            k.push_back(S1.top());
-            S1.pop();
-            flag = 1;
+            while (!S2.empty())
+            {
+                ans[i].push_back(S2.top());
+                S2.pop();
+            }
         }
-        else
-        {
-            k.push_back(0);
-        }
-        if (!S2.empty())
-        {
-            k.push_back(S2.top());
-            S2.pop();
-            flag = 1;
-        }
-        else
-        {
-            k.push_back(0);
-        }
-        if (flag == 0)
-        {
-            break;
-        }
-        else
-            ans.push_back(k);
     }
     for (int j = 0; j < 4; j++)
     {
-        for (int i = 0; i < (int)ans.size(); i++)
+        for (int i = 0; i < (int)ans[j].size(); i++)
         {
-            cout << ans[i][j] << '\t';
+            cout << ans[j][i] << '\t';
         }
         cout << endl;
     }

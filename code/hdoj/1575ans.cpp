@@ -7,22 +7,51 @@ typedef long long ll;
 int n;
 struct node
 {
-    // int n;
+    int n;
     int date[100][100];
+    node operator+(node a)
+    {
+        int t = max(n, a.n);
+        node k;
+        k.n = t;
+        for (int i = 0; i < t; i++)
+        {
+            for (int j = 0; j < t; j++)
+            {
+                k.date[i][j] = date[i][j] + a.date[i][j];
+            }
+        }
+        return k;
+    }
     node operator*(node a)
     {
         node x;
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
+        node s1, s2, s3, s4, s5, s6, s7, s8, s9, s10;
+        int t, s;
+        if (n / 2 == 0)
+        {
+            t = n / 2;
+        }
+        else
+        {
+            t = n / 2 + 1;
+        }
+        for (int i = 0; i < t; i++)
+        {
+            for (int j = 0; j < t; j++)
             {
-                int ans = 0;
-                for (int k = 0; k < n; k++)
-                {
-                    ans = ans + date[i][k] * a.date[k][j];
-                    ans %= mod;
-                }
-                x.date[i][j] = ans;
             }
+        }
+        s2 = A11 + A12;
+        s3 = A21 + A22;
+        s4 = B21 - B11;
+        s5 = A11 + A22;
+        s6 = B11 + B22;
+        s7 = A12 - A22;
+        s8 = B21 + B22;
+        s9 = A11 - A21;
+        s10 = B11 + B12;
+
         return x;
     }
     node operator=(node a)
@@ -35,12 +64,16 @@ struct node
 } cst;
 node pow(ll x)
 {
-    node ans = cst;
+    node ans;
+    ans.n = n;
+    ans = cst;
     if (x == 1)
     {
         return ans;
     }
-    node k = cst;
+    node k;
+    k.n = n;
+    k = cst;
     x--;
     ll tmp = 1;
     while (tmp <= x)
@@ -60,6 +93,7 @@ void work()
 {
     ll x;
     cin >> n >> x;
+    cst.n = n;
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
@@ -68,7 +102,9 @@ void work()
         }
     }
     int ans = 0;
-    node k = pow(x);
+    node k;
+    k.n = n;
+    k = pow(x);
     for (int i = 0; i < n; i++)
     {
         ans += k.date[i][i];

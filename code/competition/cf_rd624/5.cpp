@@ -1,87 +1,63 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int inf = 0x7FFFFFFF;
-#define bug puts("here\n")
 typedef long long ll;
 struct node
 {
-    int x;
-    int v;
+    ll x;
+    ll v;
     bool operator<(node a)
     {
-        return v < a.v;
+        return x < a.x;
     }
 };
+inline int lowbit(int x) { return x & -x; }
 int n;
-ll tree[500000];
-int cnt = 0;
-int lowbit(int x)
-{
-    return x & -x;
-}
-int update(int x, int v)
+ll tree[210000][2];
+node date[210000];
+int ls[210000];
+void update(int x, ll v)
 {
     while (x <= n)
     {
-        tree[x] += v;
+        tree[x][0] += v;
+        tree[x][1]++;
         x += lowbit(x);
     }
+    return;
 }
-ll query(int x)
+ll query(int x, int flag)
 {
     ll ans = 0;
     while (x > 0)
     {
-        ans += tree[x];
+        ans += tree[x][flag];
         x -= lowbit(x);
     }
     return ans;
 }
-node x[200010];
-void work()
-{
-    cin >> n;
-    vector<node> z, f;
-    for (int i = 1; i <= n; i++)
-    {
-        cin >> x[i].x;
-    }
-    for (int i = 1; i <= n; i++)
-    {
-        cin >> x[i].v;
-    }
-    sort(x + 1, x + n + 1);
-    vector<int> date;
-    date.push_back(0);
-    int pr = 0;
-    for (int i = 1; i <= n; i++)
-    {
-        date.push_back(x[i].x - pr);
-        pr = x[i].x;
-    }
-    for (int i = 1; i < n; i++)
-    {
-        update(i, date[i + 1]);
-    }
-    ll tol = 0;
-    for (int i = 2; i <= n; i++)
-    {
-
-        tol += query(i - 1);
-        // cout << query(i) << endl;
-    }
-    cout << tol << endl;
-}
 int main()
 {
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    freopen("in.txt", "r", stdin);
-    int t = 1;
-    //cin>>t;
-    while (t--)
+    //freopen("in.txt", "r", stdin);
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++)
     {
-        work();
+        scanf("%lld", &date[i].x);
     }
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%lld", &date[i].v);
+        ls[i + 1] = date[i].v;
+    }
+    sort(date, date + n);
+    sort(ls + 1, ls + n + 1);
+    int len = unique(ls + 1, ls + n + 1) - ls - 1;
+    ll ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int lo = lower_bound(ls + 1, ls + 1 + len, date[i].v) - ls;
+        ans += date[i].x * query(lo, 1) - query(lo, 0);
+        update(lo, date[i].x);
+    }
+    cout << ans << endl;
     return 0;
 }

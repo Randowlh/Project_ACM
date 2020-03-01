@@ -5,7 +5,12 @@ const int inf = 0x7FFFFFFF;
 typedef long long ll;
 void work()
 {
-    cout << "0\n";
+    ll x;
+    while (cin >> x)
+    {
+        ll a = sqrt(x);
+        cout << a << endl;
+    }
 }
 int main()
 {

@@ -1,17 +1,10 @@
-2
 3
-a b c A B C
-a:BAC
-b:BAC
-c:ACB
-A:acb
-B:bac
-C:cab
 3
-a b c A B C
-a:ABC
-b:ABC
-c:BCA
-A:bac
-B:acb
-C:abc
+3 3 3
+10 5 1
+3
+1 3 1
+6 2 3
+7
+1 4 6 4 2 4 3
+3 2 1 7 6 5 4

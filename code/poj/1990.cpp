@@ -1,60 +1,57 @@
-void update_range(int pos, int l, int r, int v)
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cstdio>
+using namespace std;
+typedef long long ll;
+ll n;
+ll tree[20110][2];
+inline ll lowbit(ll x) { return (x & -x); }
+void update(ll x, ll v)
 {
-    if (tree[pos].l >= l && tree[pos].r <= r)
+    while (x <= 20010)
     {
-        if (tree[pos].l == tree[pos].r)
-            tree[pos].v += v;
-        else
-            lazy[pos] += v;
-        return;
-    }
-    if (lazy[pos])
-    {
-        tree[pos].v += (tree[pos].r - tree[pos].l + 1) * lazy[pos];
-        lazy[pos * 2] += lazy[pos];
-        lazy[pos * 2 + 1] += lazy[pos];
-        lazy[pos] = 0;
-    }
-    tree[pos].v += (min(r, tree[pos].r) - max(l, tree[pos].l) + 1) * v;
-    int mid = (tree[pos].l + tree[pos].r) >> 1;
-    if (mid >= l)
-    {
-        update_range(pos * 2, l, r, v);
-    }
-    if (mid < r)
-    {
-        update_range(pos * 2 + 1, l, r, v);
+        tree[x][1]++;
+        tree[x][0] += v;
+        x += lowbit(x);
     }
     return;
 }
-int query(int pos, int l, int r)
+ll getsum(ll x, ll flag)
 {
-    if (l <= tree[pos].l && tree[pos].r <= r)
+    ll ans = 0;
+    while (x > 0)
     {
-        int ans = 0;
-        if (lazy[pos])
-        {
-            ans += (tree[pos].r - tree[pos].l + 1) * lazy[pos];
-        }
-        ans += tree[pos].v;
-        return ans;
-    }
-    if (lazy[pos])
-    {
-        tree[pos].v += (tree[pos].r - tree[pos].l + 1) * lazy[pos];
-        lazy[pos * 2] += lazy[pos];
-        lazy[pos * 2 + 1] += lazy[pos];
-        lazy[pos] = 0;
-    }
-    int ans = 0;
-    int mid = (tree[pos].l + tree[pos].r) >> 1;
-    if (l <= mid)
-    {
-        ans += query(pos * 2, l, r);
-    }
-    if (r > mid)
-    {
-        ans += query(pos * 2 + 1, l, r);
+        ans += tree[x][flag];
+        x -= lowbit(x);
     }
     return ans;
+}
+vector<pair<ll, ll>  > date;
+int main()
+{
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    freopen("in.txt", "r", stdin);
+    cin >> n;
+    for (ll i = 0; i < n; i++)
+    {
+        pair<ll, ll> x;
+        cin >> x.first >> x.second;
+        date.push_back(x);
+    }
+    sort(date.begin(), date.end());
+    ll ans = 0;
+    ll now = 0;
+    for (int i = 0; i < n; i++)
+    {
+        ll cnt = getsum(date[i].second, 1);
+        ll dis = getsum(date[i].second, 0);
+        ans += (cnt * date[i].second - dis) * date[i].first;
+        dis = getsum(20010, 0) - dis;
+        ans += (dis - (i - cnt) * date[i].second) * date[i].first;
+        update(date[i].second, date[i].second);
+    }
+    cout << ans << endl;
+    return 0;
 }

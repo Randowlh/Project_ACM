@@ -1,65 +1,104 @@
+#include <map>
+#include <vector>
 #include <cstdio>
 #include <iostream>
 #include <algorithm>
-#include <vector>
+#include <cstring>
 using namespace std;
-vector<int> t;
-int mp[200][200];
-int n;
-int ct;
-bool check(int step)
+//using namespace std::tr1;
+const long long mod = 1e9 + 7;
+typedef long long ll;
+int real_map[129][129];
+vector<int> mp[129], tmp;
+static int hash_id = 0;
+int ans = 0;
+int flag = 0;
+vector<int> getIntersection_v_neighbor(vector<int> x, int v)
 {
-    for (int i = 0; i < t.size(); i++)
-        if (mp[t[i]][step] == 0)
-        {
-            return false;
-        }
-    return true;
+    /* hashmap.clear();
+    for(int i=0; i<mp[v].size(); i++)
+        hashmap[mp[v][i]]=++hash_id;
+    tmp.clear();
+    for(int i=0; i<x.size(); i++)
+        if (hashmap.count(x[i]))
+            tmp.push_back(x[i]);
+    x.clear();
+    for(int i=0; i<tmp.size(); i++)
+        x.push_back(tmp[i]);
+    return x;*/
+    tmp.clear();
+    for (int i = 0; i < x.size(); i++)
+        if (real_map[v][x[i]])
+            tmp.push_back(x[i]);
+    return tmp;
 }
-void dfs()
+vector<int> getUnion(vector<int> x, int v)
 {
-    while (ct < n)
+    vector<int>::iterator it = find(x.begin(), x.end(), v);
+    if (it == x.end())
+        x.push_back(v);
+    return x;
+}
+
+void BronKerbosch(vector<int> all, vector<int> some, vector<int> none)
+{
+    if (flag)
+        return;
+    if (some.empty() && none.empty())
     {
-        for (int i = 1; i <= n; i++)
-        {
-            if (check(i))
-            {
-                
-            }
-            {
-            }
-        }
+        ans++;
+        if (ans > 1000)
+            flag = 1;
+        return;
+    }
+    if (some.empty())
+        return;
+    int pivot = some[0];
+    for (int i = some.size() - 1; i >= 0; i--)
+    {
+        int v = some[i];
+        if (real_map[pivot][v])
+            continue;
+        BronKerbosch(getUnion(all, v), getIntersection_v_neighbor(some, v),
+                     getIntersection_v_neighbor(none, v));
+        if (flag)
+            return;
+        none = getUnion(none, v);
+        some.erase(find(some.begin(), some.end(), v));
     }
 }
-int cnt = 0;
-int flag[200];
-void work()
+void init()
 {
-    // int n;
-    int m;
-    while (cin >> n >> m)
-    {
-        for (int i = 0; i <= n; i++)
-        {
-            for (int j = 0; j <= n; j++)
-                mp[i][j] = 0;
-            flag[i] = 1;
-        }
-        int w, u;
-        for (int i = 0; i < m; i++)
-        {
-            mp[w][u] = 1;
-            mp[u][w] = 1;
-        }
-        ct = 0;
-        cnt = 0;
-        dfs();
-        cout << cnt << endl;
-    }
+    flag = ans = 0;
+    memset(real_map, 0, sizeof real_map);
 }
 int main()
 {
-    freopen("in.txt", "r", stdin);
-    work();
+    int n, m;
+    while (scanf("%d%d", &n, &m) != EOF)
+    {
+        init();
+        int a, b;
+        vector<int> some;
+        vector<int> all;
+        vector<int> none;
+        for (int i = 1; i <= m; i++)
+        {
+            scanf("%d%d", &a, &b);
+            real_map[a][b] = real_map[b][a] = 1;
+        }
+        for (int i = 1; i <= n; i++)
+            some.push_back(i);
+
+        BronKerbosch(all, some, none);
+
+        if (flag)
+            printf("Too many maximal sets of friends.\n");
+        else
+            printf("%d\n", ans);
+    }
+
+    //cout<<"耗时"<<GetTickCount()-dwStartTime<<"ms"<<endl;
+
     return 0;
 }

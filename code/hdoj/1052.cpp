@@ -1,49 +1,74 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-const int inf =0x7FFFFFFF;
+const int inf = 0x7FFFFFFF;
+#define bug puts("here\n")
 typedef long long ll;
-int date1[1000];
-int date2[1000];
-int flags[1000];
-void work(){
+void work()
+{
     int n;
-    while(cin>>n){
-        if(n==0){
+    while (cin >> n)
+    {
+        if (n == 0)
             break;
+        vector<int> self;
+        vector<int> cp;
+        int tmp;
+        for (int i = 0; i < n; i++)
+        {
+            cin >> tmp;
+            self.push_back(tmp);
         }
-        for(int i=0;i<n;i++){
-            scanf("%d",&date1[i]);
-            flags[i]=0;
+        for (int i = 0; i < n; i++)
+        {
+            cin >> tmp;
+            cp.push_back(tmp);
         }
-        for(int i=0;i<n;i++){
-            scanf("%d",&date2[i]);
-        }
-        ll ans=0;
-        sort(date1,date1+n);
-        sort(date2,date2+n);
-        for(int i=1;i<n;i++){
-            for(int j=n-1;j>=0;j--){
-                if(date1[i]>=date2[j]&&flags[j]==0){
-                    if(date1[i]>date2[j])
-                    ans+=200;
-                    flags[j]=1;
-                    break;
+        sort(cp.begin(), cp.end(), greater<int>());
+        sort(self.begin(), self.end(), greater<int>());
+        int tail = n - 1;
+        int tailn = n - 1;
+        int head = 0;
+        int cnt = 0;
+        for (int i = 0; i <= tailn; i++)
+        {
+            if (self[head] > cp[i])
+            {
+                cnt++;
+                head++;
+                continue;
+            }
+            else if (self[head] == cp[i])
+            {
+                while (self[tail] > cp[tailn])
+                {
+                    cnt++;
+                    tail--;
+                    tailn--;
                 }
+                if (self[tail] < cp[i])
+                    cnt--;
+                tail--;
+                continue;
+            }
+            else
+            {
+                tail--;
+                cnt--;
+                continue;
             }
         }
-        for(int i=0;i<n;i++){
-            if(flags[i]==0){
-                ans-=200;
-            }
-        }
-        cout<<ans<<endl;
+        cout << cnt * 200 << endl;
     }
 }
-int main(){
-    freopen("in.txt","r",stdin);
-    int t=1;
+int main()
+{
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    //freopen("in.txt", "r", stdin);
+    int t = 1;
     //cin>>t;
-    while(t--){
+    while (t--)
+    {
         work();
     }
     return 0;

@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "code.hdoj.Main",
+            "projectName": "Project_ACM_1cec0116"
+        },
+        {
             "name": "C/C++",
             "type": "cppdbg",
             "request": "launch",
@@ -20,7 +27,7 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
-            ],
-        },
+            ]
+        }
     ]
 }

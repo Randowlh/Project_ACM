@@ -3,14 +3,21 @@ using namespace std;
 const int inf = 0x7FFFFFFF;
 #define bug puts("here\n")
 typedef long long ll;
-struct node
-{
-    string pr = 0;
-    int cost = 0;
-};
-map<string, int> lk;
 void work()
 {
+    int n;
+    cin >> n;
+    vector<int> v;
+    int tmp;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> tmp;
+        v.push_back(tmp);
+    }
+    sort(v.begin(), v.end(), greater<int>());
+    for (int i = 0; i < n; i++)
+        cout << v[i] << ' ';
+    cout << endl;
 }
 int main()
 {

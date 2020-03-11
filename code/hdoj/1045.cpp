@@ -1,141 +1,103 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int inf = 0x7FFFFFFF;
-typedef long long ll;
-struct node
-{
-    int x, y;
-    bool operator==(node a) const
-    {
-        if (x == a.x && y == a.y)
-            return true;
-        else
-            return false;
-    }
-} nu;
-node pr[10][10];
-int book[10][10];
-int mp[10][10];
-int ans = 0;
+int pr[110];
+int mp[110][110];
 int n;
-bool check(int x, int y, int i, int j)
+int he[110][110], shu[110][110];
+char rd[110][110];
+int ans = 0;
+int book[110];
+int cntm;
+bool dfs(int x)
 {
-    if (mp[i][j])
-        return false;
-    if (x != i && j != y)
+    for (int i = 1; i <= cntm; i++)
     {
-        return true;
-    }
-    if (x == i && y == j)
-    {
-        return false;
-    }
-    if (y == j)
-    {
-        int fl = 0;
-        for (int k = min(x, i); k <= max(x, i); k++)
+        if (mp[x][i] && !book[i])
         {
-            if (mp[k][j])
+            book[i] = 1;
+            if (pr[i] == 0 || dfs(pr[i]))
             {
-                fl = 1;
-                break;
+                pr[i] = x;
+                return true;
             }
         }
-        return fl;
     }
-    else
-    {
-        int fl = 0;
-        for (int k = min(y, j); k <= max(y, j); k++)
-        {
-            if (mp[x][k])
-            {
-                fl = 1;
-                break;
-            }
-        }
-        return fl;
-    }
-}
-bool dfs(int x, int y)
-{
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-        {
-            if (!book[i][j] && check(x, y, i, j))
-            {
-                book[i][j] = 1;
-                if (pr[i][j] == nu || dfs(i, j))
-                {
-                    node q;
-                    q.x = x;
-                    q.y = y;
-                    pr[i][j] = q;
-                    return true;
-                }
-            }
-        }
     return false;
 }
 void xyl()
 {
-    ans = 0;
-    for (int i = 0; i < n; i++)
+    memset(pr, 0, sizeof(pr));
+    for (int i = 1; i <= cntm; i++)
     {
-        for (int j = 0; j < n; j++)
+        memset(book, 0, sizeof(book));
+        if (dfs(i))
         {
-            pr[i][j] = nu;
+            ans++;
         }
-    }
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            memset(book, 0, sizeof(book));
-            if (dfs(i, j))
-            {
-                ans++;
-            }
-        }
-    }
-    return;
-}
-void work()
-{
-    //int n;
-    while (cin >> n)
-    {
-        if (n == 0)
-            break;
-        char c;
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                cin >> c;
-                if (c == 'X')
-                {
-                    mp[i][j] = 1;
-                }
-                else
-                    mp[i][j] = 0;
-            }
-        }
-        xyl();
-        cout << ans << endl;
     }
     return;
 }
 int main()
 {
-    nu.x = -1;
-    nu.y = -1;
-    freopen("in.txt", "r", stdin);
-    int t = 1;
-    //cin>>t;
-    while (t--)
+    //freopen("in.txt", "r", stdin);
+    while (cin >> n, n)
     {
-        work();
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                cin >> rd[i][j];
+            }
+        }
+        int cnt = 0;
+        memset(mp, 0, sizeof(mp));
+        memset(he, 0, sizeof(he));
+        memset(shu, 0, sizeof(shu));
+        for (int i = 0; i < n; i++)
+        {
+            cnt++;
+            int f = 0;
+            for (int j = 0; j < n; j++)
+            {
+                if (rd[i][j] == '.')
+                {
+                    if (f && j > 0 && rd[i][j - 1] == 'X')
+                        cnt++;
+                    f = 1;
+                    he[i][j] = cnt;
+                }
+            }
+        }
+        cntm = cnt;
+        cnt = 0;
+        for (int i = 0; i < n; i++)
+        {
+            cnt++;
+            int f = 0;
+            for (int j = 0; j < n; j++)
+            {
+                if (rd[j][i] == '.')
+                {
+                    if (f && j > 0 && rd[j - 1][i] == 'X')
+                        cnt++;
+                    f = 1;
+                    shu[j][i] = cnt;
+                }
+            }
+        }
+        cntm = max(cntm, cnt);
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (he[i][j] && shu[i][j])
+                {
+                    mp[shu[i][j]][he[i][j]] = 1;
+                }
+            }
+        }
+        ans = 0;
+        xyl();
+        cout << ans << endl;
     }
-    return 0;
 }

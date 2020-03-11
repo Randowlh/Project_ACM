@@ -1,5 +1,14 @@
-4 3
-0 0
-1 1
-2 1
-2 0
+2
+A:
+B:
+4
+A:BC
+B:ACD
+C:ABD
+D:BC
+4
+A:BCD
+B:ACD
+C:ABD
+D:ABC
+0

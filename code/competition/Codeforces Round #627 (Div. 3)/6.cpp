@@ -42,7 +42,10 @@ void work()
     for (int i = 0; i <= 2010; i++)
         for (int j = 0; j <= 2010; j++)
             dp[i][j] = -1;
-    cout << dfs(0, 0) << endl;
+    int f = 0;
+    if (l == 0)
+        f++;
+    cout << dfs(0, 0) + f << endl;
     return;
 }
 int main()

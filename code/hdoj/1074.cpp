@@ -5,9 +5,9 @@ const int inf = 0x7FFFFFFF;
 typedef long long ll;
 struct node
 {
-    string pr = 0;
+    int pr = 0;
     int cost = 0;
-};
+} dp[70000];
 map<string, int> lk;
 void work()
 {

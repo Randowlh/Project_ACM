@@ -1,182 +1,153 @@
+#include <iostream>
 #include <cstdio>
 #include <algorithm>
-#include <vector>
+#include <cstring>
 using namespace std;
 #define lson(pos) (pos << 1)
 #define rson(pos) (pos << 1 | 1)
-int n, m;
+typedef long long ll;
 struct node
 {
     int l, r;
-    int lx, rx;
+    int ls, rs;
     int v;
-    int len;
-    inline void make(int a, int b) { l = a, r = b, lx = b - a + 1, rx = b - a + 1, v = b - a + 1, len = b - a + 1; }
-    inline void zero() { lx = 0, rx = 0, v = 0; }
-    inline void fill() { lx = len, rx = len, v = len; }
-    inline void made(int l, int r, int tv, int s) { lx = l, rx = r, v = tv, l = s; }
-} tree[410000];
-inline int maxs(int a, int b)
+    int lazy;
+    inline int len()
+    {
+        return r - l + 1;
+    }
+    inline void init(int t)
+    {
+        l = t, r = t, rs = 1, ls = 1, v = 1, lazy = 0;
+        return;
+    }
+} tree[50101 << 2];
+inline void push_up(int pos)
 {
-    if (a > b)
-        return a;
-    else
-        return b;
+    tree[pos].lazy = 0;
+    tree[pos].l = tree[lson(pos)].l;
+    tree[pos].r = tree[rson(pos)].r;
+    tree[pos].ls = tree[lson(pos)].ls;
+    tree[pos].rs = tree[rson(pos)].rs;
+    if (tree[lson(pos)].ls == tree[lson(pos)].len())
+        tree[pos].ls += tree[rson(pos)].ls;
+    if (tree[rson(pos)].rs == tree[rson(pos)].len())
+        tree[pos].rs += tree[lson(pos)].rs;
+    tree[pos].v = max(tree[rson(pos)].v, max(tree[lson(pos)].v, tree[rson(pos)].ls + tree[lson(pos)].rs));
+    return;
 }
-int lazy[410000];
+inline void push_down(int pos)
+{
+    tree[lson(pos)].lazy = tree[pos].lazy;
+    tree[rson(pos)].lazy = tree[pos].lazy;
+    if (tree[pos].lazy == -1)
+    {
+        tree[rson(pos)].ls = tree[rson(pos)].len();
+        tree[rson(pos)].rs = tree[rson(pos)].len();
+        tree[rson(pos)].v = tree[rson(pos)].len();
+        tree[lson(pos)].ls = tree[lson(pos)].len();
+        tree[lson(pos)].rs = tree[lson(pos)].len();
+        tree[lson(pos)].v = tree[lson(pos)].len();
+    }
+    else
+    {
+        tree[rson(pos)].ls = 0;
+        tree[rson(pos)].rs = 0;
+        tree[rson(pos)].v = 0;
+        tree[lson(pos)].ls = 0;
+        tree[lson(pos)].rs = 0;
+        tree[lson(pos)].v = 0;
+    }
+    tree[pos].lazy = 0;
+    return;
+}
+void update(int pos, int l, int r, int flag)
+{
+    if (tree[pos].l >= l && tree[pos].r <= r)
+    {
+        if (tree[pos].l != tree[pos].r)
+            tree[pos].lazy = flag;
+        if (flag == -1)
+        {
+            tree[pos].ls = tree[pos].len();
+            tree[pos].rs = tree[pos].len();
+            tree[pos].v = tree[pos].len();
+        }
+        else
+        {
+            tree[pos].ls = 0;
+            tree[pos].rs = 0;
+            tree[pos].v = 0;
+        }
+        return;
+    }
+    if (tree[pos].lazy)
+        push_down(pos);
+    int mid = (tree[pos].l + tree[pos].r) >> 1;
+    if (l <= mid)
+        update(lson(pos), l, r, flag);
+    if (r > mid)
+        update(rson(pos), l, r, flag);
+    push_up(pos);
+}
 void build(int pos, int l, int r)
 {
-
     if (l == r)
     {
-        tree[pos].make(l, r);
+        tree[pos].init(l);
         return;
     }
     int mid = (l + r) >> 1;
     build(lson(pos), l, mid);
     build(rson(pos), mid + 1, r);
-    tree[pos].make(l, r);
+    push_up(pos);
     return;
 }
-inline node mg(node a, node b)
+int query(int pos, int num)
 {
-    node x;
-    if (a.r - a.l + 1 == a.lx)
-        x.lx = a.lx + b.lx;
-    else
-        x.lx = a.lx;
-    if (b.r - b.l + 1 == b.rx)
-        x.rx = a.rx + b.rx;
-    else
-        x.rx = b.rx;
-    x.v = maxs(a.v, maxs(b.v, a.rx + b.lx));
-    return x;
-}
-inline void push_down(int pos)
-{
-    lazy[lson(pos)] = lazy[pos];
-    lazy[rson(pos)] = lazy[pos];
-    if (lazy[pos] == -1)
+    if (tree[pos].ls >= num)
     {
-        tree[lson(pos)].fill();
-        tree[rson(pos)].fill();
+        return tree[pos].l;
     }
-    else
+    if (tree[pos].lazy)
     {
-        tree[lson(pos)].zero();
-        tree[rson(pos)].zero();
-    }
-    lazy[pos] = 0;
-    return;
-}
-void update0(int pos, int l, int r)
-{
-    if (l <= tree[pos].l && tree[pos].r <= r)
-    {
-        tree[pos].fill();
-        if (tree[pos].r != tree[pos].l)
-            lazy[pos] = -1;
-        return;
-    }
-    if (lazy[pos])
         push_down(pos);
-    int mid = (tree[pos].l + tree[pos].r) >> 1;
-    if (l <= mid)
-    {
-        update0(lson(pos), l, r);
     }
-    if (r > mid)
+    if (tree[pos].v >= num)
     {
-        update0(rson(pos), l, r);
+        if (tree[lson(pos)].v >= num)
+            return query(lson(pos), num);
+        if (tree[lson(pos)].rs + tree[rson(pos)].ls >= num)
+            return tree[lson(pos)].r - tree[lson(pos)].rs + 1;
+        if (tree[rson(pos)].v >= num)
+            return query(rson(pos), num);
     }
-    node tmp = mg(tree[lson(pos)], tree[rson(pos)]);
-    tree[pos].lx = tmp.lx;
-    tree[pos].rx = tmp.rx;
-    tree[pos].v = tmp.v;
-    return;
-}
-void update1(int pos, int l, int r)
-{
-    if (l <= tree[pos].l && tree[pos].r <= r)
-    {
-        tree[pos].zero();
-        if (tree[pos].r != tree[pos].l)
-            lazy[pos] = 1;
-        return;
-    }
-    if (lazy[pos])
-        push_down(pos);
-    int mid = (tree[pos].l + tree[pos].r) >> 1;
-    if (l <= mid)
-    {
-        update1(lson(pos), l, r);
-    }
-    if (r > mid)
-    {
-        update1(rson(pos), l, r);
-    }
-    node tmp = mg(tree[lson(pos)], tree[rson(pos)]);
-    tree[pos].lx = tmp.lx;
-    tree[pos].rx = tmp.rx;
-    tree[pos].v = tmp.v;
-    return;
-}
-pair<int, int> query(int pos, int num)
-{
-    if (tree[pos].lx >= num)
-        return make_pair(tree[pos].l, num);
-    if (tree[pos].r - tree[pos].l + 1 == tree[pos].lx)
-        return make_pair(tree[pos].l, tree[pos].lx);
-    if (tree[pos].r == tree[pos].l)
-        return make_pair(-1, tree[pos].lx);
-    if (lazy[pos])
-        push_down(pos);
-    pair<int, int> t1 = query(lson(pos), num), t2;
-    if (t1.first != -1)
-        if (t1.second >= num)
-            return t1;
-    t2 = query(rson(pos), num);
-    if (t2.second < t1.first)
-    {
-    }
-    if (t1.first == -1)
-        return t2;
-    else
-    {
-        if (t1.second + t2.second >= num)
-            return make_pair(t1.first, num);
-        else if (t2.first != -1)
-            return make_pair(t1.first, t1.second + t2.second);
-        else
-            return make_pair(-1, t1.second + t2.second);
-    }
+    return 0;
 }
 int main()
 {
-    // freopen("in.txt", "r", stdin);
-    scanf("%d%d", &n, &m);
-    build(1, 1, n);
-    int a, b, c;
-    for (int i = 0; i < m; i++)
+    //  freopen("in.txt", "r", stdin);
+    int n, m;
+    while (scanf("%d%d", &n, &m) != EOF)
     {
-        scanf("%d", &a);
-        if (a == 1)
+        build(1, 1, n);
+        int a, b, c;
+        for (int i = 0; i < m; i++)
         {
-            scanf("%d", &b);
-            pair<int, int> t = query(1, b);
-            if (t.first == -1 || t.second < b)
-                puts("0\n");
+            scanf("%d", &a);
+            if (a == 1)
+            {
+                scanf("%d", &b);
+                int t = query(1, b);
+                printf("%d\n", t);
+                if (t != 0)
+                    update(1, t, t + b - 1, 1);
+            }
             else
             {
-                printf("%d\n", t.first);
-                update1(1, t.first, t.first + b - 1);
+                scanf("%d%d", &b, &c);
+                update(1, b, min(n, b + c - 1), -1);
             }
         }
-        else
-        {
-            scanf("%d%d", &b, &c);
-            update0(1, b, b + c - 1);
-        }
     }
-    return 0;
 }

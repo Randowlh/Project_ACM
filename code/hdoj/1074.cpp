@@ -1,85 +1,72 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int inf = 0x7FFFFFFF;
-#define bug puts("here\n")
-typedef long long ll;
 struct node
 {
-    int pr = 0;
-    int now = 0;
-    int cost = 0;
-    inline void init() { pr = -1; }
-    inline void mx(int j, int c, int n)
-    {
-        if (pr == -1)
-        {
-            pr = j;
-            cost = c;
-            now = n;
-        }
-        else
-        {
-            if (c < cost)
-            {
-                        }
-        }
-    }
-} dp[70000];
-struct nodes
+    int time, score, past;
+} dp[1 << 15];
+struct cl
 {
-    int ddl;
-    int c;
     string name;
-    bool operator<(nodes a)
-    {
-        return name < a.name;
-    }
+    int ddl, cst;
 };
-inline bool check(int a, int b)
-{
-    a >>= b;
-    return a & 1;
-}
-map<int, string> lk;
-void work()
-{
-    lk.clear();
-    int n;
-    cin >> n;
-    string tmp;
-    int a, b;
-    vector<nodes> v;
-    nodes x;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> x.name >> x.ddl >> x.c;
-        v.push_back(x);
-    }
-    sort(v.begin(), v.end());
-    for (int i = 0; i < n; i++)
-    {
-        lk[i] = v[i].name;
-    }
-    for (int i = 0; i < 1 << v.size(); i++)
-    {
-        for (int j = 0; j < v.size(); j++)
-        {
-            if (check(i, j))
-            {
-            }
-        }
-    }
-}
+int n;
+vector<cl> v;
 int main()
 {
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    freopen("in.txt", "r", stdin);
-    int t = 1;
+    // freopen("in.txt", "r", stdin);
+    int t;
     cin >> t;
-    while (t--)
+    for (int q = 0; q < t; q++)
     {
-        work();
+        v.clear();
+        cin >> n;
+        cl x;
+        for (int i = 0; i < n; i++)
+        {
+            cin >> x.name >> x.ddl >> x.cst;
+            v.push_back(x);
+        }
+        int tn = 1 << n;
+        dp[0].past = 0;
+        dp[0].score = 0;
+        dp[0].time = 0;
+        for (int i = 1; i < tn; i++)
+        {
+            dp[i].score = 99999999;
+            for (int j = v.size() - 1; j >= 0; j--)
+            {
+                if (i & (1 << j))
+                {
+                    int past = i - (1 << j);
+                    int ans = dp[past].time + v[j].cst - v[j].ddl;
+                    int ma = ans > 0 ? ans : 0;
+                    if (dp[past].score + ma < dp[i].score)
+                    {
+                        dp[i].score = dp[past].score + ma;
+                        dp[i].past = past;
+                        dp[i].time = dp[past].time + v[j].cst;
+                    }
+                }
+            }
+        }
+        cout << dp[tn - 1].score << endl;
+        vector<int> out;
+        int p = tn - 1;
+        while (p)
+        {
+            out.push_back(p - dp[p].past);
+            p = dp[p].past;
+        }
+        for (int i = out.size() - 1; i >= 0; i--)
+        {
+            int a = 0;
+            out[i] >>= 1;
+            while (out[i])
+            {
+                out[i] >>= 1;
+                a++;
+            }
+            cout << v[a].name << endl;
+        }
     }
-    return 0;
 }

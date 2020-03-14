@@ -1,9 +1,14 @@
+1
 2
 3
-Computer 3 3
-English 20 1
-Math 3 2
-3
-Computer 3 3
-English 6 3
-Math 6 3
+4
+11
+12
+13
+21
+22
+23
+100
+1000
+5842
+0

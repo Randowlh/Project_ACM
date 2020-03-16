@@ -7,7 +7,7 @@ public:
     vector<int> date;
     inline void set_inlimit(int a) { inlimit = a; }
     inline void insert(int a) { date.push_back(a); }
-    selfset operator*(selfset a)
+    selfset operator*(selfset &a)
     {
         selfset aa;
         vector<int> ans;
@@ -20,7 +20,7 @@ public:
         aa.date = ans;
         return aa;
     }
-    selfset operator+(selfset a)
+    selfset operator+(selfset &a)
     {
         selfset aa;
         vector<int> ans;
@@ -33,7 +33,7 @@ public:
         aa.date = ans;
         return aa;
     }
-    selfset operator-(selfset a)
+    selfset operator-(selfset &a)
     {
         selfset aa;
         vector<int> ans;
@@ -55,7 +55,7 @@ public:
             return out;
         }
         sort(s.date.begin(), s.date.end());
-        for (int i = 0; i < s.date.size() - 1; i++)
+        for (int i = 0; i < (int)s.date.size() - 1; i++)
         {
             out << s.date[i] << ",";
         }
@@ -63,7 +63,7 @@ public:
         out << endl;
         return out;
     }
-    friend istream &operator>>(istream &in, selfset s)
+    friend istream &operator>>(istream &in, selfset &s)
     {
         int tmp;
         for (int i = 0; i < s.inlimit; i++)
@@ -80,7 +80,6 @@ int main()
     int n, m;
     cin >> n >> m;
     selfset a, b;
-    int tmp;
     a.set_inlimit(n);
     b.set_inlimit(m);
     cin >> a;

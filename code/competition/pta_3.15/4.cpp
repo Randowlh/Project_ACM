@@ -4,7 +4,7 @@ const int inf = 0x7FFFFFFF;
 #define bug puts("here\n")
 typedef long long ll;
 int n, a, b, q;
-int date[100100];
+vector<int> date;
 int find(int x)
 {
     if (date[x] == x)
@@ -37,7 +37,7 @@ void work()
     }
     for (int i = 0; i <= n; i++)
     {
-        date[i] = i;
+        date.push_back(i);
     }
     int t;
     char c;
@@ -80,18 +80,18 @@ void work()
     }
     for (int i = 0; i < n; i++)
     {
-        if (tmp[i] == '?')
+        if (tmp[find(i)] != '?')
         {
-            if (tmp[find(i)] != '?')
-            {
-                tmp[i] = tmp[find(i)];
-            }
+            tmp[i] = tmp[find(i)];
         }
     }
     for (int i = 0; i < q; i++)
     {
         cin >> t;
-        cout << tmp[t - 1];
+        if (t - 1 < n && t - 1 >= 0)
+            cout << tmp[t - 1];
+        else
+            cout << '?';
     }
     cout << endl;
 }
@@ -99,7 +99,7 @@ int main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    //freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
     int t = 1;
     //cin>>t;
     while (t--)

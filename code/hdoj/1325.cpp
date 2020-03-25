@@ -27,7 +27,7 @@ void merge(int x, int y)
 }
 int main()
 {
-    //freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
     int cnt = 0;
     while (true)
     {
@@ -43,10 +43,8 @@ int main()
             if (a == 0 && b == 0)
                 break;
             if (date.count(a) == 0)
-            {
                 date[a] = a;
-            }
-            date[b] = a;
+            date[b] = find(a);
             v.push_back(a);
             v.push_back(b);
             M[b]++;

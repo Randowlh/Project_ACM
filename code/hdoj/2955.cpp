@@ -3,6 +3,7 @@ using namespace std;
 double dp[110000];
 int main()
 {
+    // freopen("in.txt", "r", stdin);
     int t;
     cin >> t;
     for (int q = 0; q < t; q++)
@@ -25,7 +26,7 @@ int main()
         dp[0] = 1;
         for (int i = 0; i < v.size(); i++)
         {
-            for (int j = sum; j > v[i].first; j--)
+            for (int j = sum; j >= v[i].first; j--)
             {
                 if (dp[j - v[i].first] != -1)
                 {
@@ -36,7 +37,7 @@ int main()
         int ans = 0;
         for (int i = sum; i >= 0; i--)
         {
-            if (1 - dp[i] <= p)
+            if (1.0 - dp[i] <= p)
             {
                 ans = i;
                 break;

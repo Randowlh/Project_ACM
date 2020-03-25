@@ -3,11 +3,7 @@ using namespace std;
 const int inf = 0x7FFFFFFF;
 #define bug puts("here\n")
 typedef long long ll;
-const int mod = 998244353;
-ll pow(int x)
-{
-    ll ans;
-}
+const int mod = (0 ? 1000000007 : 998244353);
 void work()
 {
     int n;

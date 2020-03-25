@@ -12,7 +12,7 @@ int main()
     cin.tie(NULL);
     //freopen("in.txt", "r", stdin);
     int t = 1;
-    //cin>>t;
+    cin >> t;
     while (t--)
     {
         work();

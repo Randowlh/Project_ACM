@@ -1,4 +1,2 @@
- if (t1 == 0 || t2 == 0)
-    {
-        return true;
-    }
+
+    for (int i = 0; i < n; i++)

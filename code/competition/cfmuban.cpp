@@ -3,12 +3,13 @@ using namespace std;
 const int inf = 0x7FFFFFFF;
 #define bug puts("here\n")
 typedef long long ll;
+#define int long long
 const int mod = (0 ? 1000000007 : 998244353);
 const double eps = 1e-7;
 void work()
 {
 }
-int main()
+signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);

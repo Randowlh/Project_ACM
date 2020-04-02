@@ -8,6 +8,8 @@ const int mod = (0 ? 1000000007 : 998244353);
 const double eps = 1e-7;
 void work()
 {
+    double a[][4] = {1, 2, 3, 4, 5};
+    printf("%d", sizeof(a));
 }
 signed main()
 {

@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int inf = 0x7fffffff;
 struct Edge
 {
     int from;
@@ -10,13 +9,13 @@ struct Edge
     Edge(int fr, int t, int f, int c) : from(fr), to(t), flow(f), cap(c) {}
 };
 int G[1010][1010];
-int book[1010];
-int cur[1010];
-int depth[1010];
+int book[10000];
+int cur[10000];
+int depth[10000];
 int n, m, t, s;
 int cnt = 0;
 vector<Edge> edge;
-vector<int> mp[1010];
+vector<int> mp[10000];
 int bfs(int s, int t)
 {
     memset(book, 0, sizeof(book));
@@ -72,60 +71,36 @@ int Dinic(int s, int t)
     }
     return ans;
 }
-void addedge(int from, int to, int cap)
-{
-    edge.push_back(Edge(from, to, 0, cap));
-    edge.push_back(Edge(to, from, 0, 0));
-    mp[from].push_back(edge.size() - 2);
-    mp[to].push_back(edge.size() - 1);
-}
 void work()
 {
-    while (cin >> n)
+    cnt++;
+    edge.clear();
+    for (int i = 0; i <= n; i++)
     {
-        int sum = 0;
-        edge.clear();
-        for (int i = 0; i <= n * n + 5; i++)
-        {
-            mp[i].clear();
-        }
-        for (int i = 1; i <= n; i++)
-        {
-            for (int j = 1; j <= n; j++)
-            {
-                int now = (i - 1) * n + j;
-                cin >> G[i][j];
-                sum += G[i][j];
-                if ((i + j) % 2 == 0)
-                {
-                    addedge(0, now, G[i][j]);
-                    if (i > 1)
-                        addedge(now, now - n, inf);
-                    if (i < n)
-                        addedge(now, now + n, inf);
-                    if (j > 1)
-                        addedge(now, now - 1, inf);
-                    if (j < n)
-                        addedge(now, now + 1, inf);
-                }
-                else
-                {
-                    addedge(now, n * n + 1, G[i][j]);
-                }
-            }
-        }
-        s = 0;
-        t = n * n + 1;
-        cout << sum - Dinic(0, n * n + 1) << endl;
+        mp[i].clear();
     }
+    cin >> n >> m;
+    int w, u, v;
+    for (int i = 0; i < m; i++)
+    {
+        cin >> w >> u >> v;
+        edge.push_back(Edge(w, u, 0, v));
+        edge.push_back(Edge(u, w, 0, 0));
+        mp[w].push_back(edge.size() - 2);
+        mp[u].push_back(edge.size() - 1);
+    }
+    t = n;
+    s = 1;
+    cout << "Case " << cnt << ": " << Dinic(1, n) << endl;
     return;
 }
 int main()
 {
-    //  freopen("in.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int tt = 1;
+    int tt;
+    cin >> tt;
     while (tt--)
     {
         work();

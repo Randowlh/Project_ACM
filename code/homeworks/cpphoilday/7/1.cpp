@@ -1,93 +1,98 @@
 #include <bits/stdc++.h>
 using namespace std;
-class bignum
+class Q
 {
 private:
-    struct node
+    typedef long long ll;
+    ll zi;
+    ll mu;
+    inline ll gcd(ll a, ll b) { return b ? gcd(b, a % b) : a; }
+    inline void tf()
     {
-        int size;
-        int limits;
-        int sign;
-    } date;
-    char *head;
+        ll t = gcd(zi, mu);
+        zi /= t;
+        mu /= t;
+    }
 
 public:
-    int size()
+    Q(ll a = 0, ll b = 0) : zi(a), mu(b) {}
+    Q operator+(const Q &a)
     {
-        return date.size;
+        ll tzi = zi * a.mu + a.zi * mu;
+        ll tmu = mu * a.mu;
+        ll tt = gcd(tzi, tmu);
+        tzi /= tt;
+        tmu /= tt;
+        Q ans(tzi, tmu);
+        return ans;
     }
-    bignum(int a = 0)
+    Q operator-(const Q &a)
     {
-        if (a < 0)
-            date.sign = 1;
-        else
-            date.sign = 0;
-        a = abs(a);
-        head = new char[100];
-        int cnt = 0;
-        while (a != 0)
+        ll tzi = zi * a.mu - a.zi * mu;
+        ll tmu = mu * a.mu;
+        ll tt = gcd(tzi, tmu);
+        tzi /= tt;
+        tmu /= tt;
+        Q ans(tzi, tmu);
+        return ans;
+    }
+    Q operator/(const Q &a)
+    {
+        ll tzi = zi * a.mu;
+        ll tmu = mu * a.zi;
+        ll tt = gcd(tzi, tmu);
+        tzi /= tt;
+        tmu /= tt;
+        Q ans(tzi, tmu);
+        return ans;
+    }
+    Q operator*(const Q &a)
+    {
+        ll tzi = zi * a.zi;
+        ll tmu = mu * a.mu;
+        ll tt = gcd(tzi, tmu);
+        tzi /= tt;
+        tmu /= tt;
+        Q ans(tzi, tmu);
+        return ans;
+    }
+    Q &operator=(const Q &a)
+    {
+        zi = a.zi;
+        mu = a.mu;
+        return *this;
+    }
+    friend ostream &operator<<(ostream &os, Q a)
+    {
+        if (a.zi % a.mu == 0)
         {
-            head[cnt] = a % 10;
-            a /= 10;
+            os << a.zi / a.mu;
+            return os;
         }
-        date.size = cnt + 1;
-        for (int i = 0; i < cnt / 2; i++)
+
+        ll t = a.gcd(a.zi, a.mu);
+        a.zi /= t;
+        a.mu /= t;
+        if (a.mu < 0)
         {
-            swap(head[i], head[cnt - i]);
+            a.mu = -a.mu;
+            a.zi = -a.zi;
         }
-        date.limits = 100;
-        return;
+        os << a.zi << '/' << a.mu;
+        return os;
     }
-    bignum &operator=(bignum &a)
+    friend istream &operator>>(istream &is, Q &a)
     {
-        date = a.date;
-        delete[] head;
-        head = new char[date.limits];
-        for (int i = 0; i < date.size; i++)
-        {
-            head[i] = a.head[i];
-        }
-        return;
-    }
-    bignum &operator=(bignum &&a) noexcept
-    {
-        date = a.date;
-        delete[] head;
-        head = a.head;
-        a.head = nullptr;
-        return;
-    }
-    bignum(bignum &a)
-    {
-        date = a.date;
-        head = new char[date.limits];
-        for (int i = 0; i < date.size; i++)
-        {
-            head[i] = a.head[i];
-        }
-        return;
-    }
-    bignum(bignum &&a) noexcept
-    {
-        date = a.date;
-        a.head = nullptr;
-        return;
-    }
-    ~bignum()
-    {
-        delete[] head;
-        return;
-    }
-    bignum &operator+(bignum &a)
-    {
-        bignum ans;
-        if (max(date.limits, a.date.limits) - max(a.date.size, date.size) < 10)
-        {
-            ans.head = new char[max(date.limits, a.date.limits) + 10];
-        }
+        is >> a.zi >> a.mu;
+        return is;
     }
 };
 int main()
 {
-    bignum a(1213);
+    Q a, b;
+    cin >> a >> b;
+    cout << a << endl;
+    cout << b << endl;
+    cout << a + b << '\t' << a - b << '\t' << a * b << '\t' << a / b << endl;
+    return 0;
 }

@@ -10,105 +10,84 @@ void work()
 {
     int n;
     cin >> n;
-    vector<int> v;
     int tmp;
-    int cnt = 0;
-    int pr = -1231314;
+    vector<int> v;
     for (int i = 0; i < n; i++)
-    {
-        cin >> tmp;
-        v.push_back(tmp);
-        if (tmp != pr)
-        {
-            cnt++;
-            pr = tmp;
-        }
-    }
-    if (cnt == 1)
+        cin >> tmp, v.push_back(tmp);
+    v.push_back(v[0]);
+    int cnt = 0;
+    for (int i = 0; i < v.size() - 1; i++)
+        v[i] ^ v[i + 1] ? cnt++ : 0;
+    if (cnt == 0)
     {
         cout << 1 << endl;
         for (int i = 0; i < n; i++)
-        {
             cout << 1 << ' ';
-        }
         cout << endl;
-        return;
     }
-    if (cnt % 2 == 1)
+    else if (cnt % 2 == 0)
     {
         cout << 2 << endl;
-        int f = 1;
+        int pr = v[0];
+        int now = 1;
         for (int i = 0; i < n; i++)
         {
-            if (pr == v[i])
-            {
-                cout << f << ' ';
-                continue;
-            }
-            else
-            {
-                pr = v[i];
-                cout << f << ' ';
-                if (f == 1)
-                    f = 2;
+            if (v[i] != pr)
+                if (now == 1)
+                    now = 2;
                 else
-                    f = 1;
-            }
+                    now = 1;
+            cout << now << ' ';
+            pr = v[i];
         }
         cout << endl;
-        return;
     }
-    if (cnt == n)
+    else if (cnt == n)
     {
         cout << 3 << endl;
-        int f = 1;
+        int now = 1;
         for (int i = 0; i < n - 1; i++)
         {
-            cout << f << ' ';
-            if (f == 1)
-                f = 2;
+            cout << now << ' ';
+            if (now == 1)
+                now = 2;
             else
-                f = 1;
+                now = 1;
         }
         cout << 3 << endl;
-        return;
     }
-    pr = 123142424;
-    for (int i = 0; i < n; i++)
+    else
     {
-        if (pr == v[i])
+        cout << 2 << endl;
+        for (int i = 0; i < n; i++)
         {
-            v[i - 1] = 129047192;
-            break;
+            if (v[i] == v[i + 1])
+            {
+                v[i] = mod;
+                break;
+            }
         }
-    }
-    cout << 2 << endl;
-    pr = 312412414;
-    int f = 1;
-    for (int i = 0; i < n; i++)
-    {
-        if (pr == v[i])
+        int pr = v[0];
+        int now = 1;
+        for (int i = 0; i < n; i++)
         {
-            cout << f << ' ';
-            continue;
-        }
-        else
-        {
+            if (v[i] != pr)
+                if (now == 1)
+                    now = 2;
+                else
+                    now = 1;
+            cout << now << ' ';
             pr = v[i];
-            cout << f << ' ';
-            if (f == 1)
-                f = 2;
-            else
-                f = 1;
         }
+        cout << endl;
     }
-    cout << endl;
+    return;
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
     int t = 1;
     cin >> t;
     while (t--)

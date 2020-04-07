@@ -89,10 +89,31 @@ public:
         *np = nullptr;
         return;
     }
-    my_set(my_set &a)
+    my_set(my_set &&a) noexcept
     {
         head = a.head;
         a.head = nullptr;
+    }
+    my_set &operator=(my_set &&a) noexcept
+    {
+        head = a.head;
+        a.head = nullptr;
+        return *this;
+    }
+    my_set &operator=(const my_set &a)
+    {
+        clear();
+        node *p = a.head;
+        node **np = &head;
+        while (p != nullptr)
+        {
+            *np = new node;
+            (*np)->date = p->date;
+            np = &(*np)->next;
+            p = p->next;
+        }
+        *np = nullptr;
+        return *this;
     }
     my_set &operator+(const my_set &a)
     {

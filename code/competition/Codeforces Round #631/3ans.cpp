@@ -1,33 +1,80 @@
 #include <bits/stdc++.h>
 using namespace std;
-int n, m, a[100005], ans[100005];
-long long s;
-int main()
+const int inf = 0x7FFFFFFF;
+#define bug cout << "here\n"
+typedef long long ll;
+#define int long long
+const int mod = (0 ? 1000000007 : 998244353);
+const double eps = 1e-7;
+void work()
 {
-    int i, x = 0;
-    scanf("%d%d", &m, &n);
-    for (i = 1; i <= n; i++)
-        scanf("%d", &a[i]), s += a[i];
-    for (i = 1; i <= n; i++)
-        if (m - a[i] < i - 1)
+    int n, m;
+    int tmp;
+    vector<int> v;
+    cin >> n >> m;
+    int sum = 0;
+    for (int i = 0; i < m; i++)
+    {
+        cin >> tmp;
+        sum += tmp;
+        v.push_back(tmp);
+    }
+    if (sum < n)
+    {
+        cout << -1 << endl;
+        return;
+    }
+    vector<int> ans;
+    int last = n;
+    int kk = m;
+    for (int i = 0; i < m; i++)
+    {
+        int tt = last - v[i] + 1;
+        if (tt < 1)
         {
             cout << -1 << endl;
-            return 0;
+            return;
         }
-    if (s < m)
-    {
-        printf("-1");
-        return 0;
-    }
-    for (i = 1; i < n; i++)
-        ans[i] = i;
-    ans[n] = m - a[i] + 1;
-    for (i = n - 1; i; i--)
-        if (ans[i] + a[i] < ans[i + 1])
-            ans[i] = ans[i + 1] - a[i];
-        else
+        if (sum - v[i] + 1 < n)
+        {
+
+            ans.push_back(tt);
+            last = sum - v[i];
+            kk = i + 1;
             break;
-    for (i = 1; i <= n; i++)
-        printf("%d ", ans[i]);
+        }
+        sum -= v[i];
+        ans.push_back(tt);
+        last--;
+        n--;
+    }
+    for (int i = kk; i < m; i++)
+    {
+        int tt = last - v[i] + 1;
+        if (tt < 1)
+        {
+            cout << -1 << endl;
+            //return;
+        }
+        ans.push_back(tt);
+        last -= v[i];
+    }
+    for (int i = 0; i < m; i++)
+    {
+        cout << ans[i] << ' ';
+    }
+    cout << endl;
+}
+signed main()
+{
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    //freopen freopen("in.txt", "r", stdin);
+    int t = 1;
+    //cin>>t;
+    while (t--)
+    {
+        work();
+    }
     return 0;
 }

@@ -8,15 +8,17 @@ const double eps = 1e-7;
 int dp[200000];
 int a[200000];
 int n;
-int dfs(int x)
+int dfs(int x, int fl = 0)
 {
-    if (dp[x] != 0)
+    if (dp[x] != 0 && !fl)
         return dp[x];
-    int ans = 9999999;
+    if (dp[x] > 0)
+        return dp[x];
+    int ans = inf - 100;
     dp[x] = -1;
     if (x - a[x] >= 0)
     {
-        if (a[x] % 2 != a[x - a[x]] % 2)
+        if (a[x] & 1 != a[x - a[x]] & 1)
             ans = 1;
         else
         {
@@ -27,7 +29,7 @@ int dfs(int x)
     }
     if (x + a[x] < n)
     {
-        if (a[x] % 2 != a[x + a[x]] % 2)
+        if (a[x] & 1 != a[x + a[x]] & 1)
             ans = 1;
         else
         {
@@ -36,14 +38,13 @@ int dfs(int x)
                 ans = min(ans, t + 1);
         }
     }
-    if (ans == 9999999)
+    if (ans == inf - 100)
         ans = -1;
     dp[x] = ans;
     return ans;
 }
 void work()
 {
-    //int n;
     scanf("%d", &n);
     for (int i = 0; i < n; i++)
     {
@@ -52,7 +53,7 @@ void work()
     }
     for (int i = 0; i < n; i++)
     {
-        dfs(i);
+        dfs(i, 1);
     }
     for (int i = 0; i < n; i++)
     {

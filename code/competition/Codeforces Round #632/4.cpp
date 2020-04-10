@@ -20,12 +20,21 @@ void work()
     {
         if (tmp[i] == 'R')
         {
-            ma = max(ma, mid - i + 1);
-            tol += mid - i + 1;
-            ni.push_back(make_pair(mid - i + 1, i));
+            ma = max(ma, mid - i);
+            tol += mid - i;
+            ni.push_back(make_pair(mid - i, i));
         }
     }
-    if (tol < k || k <= ma)
+    for (int i = mid; i < tmp.size(); i++)
+    {
+        if (tmp[i] == 'L')
+        {
+            ma = max(i - mid + 1, ma);
+            tol += mid;
+        }
+    }
+    cout << tol << ' ' << ma << endl;
+    if (tol < k || k < ma)
     {
         cout << -1 << endl;
         return;
@@ -53,11 +62,12 @@ void work()
         vector<int> t;
         for (int j = 0; j < ni.size(); j++)
         {
-            if (ni[i].first != 0)
+            if (ni[j].first != 0)
             {
-                t.push_back(ni[i].second);
-                ni[i].first--;
-                ni[i].second++;
+                cout << "ni[i]" << ni[j].first << ' ' << ni[j].second << endl;
+                t.push_back(ni[j].second);
+                ni[j].first--;
+                ni[j].second++;
             }
         }
         ans.push_back(t);

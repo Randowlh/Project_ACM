@@ -10,58 +10,68 @@ void work()
 {
     int n, l, r;
     cin >> n >> l >> r;
-    int sum = 1;
-    int nw = 2;
     int cnt = 1;
-    while (sum + nw <= l)
+    int tol = 0;
+    while (tol + n - cnt < l - 1)
     {
+        tol += (n - cnt) * 2;
         cnt++;
-        sum += nw;
-        nw += 2;
     }
+    // cout << cnt << endl;
+    int now = (l - tol) % 2 + cnt + (l - tol) / 2;
+    int f = (l - tol) % 2;
     vector<int> ans;
-    int fl = 1;
-    int res = l - sum;
-    int pos = l - 1;
-    cnt++;
-    //  cout << "cnt=" << cnt << endl;
-    //cout << "res=" << res << endl;
-    if (res == 0)
+    for (int i = l; i < r; i++)
     {
-        ans.push_back(1);
-        pos++;
-        fl = 0;
-        res = 2;
-    }
-    else if (res & 1)
-        fl = 0;
-    int now = 1 + (res / 2 + res & 1);
-    while (pos < r)
-    {
-        pos++;
-        if (fl == 0)
+        if (f == 1)
         {
             ans.push_back(cnt);
-            fl = 1;
-            continue;
+            f = 0;
         }
-        if (now == cnt)
+        else
         {
-            cnt++;
-            ans.push_back(1);
-            now = 2;
-            fl = 0;
-            continue;
+            ans.push_back(now);
+            if (now == n)
+            {
+                cnt++;
+                now = cnt + 1;
+            }
+            else
+            {
+                now++;
+            }
+            f = 1;
         }
-
-        fl = 0;
-        ans.push_back(now);
-        now++;
-        continue;
+    }
+    if (cnt == n)
+    {
+        ans.push_back(1);
+    }
+    else
+    {
+        if (f == 1)
+        {
+            ans.push_back(cnt);
+            f = 0;
+        }
+        else
+        {
+            ans.push_back(now);
+            if (now == n)
+            {
+                cnt++;
+                now = cnt + 1;
+            }
+            else
+            {
+                now++;
+            }
+            f = 1;
+        }
     }
     for (int i = 0; i < ans.size(); i++)
     {
-        cout << ans[i] << ' ';
+        cout << ans[i] << " ";
     }
     cout << endl;
 }
@@ -69,7 +79,7 @@ signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    //freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
     int t = 1;
     cin >> t;
     while (t--)

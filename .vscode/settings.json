@@ -71,5 +71,6 @@
         "streambuf": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp"
-    }
+    },
+    "python.formatting.provider": "black"
 }

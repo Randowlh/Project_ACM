@@ -10,8 +10,6 @@ void work()
     int f = 0;
     for (int i = n - 1; i > 0; i--)
     {
-
-        //cout << "sum=" << sum << " cnt=" << cnt << endl;
         sum += i * 2;
         cnt++;
         if (sum > l)
@@ -22,31 +20,32 @@ void work()
         }
     }
     if (f == 0)
-    {
+    { //最后一个数特判
         if (l == sum + 1)
             cout << 1 << endl;
         return;
     }
     vector<int> ans;
-    int fl = l % 2;
-    // cout << fl << endl;
-    int now = cnt + fl + (l - sum) / 2;
-    //cout << "cnt=" << cnt << "  now=" << now << endl;
+    int fl = l % 2;                     //1奇数项2偶数项
+    int now = cnt + fl + (l - sum) / 2; //偶数项加到的数
+    //cnt是奇数项加到的数
     for (int i = l; i <= r; i++)
     {
         if (fl == 1)
         {
             if (cnt == n)
-            {
+            { //结尾特判
                 ans.push_back(1);
                 break;
             }
+            //奇数
             ans.push_back(cnt);
             fl = 0;
         }
         else
         {
             fl = 1;
+            //偶数
             ans.push_back(now);
             if (now == n)
             {

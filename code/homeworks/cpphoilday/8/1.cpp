@@ -8,12 +8,12 @@ private:
     int lim;
     int size;
     int sign;
-    bignum plus(const bignum &a)
+    bignum plus(const bignum &a) //无符号加法
     {
-        static bignum ans;
+        bignum ans;
         int fl = 0;
         if (max(a.size, size) + 2 >= max(a.lim, lim))
-            fl = 3;
+            fl = 300;
         ans.head = new char[max(a.lim, lim) + fl];
         ans.lim = max(a.lim, lim) + fl;
         ans.head[0] = 0;
@@ -41,9 +41,9 @@ private:
             ans.size = max(a.size, size) + 1;
         return ans;
     }
-    bignum sub(const bignum &a)
+    bignum sub(const bignum &a) //无符号减法
     {
-        static bignum ans;
+        bignum ans;
         ans.head = new char[max(a.lim, lim)];
         ans.lim = max(a.lim, lim);
         ans.head[0] = 0;
@@ -102,7 +102,7 @@ public:
         size = a.size;
         return *this;
     }
-    bool operator<(const bignum &a)
+    bool operator<(const bignum &a) //重载小于号，利于后面对减法结果的判断
     {
         if (sign > a.sign)
             return true;
@@ -136,11 +136,11 @@ public:
         }
         return false;
     }
-    bignum operator-(const bignum &a)
+    bignum operator-(const bignum &a) //有符号的减法运算重载
     {
         bignum tt(a);
         bignum ans;
-        if (*this < tt)
+        if (*this < tt) //后一个数比前面的大，结果一定是负的
         {
             if (sign == 1 && tt.sign == 1)
             {
@@ -156,7 +156,7 @@ public:
             }
             ans.sign = 1;
         }
-        else
+        else //反之则是正的
         {
             if (sign == 1 && tt.sign == 1)
             {
@@ -174,27 +174,27 @@ public:
         }
         return ans;
     }
-    bignum operator+(const bignum &a)
+    bignum operator+(const bignum &a) //有符号加法
     {
         bignum tt(a);
         bignum ans;
-        if (sign == 1 && tt.sign == 1)
+        if (sign == 1 && tt.sign == 1) //两个负数相加，结果为负
         {
             ans = (*this).plus(tt);
             ans.sign = 1;
         }
-        else if (sign == 0 && tt.sign == 0)
+        else if (sign == 0 && tt.sign == 0) //两个正数相加，结果为正
         {
             ans = (*this).plus(tt);
             ans.sign = 0;
         }
-        else if (tt.sign == 1)
+        else if (tt.sign == 1) //后面是负的等价于减法
         {
             tt.sign = 0;
             ans = (*this) - tt;
             tt.sign = 1;
         }
-        else
+        else //前面的是负的等价于交换再相减
         {
             sign = 0;
             ans = tt - (*this);
@@ -203,7 +203,14 @@ public:
         return ans;
     }
     ~bignum() { delete[] head; }
-    bignum(ll a = 0)
+    bignum()
+    {
+        sign = 0;
+        lim = 0;
+        size = 0;
+        head = nullptr;
+    }
+    bignum(ll a)
     {
         sign = 0;
         lim = 100;
@@ -251,7 +258,7 @@ public:
         int fl = 0;
         if (ii[0] == '-')
             fl = 1;
-        a.lim = ii.size() + 10;
+        a.lim = ii.size() + 100;
         a.head = new char[a.lim];
         a.size = ii.size() - fl;
         a.sign = fl;

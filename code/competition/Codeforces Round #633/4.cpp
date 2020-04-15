@@ -6,65 +6,81 @@ typedef long long ll;
 #define int long long
 const int mod = (0 ? 1000000007 : 998244353);
 const double eps = 1e-7;
-vector<int> mp[100100];
-int book[100100];
-struct node
+vector<int> mp[100010];
+bool bfs(int s)
 {
-    int dpt;
-    pair<int, int> x;
-};
-node dfs(int pos)
-{
-    book[pos] = 1;
-    node tmp;
-    int mi = 0, mx = 0;
-    int ji[2] = {0, 0};
-    set<int> s;
-    int dpth = 0;
-    for (int i = 0; i < mp[pos].size(); i++)
+    unordered_set<int> book;
+    book.insert(s);
+    queue<pair<int, int>> q;
+    q.push(make_pair(s, 0));
+    while (!q.empty())
     {
-        if (book[mp[pos][i]] == 0)
+        pair<int, int> now = q.front();
+        q.pop();
+        if (mp[now.first].size() == 1 && now.second % 2 == 1)
         {
-            tmp = dfs(mp[pos][i]);
-            s.insert(tmp.dpt % 2);
-            mx += tmp.x.second;
-            dpth = max(dpth, tmp.dpt);
+            return false;
+        }
+        for (int i = 0; i < mp[now.first].size(); i++)
+        {
+            if (book.count(mp[now.first][i]) == 0)
+            {
+                book.insert(mp[now.first][i]);
+                q.push(make_pair(mp[now.first][i], now.second + 1));
+            }
         }
     }
-    mi = s.size();
-    pair<int, int> ans(mi + 1, mx + 1);
-    node a;
-    a.x = ans;
-    a.dpt = dpth;
-    return a;
+    return true;
 }
 void work()
 {
     int n;
     cin >> n;
     int a, b;
-    for (int i = 0; i < n; i++)
+    map<int, int> M;
+    for (int i = 0; i < n - 1; i++)
     {
         cin >> a >> b;
+        M[a]++;
+        M[b]++;
         mp[a].push_back(b);
         mp[b].push_back(a);
     }
-    pair<int, int> ans;
-    for (int i = 1; i <= n; i++)
+    map<int, int>::iterator it;
+    int root = 0;
+    vector<int> lvs;
+    for (it = M.begin(); it != M.end(); it++)
     {
-        if (mp[i].size() > 1)
+        if (it->second == 1)
         {
-            ans = dfs(i).x;
-            break;
+            root = it->first;
+            lvs.push_back(root);
         }
     }
-    cout << ans.first - 1 << ' ' << ans.second - 1 << endl;
+    if (bfs(root))
+        cout << 1 << ' ';
+    else
+        cout << 3 << ' ';
+    map<int, int> cal;
+    for (int i = 0; i < lvs.size(); i++)
+    {
+        cal[mp[lvs[i]][0]]++;
+    }
+    int ans = 0;
+    for (it = cal.begin(); it != cal.end(); it++)
+    {
+        if (it->second > 1)
+        {
+            ans += it->second - 1;
+        }
+    }
+    cout << n - 1 - ans << endl;
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     int t = 1;
     //cin >> t;
     while (t--)

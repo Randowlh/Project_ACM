@@ -10,9 +10,10 @@ void work()
     int f = 0;
     for (int i = n - 1; i > 0; i--)
     {
+        //   cout << "sum=" << sum << ' ' << "cnt=" << cnt << endl;
         sum += i * 2;
         cnt++;
-        if (sum > l)
+        if (sum >= l)
         {
             sum -= i * 2;
             f = 1;
@@ -25,9 +26,11 @@ void work()
             cout << 1 << endl;
         return;
     }
+    //  cout << cnt << "cnt" << endl;
     vector<int> ans;
     int fl = l % 2;                     //1奇数项2偶数项
     int now = cnt + fl + (l - sum) / 2; //偶数项加到的数
+                                        // cout << now << ' ' << cnt << ' ' << fl << ' ' << l - sum << endl;
     //cnt是奇数项加到的数
     for (int i = l; i <= r; i++)
     {
@@ -64,7 +67,7 @@ void work()
 }
 signed main()
 {
-    freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
     int t = 1;
     cin >> t;
     while (t--)

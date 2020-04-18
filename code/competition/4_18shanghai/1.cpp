@@ -9,6 +9,15 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 void work()
 {
+    vector<int> v;
+    int tmp;
+    for (int i = 0; i < 4; i++)
+    {
+        cin >> tmp;
+        v.push_back(tmp);
+    }
+    sort(v.begin(), v.end());
+    cout << abs(v[0] + v[3] - v[2] - v[1]) << endl;
 }
 signed main()
 {

@@ -9,6 +9,12 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 void work()
 {
+    string a, b;
+    cin >> a >> b;
+    if (a == b)
+        cout << -1 << endl;
+    else
+        cout << max(a.size(), b.size()) << endl;
 }
 signed main()
 {

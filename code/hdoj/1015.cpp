@@ -19,7 +19,7 @@ void dfs(int step)
 {
     if (step == 5)
     {
-        if (n == (now[0] - pow(2, now[1]) + pow(3, now[2]) - pow(4, now[3]) + pow(5, now[4])))
+        if (n == (now[0] - pows(2, now[1]) + pows(3, now[2]) - pows(4, now[3]) + pows(5, now[4])))
         {
             string t;
             for (int i = 0; i < now.size(); i++)
@@ -48,7 +48,7 @@ void dfs(int step)
 }
 signed main()
 {
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     while (cin >> n >> tmp)
     {
         memset(book, 0, sizeof(book));

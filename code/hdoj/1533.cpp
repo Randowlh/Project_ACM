@@ -127,12 +127,12 @@ signed main()
                 cin >> mp[i][j];
                 if (mp[i][j] == 'm')
                 {
-                    ps.push_back(i * n + j + 1);
+                    ps.push_back(i * m + j + 1);
                     lh.push_back(make_pair(i, j));
                 }
                 else if (mp[i][j] == 'H')
                 {
-                    hs.push_back(i * n + j + 1);
+                    hs.push_back(i * m + j + 1);
                     lp.push_back(make_pair(i, j));
                 }
             }

@@ -1,59 +1,71 @@
-#include<cstdio>
-#include<iostream>
-#include<algorithm>
-#include<string>
-#include<cstring>
+#include <bits/stdc++.h>
 using namespace std;
-struct trie
+const int inf = 0x7FFFFFFF;
+#define bug cout << "here\n"
+typedef long long ll;
+#define int long long
+const int mod = (0 ? 1000000007 : 998244353);
+const double eps = 1e-7;
+const ll llinf = 4223372036854775807;
+int n, m;
+int ans = 0;
+int mp[110][110];
+int dp[110][110];
+int dfs(int x, int y)
 {
-    int nex[10000][26];
-    bool ex[10000];
-    int num[10000];
-    int cnt;
-    bool et(string a){
-        int p = 0;
-        for (int i = 0; i < a.size(); i++) {
-      int c = a[i] - 'a';
-      if (nex[p][c]==false) return false;
-      p = nex[p][c];
+    if (dp[x][y] != -1)
+        return dp[x][y];
+    int now = 0;
+    int f = 0;
+    // cout << x << ' ' << y << ' ' << endl;
+    for (int i = x + 1; i <= min(n - 1, x + m); i++)
+    {
+        if (mp[i][y] > mp[x][y])
+            now = max(now, dfs(i, y));
     }
-    return ex[p];
+    for (int i = x - 1; i >= max(0LL, x - m); i--)
+    {
+        if (mp[i][y] > mp[x][y])
+            now = max(now, dfs(i, y));
     }
-    void ins(string a){
-        if(this->et(a)){
-            return ;
-        }
-        int p = 0;
-        for (int i = 0; i < a.size(); i++) {
-      int c = a[i] - 'a';
-      num[p]++;
-      if (!nex[p][c]) nex[p][c] = ++cnt;  
-      p = nex[p][c];
+    for (int i = y + 1; i <= min(n - 1, y + m); i++)
+    {
+        if (mp[x][i] > mp[x][y])
+            now = max(now, dfs(x, i));
     }
-    num[p]++;
-    ex[p] = true;
-    return;
+    for (int i = y - 1; i >= max(0LL, y - m); i--)
+    {
+        if (mp[x][i] > mp[x][y])
+            now = max(now, dfs(x, i));
     }
-    int find(string a){
-        int p=0;
-        for(int i=0;i<a.size();i++){
-            int c=a[i]-'a';
-            if(nex[p][c]==0) return 0;
-            p=nex[p][c];
-        }
-        return num[p];
+    dp[x][y] = now + mp[x][y];
+    return dp[x][y];
+}
+void work()
+{
+    while (cin >> n >> m)
+    {
+        memset(dp, -1, sizeof dp);
+        ans = 0;
+        if (n == -1 && m == -1)
+            break;
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                cin >> mp[i][j];
+        ans = dfs(0, 0);
+        cout << ans << endl;
     }
-}date;
-int main(){
-    string a;
-    for(int i=0;i<99999999;i++){
-        getline(cin,a);
-        if(a.empty())
-        break;
-        date.ins(a);
-    }
-    while(cin>>a){
-        cout<<date.find(a)<<endl;
+}
+signed main()
+{
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    // freopen("in.txt", "r", stdin);
+    int t = 1;
+    //cin>>t;
+    while (t--)
+    {
+        work();
     }
     return 0;
 }

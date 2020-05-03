@@ -116,7 +116,7 @@ int main()
         {
             for (int j = 0; j < C; j = +)
             {
-                cout << lj[i][j].<< endl;
+                cout << lj[i][j].w << endl;
             }
         }
     }

@@ -9,6 +9,8 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 void work()
 {
+    __int128_t a;
+    cout << 422337222036854775807 << endl;
 }
 signed main()
 {

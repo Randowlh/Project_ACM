@@ -1,0 +1,21 @@
+5 
+
+menu File rectangle  1 1  3 2
+
+menu Edit rectangle  5 1  3 2
+
+menu View   circle     9 1  1.5
+
+button Build    circle    1   6  2.5
+
+button Run     rectangle  7 6 4 3    
+
+click  2 2
+
+click  8 2
+
+click 8 8
+
+click  1 5
+
+click  9 5

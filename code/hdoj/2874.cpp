@@ -123,6 +123,7 @@ void work()
             lc.add_edge(w, u, v);
             merge(w, u);
         }
+        lc.preprocess(n);
         for (int i = 0; i < c; i++)
         {
             cin >> u >> v;
@@ -140,7 +141,7 @@ signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    freopen("in.txt", "r", stdin);
+    ///  freopen("in.txt", "r", stdin);
     int t = 1;
     //cin >> t;
     while (t--)

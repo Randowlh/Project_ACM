@@ -13,8 +13,12 @@ inline void out(int a)
     else
         cout << "No" << endl;
 }
+int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 void work()
 {
+    int n, a, b;
+    cin >> n >> a >> b;
+    out((n / gcd(a, b) % 2));
 }
 signed main()
 {
@@ -22,7 +26,7 @@ signed main()
     cin.tie(NULL);
     //freopen("in.txt", "r", stdin);
     int t = 1;
-    //cin>>t;
+    cin >> t;
     while (t--)
     {
         work();

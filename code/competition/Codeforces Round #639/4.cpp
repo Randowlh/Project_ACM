@@ -6,7 +6,7 @@ const int mod = (0 ? 1000000007 : 998244353);
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 char mp[1010][1010];
-int date[1001000];
+int date[1101000];
 int find(int x)
 {
     if (date[x] == x)
@@ -24,6 +24,8 @@ void merge(int a, int b)
 void work()
 {
     int flag = 0;
+    int ff1 = 0;
+    int ff2 = 0;
     int n, m;
     cin >> n >> m;
     for (int i = 0; i < n; i++)
@@ -56,7 +58,9 @@ void work()
             }
         }
         if (!f)
-            flag = 1;
+        {
+            ff1 = 1;
+        }
     }
     for (int j = 0; j < m; j++)
     {
@@ -82,7 +86,14 @@ void work()
             }
         }
         if (!f)
-            flag = 1;
+        {
+            ff2 = 1;
+        }
+    }
+    if (ff1 ^ ff2)
+    {
+        cout << -1 << endl;
+        return;
     }
     set<int> s;
     for (int i = 0; i < n; i++)
@@ -93,16 +104,13 @@ void work()
                 s.insert(find(date[i * m + j]));
         }
     }
-    if (flag && s.size())
-        cout << -1 << endl;
-    else
-        cout << s.size() << endl;
+    cout << s.size() << endl;
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     int t = 1;
     //cin>>t;
     while (t--)

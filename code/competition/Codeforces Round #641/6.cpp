@@ -13,8 +13,37 @@ inline void out(int a)
     else
         cout << "No" << endl;
 }
+struct node
+{
+
+    int a, b;
+    node(int aa, int bb) : a(aa), b(bb) {}
+    bool operator>(node aa) const
+    {
+        return a < aa.a;
+    }
+};
 void work()
 {
+    vector<int> v;
+    for (int i = 0; i < 10; i++)
+    {
+        v.push_back(i);
+    }
+    reverse(v.begin(), v.end());
+    for (int i = 0; i < v.size(); i++)
+    {
+        cout << v[i] << endl;
+    }
+    priority_queue<node, vector<node>, greater<node>>
+        q;
+    q.push(node(1, 2));
+    q.push(node(2, 2));
+    q.push(node(3, 4));
+    while (!q.empty())
+    {
+        q.pop();
+    }
 }
 signed main()
 {

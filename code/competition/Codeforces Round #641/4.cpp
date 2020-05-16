@@ -13,30 +13,58 @@ inline void out(int a)
     else
         cout << "No" << endl;
 }
+int dp[110000];
 void work()
 {
     int tmp;
-    vector<int> v;
     int n, k;
     cin >> n >> k;
+    int f = 0;
     for (int i = 0; i < n; i++)
     {
         cin >> tmp;
-        v.push_back(tmp);
+        if (tmp < k)
+            dp[i] = -1;
+        else if (tmp == k)
+        {
+            dp[i] = 0;
+            f = 1;
+        }
+        else
+            dp[i] = 1;
+    }
+    if (!f)
+    {
+        out(0);
+        return;
+    }
+    if (n == 1)
+    {
+        out(1);
+        return;
     }
     for (int i = 0; i < n; i++)
     {
-        if (v[i] == k)
+        int cnt = 0;
+        for (int j = 0; j < 3; j++)
         {
-            
+            if (i + j < n)
+                if (dp[i + j] >= 0)
+                    cnt++;
+        }
+        if (cnt >= 2)
+        {
+            out(1);
+            return;
         }
     }
+    out(0);
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
     int t = 1;
     cin >> t;
     while (t--)

@@ -15,6 +15,9 @@ inline void out(int a)
 }
 void work()
 {
+    int a, b;
+    cin >> a >> b;
+    cout << a + b << endl;
 }
 signed main()
 {

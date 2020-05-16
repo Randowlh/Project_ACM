@@ -41,7 +41,7 @@ public:
 };
 class GUIControl : public location
 {
-    Csharp *calc;
+    Csharp *calc = NULL;
 
 public:
     bool check(int lx, int ly)
@@ -49,7 +49,11 @@ public:
         return calc->is_click(x, y, lx, ly);
     }
     virtual void output() const = 0;
-    ~GUIControl() { delete calc; }
+    virtual ~GUIControl()
+    {
+        delete calc;
+    }
+    GUIControl() : location(0, 0), calc(NULL) {}
     GUIControl(Csharp *a, int xx, int yy) : calc(a), location(xx, yy) {}
 };
 class Cmenu : public GUIControl

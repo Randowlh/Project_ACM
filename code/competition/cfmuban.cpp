@@ -13,8 +13,35 @@ inline void out(int a)
     else
         cout << "No" << endl;
 }
+class ab
+{
+public:
+    virtual void output() { cout << "NMSL" << endl; }
+};
+class key : public ab
+{
+public:
+    void output() { cout << "Hello" << endl; }
+};
+class key2 : public ab
+{
+public:
+    void output() { cout << "WTF" << endl; }
+};
 void work()
 {
+    vector<ab *> v;
+    ab *aa = new ab;
+    key *a = new key;
+    key2 *b = new key2;
+    v.push_back(aa);
+    v.push_back(a);
+    v.push_back(b);
+    for (int i = 0; i < v.size(); i++)
+    {
+        v[i]->output();
+    }
+    return;
 }
 signed main()
 {

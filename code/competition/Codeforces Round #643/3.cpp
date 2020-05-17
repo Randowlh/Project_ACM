@@ -18,9 +18,25 @@ void work()
     int a, b, c, d;
     cin >> a >> b >> c >> d;
     int ans = 0;
-    for (int i = c; i <= d; i++)
+    for (int i = a; i <= b; i++)
     {
-        ans += max(0LL, min((b - a + 1) * (c - b + 1) - max(0LL, max(0LL, (i - b - a)) * (i - b - a + 1) / 2), (b + c - i) * (b + c - i + 1) / 2));
+        for (int j = max(c + 1 - i, b); j <= c; j++)
+        {
+            if (i + j >= d + 1)
+            {
+                ans += 1ll * (c - j + 1) * (d - c + 1);
+                break;
+            }
+            else
+            {
+                int temp = min(d - i, c);
+                ans += 1ll * (i + j - c + i + temp - c) * (temp - j + 1) / 2;
+                if (temp == c)
+                    break;
+                if (temp == d - i)
+                    j = temp;
+            }
+        }
     }
     cout << ans << endl;
 }

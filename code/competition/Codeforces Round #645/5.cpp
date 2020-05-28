@@ -15,12 +15,23 @@ inline void out(int a)
 }
 void work()
 {
+    int n;
+    cin >> n;
+    vector<int> v;
+    int tmp;
+    int tol = 0;
+    for (int i = 0; i < n / 2 + n & 1; i++)
+    {
+        cin >> tmp;
+        tol += tmp;
+        v.push_back(tmp);
+    }
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    //freopen("in.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     int t = 1;
     //cin>>t;
     while (t--)

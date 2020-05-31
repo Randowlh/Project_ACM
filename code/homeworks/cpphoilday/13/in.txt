@@ -1,0 +1,43 @@
+append tom
+
+append smith
+
+append zhang
+
+append wang
+
+append liu
+
+create class 30321
+
+create class 30322
+
+create team acmer
+
+create team football
+
+join   class 30321 10000
+
+join   class 30322 10001
+
+join   class 30321 10002
+
+join   class 30322 10003
+
+join   class 30322 10004
+
+join   team acmer 10001
+
+join   team acmer 10002
+
+join   team  football 10002
+
+join   team football   10003
+
+join   team acmer    10004
+
+append sun
+
+join  class 30321   10005
+
+join  team football 10005

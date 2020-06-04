@@ -3,7 +3,7 @@ using namespace std;
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
 #define int long long
-const ll mod = (0 ? 1000000007 : 998244353);
+const int mod = (0 ? 1000000007 : 998244353);
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 inline void out(int a)
@@ -15,6 +15,16 @@ inline void out(int a)
 }
 void work()
 {
+    int n;
+    cin >> n;
+    int chu = 1;
+    int ans = 0;
+    while (chu <= n)
+    {
+        ans += n / chu;
+        chu *= 2;
+    }
+    cout << ans << endl;
 }
 signed main()
 {
@@ -22,7 +32,7 @@ signed main()
     cin.tie(NULL);
     //freopen("in.txt", "r", stdin);
     int t = 1;
-    //cin>>t;
+    cin >> t;
     while (t--)
     {
         work();

@@ -4,7 +4,6 @@ const int inf = 0x7FFFFFFF;
 typedef long long ll;
 #define int long long
 const ll mod = (0 ? 1000000007 : 998244353);
-const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 inline void out(int a)
@@ -16,14 +15,29 @@ inline void out(int a)
 }
 void work()
 {
+    int n, m;
+    cin >> n >> m;
+    int ans = 0;
+    int tmp;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+        {
+            cin >> tmp;
+            if (tmp == 0)
+                ans++;
+        }
+    if (ans % 2 == 0)
+        cout << "Vivek" << endl;
+    else
+        cout << "Ashish" << endl;
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    //freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
     int t = 1;
-    //cin>>t;
+    cin >> t;
     while (t--)
     {
         work();

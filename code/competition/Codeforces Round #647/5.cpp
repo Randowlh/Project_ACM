@@ -5,6 +5,7 @@ typedef long long ll;
 const ll mod = 1000000007;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
+const ll mod2 = 999998639;
 inline void out(int a)
 {
     if (a)
@@ -14,7 +15,7 @@ inline void out(int a)
 }
 int cn[1000100];
 #define int long long
-int pows(int x, int a)
+int pows(int x, int a, int mod)
 {
     int ans = 1;
     int now = x;
@@ -32,62 +33,39 @@ int pows(int x, int a)
 
 void work()
 {
-    register int i;
     int n, p;
     cin >> n >> p;
     int tmp;
     vector<int> v;
-    int ma = 0;
-    for (i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
         cin >> tmp;
         v.push_back(tmp);
-        ma = max(ma, tmp);
     }
-    if (p == 1)
+    sort(v.begin(), v.end(), greater<int>());
+    int ans1 = 0;
+    int ans2 = 0;
+    for (int i = 0; i < v.size(); i++)
     {
-        cout << n % 2 << endl;
-        return;
-    }
-    for (i = 0; i <= ma + 70; i++)
-    {
-        cn[i] = 0;
-    }
-    for (i = 0; i < n; i++)
-    {
-        cn[v[i]]++;
-    }
-    int now = ma;
-    int ans = 0;
-    while (now >= 0)
-    {
-        if (cn[now] % 2 == 0)
+        if (ans1 == 0 && ans2 == 0)
         {
-            now--;
-            continue;
+            ans1 = pows(p, v[i], mod);
+            ans2 = pows(p, v[i], mod2);
         }
         else
         {
-            ans = pows(p, now);
-            for (i = now - 1; i >= 0; i--)
-            {
-                if (cn[i])
-                {
-                    ans = (ans - (cn[i] * pows(p, i)) % mod) % mod;
-                    ans += mod;
-                    ans %= mod;
-                }
-            }
-            break;
+            ans1 = (ans1 + mod - pows(p, v[i], mod)) % mod;
+            ans2 = (ans2 + mod2 - pows(p, v[i], mod2)) % mod2;
         }
     }
-    cout << (ans + mod) % mod << endl;
+    cout << ans1 << endl;
+    return;
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    //freopen("in.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     int t = 1;
     cin >> t;
     while (t--)

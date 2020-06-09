@@ -4,6 +4,7 @@ const int inf = 0x7FFFFFFF;
 typedef long long ll;
 #define int long long
 const ll mod = (0 ? 1000000007 : 998244353);
+const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 inline void out(int a)
@@ -13,29 +14,47 @@ inline void out(int a)
     else
         cout << "No" << endl;
 }
+bool mp[100][100];
+int heng[100];
+int shu[100];
 void work()
 {
     int n, m;
     cin >> n >> m;
-    int ans = 0;
-    int tmp;
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++)
         {
-            cin >> tmp;
-            if (tmp == 0)
-                ans++;
+            cin >> mp[i][j];
+            if (mp[i][j])
+            {
+                shu[j] = 1;
+                heng[i] = 1;
+            }
         }
-    if (ans % 2 == 0)
-        cout << "Vivek" << endl;
-    else
+    int cnth = 0, cnts = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (heng[i] == 0)
+            cnth++;
+    }
+    for (int i = 0; i < m; i++)
+    {
+        if (shu[i] == 0)
+            cnts++;
+    }
+    cout << cnts * cnth << endl;
+    if (cnts * cnth % 2 == 0)
+    {
         cout << "Ashish" << endl;
+    }
+    else
+        cout << "Vivek" << endl;
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // freopen("in.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     int t = 1;
     cin >> t;
     while (t--)

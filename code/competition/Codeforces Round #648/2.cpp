@@ -24,59 +24,42 @@ struct node
 void work()
 {
     int n;
-    vector<node> v;
     cin >> n;
-    v.clear();
-    v.resize(n);
+    int tmp;
+    vector<int> v;
     for (int i = 0; i < n; i++)
     {
-        cin >> v[i].c;
+        cin >> tmp;
+        v.push_back(tmp);
     }
+    set<int> s;
     for (int i = 0; i < n; i++)
     {
-        cin >> v[i].b;
+        cin >> tmp;
+        s.insert(tmp);
     }
-    vector<int> aa, bb;
-    for (int i = 0; i < n; i++)
+    if (s.size() == 2)
+        out(1);
+    else
     {
-        if (v[i].b)
-            aa.push_back(v[i].c);
-        else
-            bb.push_back(v[i].c);
-    }
-    stable_sort(v.begin(), v.end());
-    int flag = 0;
-    int tail1 = 0, tail2 = 0;
-    for (int i = 0; i < n; i++)
-    {
-        if (v[i].b)
+        tmp = v[0];
+        for (int i = 1; i < n; i++)
         {
-            if (aa[tail1] != v[i].c)
+            if (v[i] < tmp)
             {
                 out(0);
                 return;
             }
-            else
-                tail1++;
+            tmp = v[i];
         }
-        else
-        {
-            if (bb[tail2] != v[i].c)
-            {
-                out(0);
-                return;
-            }
-            else
-                tail2++;
-        }
+        out(1);
     }
-    out(1);
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    //freopen("in.txt", "r", stdin);
+    //  freopen("in.txt", "r", stdin);
     int t = 1;
     cin >> t;
     while (t--)

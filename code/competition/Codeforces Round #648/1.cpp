@@ -21,6 +21,8 @@ void work()
 {
     int n, m;
     cin >> n >> m;
+    memset(heng, 0, sizeof(heng));
+    memset(shu, 0, sizeof(shu));
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++)
         {
@@ -42,19 +44,17 @@ void work()
         if (shu[i] == 0)
             cnts++;
     }
-    cout << cnts * cnth << endl;
-    if (cnts * cnth % 2 == 0)
-    {
-        cout << "Ashish" << endl;
-    }
-    else
+    //cout << cnth << ' ' << cnts << endl;
+    if (min(cnts, cnth) % 2 == 0)
         cout << "Vivek" << endl;
+    else
+        cout << "Ashish" << endl;
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
     int t = 1;
     cin >> t;
     while (t--)

@@ -64,7 +64,7 @@ int main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    //freopen("in.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     int t = 1;
     //cin>>t;
     while (t--)

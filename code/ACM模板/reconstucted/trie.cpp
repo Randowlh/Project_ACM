@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 struct trie
 {
     int next[100000][2], cnt;
@@ -50,41 +48,3 @@ struct trie
         return (next[p][0] == 0 && next[p][1] == 0);
     }
 } node;
-vector<string> ans;
-int main()
-{
-    int k = 0;
-    freopen("in.txt", "r", stdin);
-    node.clear();
-    string tmp;
-    while (getline(cin, tmp))
-    {
-        if (tmp != "9")
-        {
-            ans.push_back(tmp);
-            node.insert(tmp);
-            continue;
-        }
-        k++;
-        bool fl = false;
-        for (int i = 0; i < ans.size(); i++)
-        {
-            if (node.check(ans[i]) == false)
-            {
-                fl = true;
-                break;
-            }
-        }
-        if (fl)
-        {
-            cout << "Set " << k << " is not immediately decodable" << endl;
-        }
-        else
-        {
-            cout << "Set " << k << " is immediately decodable" << endl;
-        }
-        node.clear();
-        ans.clear();
-    }
-    return 0;
-}

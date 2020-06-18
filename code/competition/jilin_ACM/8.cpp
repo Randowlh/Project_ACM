@@ -25,13 +25,31 @@ void work()
 {
     int n;
     cin >> n;
-    for (int i = 1; i <= n; i++)
-        for (int j = i; j <= n; j++)
-            calc(i, j);
-    for (auto i = M.begin(); i != M.end(); i++)
+    int ans = 0;
+    int tmp;
+    vector<int> a, b;
+    for (int i = 0; i < n; i++)
     {
-        cout << "pair" << (i->first).first << "->" << (i->first).second << "is" << i->second << endl;
+        cin >> tmp;
+        a.push_back(tmp);
     }
+    for (int i = 0; i < n; i++)
+    {
+        cin >> tmp;
+        b.push_back(tmp);
+    }
+    for (int i = 1; i <= n; ++i)
+    {
+        tmp += a[i - 1] * i;
+        tmp %= mod;
+        ans += b[i - 1] * tmp % mod * (n - i + 1);
+        ans %= mod;
+    }
+    // for (int i = 1; i <= n; i++)
+    // {
+    //     ans = ((a[i - 1] * i) % mod * ((b[i - 1] * (n - i + 1) )% mod + ans) % mod;
+    // }
+    cout << ans << endl;
 }
 signed main()
 {

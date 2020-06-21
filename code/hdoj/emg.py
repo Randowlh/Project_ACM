@@ -28,7 +28,7 @@ char buffer[0x10000];//64KB
 // Wrong Answer
 void equal(void)
 {
-	printf("www.hoxily.com\\n");
+	printf("www.randow.cn\\n");
 	exit(0);
 }
 // OLE
@@ -126,18 +126,27 @@ int main(void)
 	return 0;
 }
 '''
-cookies = {'exesubmitlang':'0', 'CNZZDATA1254072405': '965477099-1421749361-|1427515514'}
+cookies = {'exesubmitlang': '0',
+           'CNZZDATA1254072405': '965477099-1421749361-|1427515514'}
 pid = 1000
+
+
 def login(referer):
     global cookies
-    headers = {'referer':referer, 'user-agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0'}
-    r = requests.post(login_url, params={'action':'login'}, data={'username':username,'userpass':userpass, 'login':'Sign+In'}, headers = headers, cookies=cookies)
+    headers = {'referer': referer,
+               'user-agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0'}
+    r = requests.post(login_url, params={'action': 'login'}, data={
+                      'username': username, 'userpass': userpass, 'login': 'Sign+In'}, headers=headers, cookies=cookies)
     if r.cookies.get('PHPSESSID') is not None:
         cookies['PHPSESSID'] = r.cookies.get('PHPSESSID')
-    #print(repr(cookies))
+    # print(repr(cookies))
+
+
 def test_length_submit(guess):
     usercode = 'int guess = ' + str(guess) + ';\r\n' + template_input_length
     return test_submit(usercode)
+
+
 def find_input_length():
     print('GUESS', 'RESULT')
     guess = 1
@@ -164,28 +173,33 @@ def find_input_length():
         elif result == 'lt':
             right = guess - 1
     return guess
- 
+
+
 def test_submit(usercode):
     global cookies
-    headers = {'referer':'http://acm.hdu.edu.cn/showproblem.php?pid=' + str(pid), 'user-agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0'}
-    r = requests.get(submit_url, params={'pid':pid}, allow_redirects=False, cookies=cookies, headers=headers)
+    headers = {'referer': 'http://acm.hdu.edu.cn/showproblem.php?pid=' +
+               str(pid), 'user-agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0'}
+    r = requests.get(submit_url, params={
+                     'pid': pid}, allow_redirects=False, cookies=cookies, headers=headers)
     if r.cookies.get('PHPSESSID') is not None:
         cookies['PHPSESSID'] = r.cookies.get('PHPSESSID')
-    #print(repr(cookies))
+    # print(repr(cookies))
     if r.status_code == 302:
         # need login
         login(r.url)
-    r = requests.post(submit_url, params={'action':'submit'}, data={'check':0, 'problemid':pid, 'language':language['C++']-1, 'usercode':usercode}, allow_redirects=False, cookies = cookies, headers=headers)
+    r = requests.post(submit_url, params={'action': 'submit'}, data={
+                      'check': 0, 'problemid': pid, 'language': language['C++']-1, 'usercode': usercode}, allow_redirects=False, cookies=cookies, headers=headers)
     if r.cookies.get('PHPSESSID') is not None:
         cookies['PHPSESSID'] = r.cookies.get('PHPSESSID')
-    #print(repr(cookies))
+    # print(repr(cookies))
     # if r.status_code != 302:
         # raise Exception(r)
     # else:
     global previous_runid
     while True:
         time.sleep(1)
-        r = requests.get(status_url, params={'user':username, 'lang':0, 'status':0}, headers=headers,cookies=cookies)
+        r = requests.get(status_url, params={
+                         'user': username, 'lang': 0, 'status': 0}, headers=headers, cookies=cookies)
         text = r.text
         try:
             index = text.index('tr align=center')
@@ -197,7 +211,7 @@ def test_submit(usercode):
         index += len('px>')
         endIndex = text.index('</td>', index)
         runid = text[index:endIndex]
-        if runid == previous_runid: # submit failed
+        if runid == previous_runid:  # submit failed
             return test_submit(usercode)
         index = text.index('green>', index)
         index = index + len('green>')
@@ -220,11 +234,15 @@ def test_submit(usercode):
             return 'eq'
         else:
             raise Exception('unknow judge status: ' + status)
+
+
 def test_data_submit(skip, guess):
     usercode = 'int guess = ' + str(guess) + ';\r\n'
     usercode = usercode + 'int skip = ' + str(skip) + ';\r\n'
     usercode = usercode + template_input_data
     return test_submit(usercode)
+
+
 def find_input_data():
     length = find_input_length()
     print('LEFT', 'RIGHT', 'SKIP', 'GUESS', 'RESULT')
@@ -240,12 +258,14 @@ def find_input_data():
                 print(repr(file_data))
                 break
             elif result == 'lt':
-                right = guess -1
+                right = guess - 1
             elif result == 'gt':
                 left = guess + 1
         if left > right:
             file_data.append('UNKNOWN')
     return file_data
+
+
 if len(sys.argv) == 1:
     print('usage:\ndiginput.py <pid> <username> <userpass>')
     sys.exit(1)

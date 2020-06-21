@@ -1,24 +1,31 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int inf = 0x7FFFFFFF;
-#define bug puts("here\n")
-typedef long long ll;
-#define int long long
-const int mod = (0 ? 1000000007 : 998244353);
-const double eps = 1e-7;
-void work()
+int exgcd(int a, int b, int &x, int &y)
 {
-}
-signed main()
-{
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    //freopen("in.txt", "r", stdin);
-    int t = 1;
-    //cin>>t;
-    while (t--)
+    if (b == 0)
     {
-        work();
+        x = 1;
+        y = 0;
+        return a;
     }
-    return 0;
+    int r = exgcd(b, a % b, x, y);
+    int temp = y;
+    y = x - (a / b) * y;
+    x = temp;
+    return r;
+}
+
+int C(int n, int m)
+{
+    if (m < 0)
+        return 0;
+    if (n < m)
+        return 0;
+    if (m > n - m)
+        m = n - m;
+    int aa = 1, bb = 1;
+    for (int i = 0; i < m; i++)
+    {
+        aa = aa * (n - i) % mod;
+        bb = bb * (i + 1) % mod;
+    }
+    return aa * niyuan(bb, mod) % mod;
 }

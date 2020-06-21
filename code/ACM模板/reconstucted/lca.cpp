@@ -24,9 +24,7 @@ struct lca
     {
         set<int> s;
         for (int i = 0; i <= n; i++)
-        {
             l[i] = -1;
-        }
         for (int i = 1; i <= n; i++)
         {
             if (s.count(find(i)) == 0)

@@ -1,10 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
-const char *ptr = "okokok";
-int main()
+#define int long long
+void dfs(int t)
 {
-    char b[100];
-    cout << "first output=   " << ptr << endl;
-    scanf("%s", ptr);
-    cout << "second output=  " << ptr << endl;
+    if (t > 10000000)
+    {
+        return;
+    }
+    if (t % 10000 == 0)
+        cout << t << ' ';
+    dfs(t + 1);
+    return;
+}
+signed main()
+{
+    cout << "dadad" << endl;
+    dfs(0);
 }

@@ -1,19 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-void dfs(int t)
+class test
 {
-    if (t > 10000000)
-    {
-        return;
-    }
-    if (t % 10000 == 0)
-        cout << t << ' ';
-    dfs(t + 1);
-    return;
-}
+public:
+    int a;
+    virtual void aa() {}
+    virtual void bb() = 0;
+};
 signed main()
 {
-    cout << "dadad" << endl;
-    dfs(0);
+    test aa;
+    cout << aa.tol() << endl;
+    test bb;
+    cout << aa.tol() << endl;
 }

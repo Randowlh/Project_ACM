@@ -3,8 +3,6 @@ using namespace std;
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
 #define int long long
-#define rep(i, a, n) for (register int i = a; i <= n; ++i)
-#define per(i, a, n) for (register int i = n; i >= a; --i)
 const ll mod = (0 ? 1000000007 : 998244353);
 const ll mod2 = 999998639;
 const double eps = 1e-7;
@@ -18,12 +16,28 @@ inline void out(int a)
 }
 void work()
 {
+    int x, y;
+    cin >> x >> y;
+    string tmp;
+    cin >> tmp;
+    for (int i = 0; i < tmp.size(); i++)
+    {
+        if (tmp[i] == 'U')
+            y++;
+        if (tmp[i] == 'D')
+            y--;
+        if (tmp[i] == 'L')
+            x--;
+        if (tmp[i] == 'R')
+            x++;
+    }
+    cout << x << ' ' << y << endl;
 }
 signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    //freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
     int t = 1;
     //cin>>t;
     while (t--)

@@ -9,8 +9,13 @@ const ll mod = (0 ? 1000000007 : 998244353);
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
+int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
+int lcm(int a, int b) { return a * b / gcd(a, b); }
 void work()
 {
+    int a, b;
+    cin >> a >> b;
+    cout << lcm(a, b) << endl;
 }
 signed main()
 {

@@ -11,6 +11,9 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 void work()
 {
+    int a, b;
+    cin >> a >> b;
+    cout << a + b << endl;
 }
 signed main()
 {

@@ -42,10 +42,7 @@ node dfs(int pos, int md, int md2, bool staus, bool flag)
             cheng %= mod;
             ans.cnt += now.cnt;
             ans.cnt %= mod;
-            if (pos == 1)
-                ans.sum += i;
-            else
-                ans.sum += now.sum + cheng * now.cnt % mod;
+            ans.sum += now.sum + cheng * now.cnt % mod;
             ans.sum %= mod;
             ans.sumsqr += (((cheng * cheng) % mod) * now.cnt) % mod + ((2 * cheng) % mod) * now.sum % mod + now.sumsqr % mod;
             ans.sumsqr %= mod;

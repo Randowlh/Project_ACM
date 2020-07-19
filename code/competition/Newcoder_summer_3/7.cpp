@@ -5,7 +5,7 @@ typedef long long ll;
 #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
-const ll mod = (0 ? 1000000007 : 998244353);
+const ll mod = (0 ? 1000000007 : 998244353); 
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
@@ -13,7 +13,10 @@ int dp[251000];
 int arr[251000];
 void work()
 {
-    int n;
+    for (int i = 0; i < n;i++[
+
+    ])
+        int n;
     cin >> n;
     for(int i=1;i<=n;i++){
         cin >> arr[i];
@@ -45,4 +48,4 @@ signed main()
         work();
     }
     return 0;
-}
+}''

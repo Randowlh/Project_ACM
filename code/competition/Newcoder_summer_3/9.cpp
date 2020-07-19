@@ -28,13 +28,44 @@ inline ll read()
     }
     return x * f;
 }
+int date[801000];
+set<int> que[800100];
 int fl[801000];
 int fa[801000];
+int find(int x){
+    return date[x];
+}
+inline void merge(int a,int b){ 
+    int l=find(a);
+    int r=find(b);
+    if(l!=r)
+        date[l] = r;
+}
+inline void init(int n){
+    for (int i = 0; i <n;i++){
+        date[i] = i;
+        que[i].clear();
+        que[i].insert(i);
+    }
+}
+void bfs(int tt){
+    if(que[tt].empty())
+        return;
+    for (auto i = que[tt].begin(); i != que[tt].end();i++){
+        for (int j = 0;j<mp[*i].size();j++){
+            que[date[mp[*i][j]]].erase(mp[*i][j]);
+            que[tt].insert(mp[*i][j]);
+            date[mp[*i][j]] = tt;
+        }
+    }
+    return;
+}
 void work()
 {
     n = read();
     m=read();
     int a, b;
+    init(n);
     for (int i = 0; i <= n;i++){
         mp[i].clear();
         fa[i] = -1;
@@ -49,18 +80,12 @@ void work()
     int q = read();
     int tt;
     for (int i = 0; i < q;i++){
-        tt = read();
-        if(fa[tt]!=-1)
-            continue;
-        for (int i = 0;i<mp[tt].size();i++){
-            fa[mp[tt][i]] = tt;
-        }
+        tt=read();
+        bfs(tt);
+        printf("asdasd\n");
     }
     for (int i = 0; i < n;i++){
-        if(fa[i]==-1){
-            printf("%d ", i);
-        }else
-            printf("%d ", fa[i]);
+        printf("%d ", date[i]);
     }
     printf("\n");
 }
@@ -68,7 +93,7 @@ signed main()
 {
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     int t = 1;
     t = read();
     while (t--)

@@ -16,6 +16,7 @@ inline void out(int a)
 }
 void work()
 {
+    int n;
 }
 signed main()
 {

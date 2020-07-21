@@ -45,71 +45,63 @@ void euler()
     }
 }
 //map<int, vector<int>> M;
+bool fl[210100];
+int now[210100];
 inline int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 void work()
 {
-    set<int> ard;
-    vector<pair<int, int>> ans1,ans2;
+    vector<pair<int, int>> ans;
     int n;
-    n = read();
-    //printf("%d\n", n);
-    for(int i=0;i<primes.size();i++){
-      //  printf("adasdas");
-        if(primes[i]>n)
-            break;
-        for (int k = 1; k < 100000;k++){
-            int now = primes[i]*k;
-            if(now > n) break;
-            if(ard.count(now))
-            continue;
-            while(primes[i]*(k+1)<=n){
-                k++;
-                if(ard.count(primes[i]*k)){
-                    continue;
-                }
-                ans1.push_back(make_pair(now, primes[i] * k));
-                ard.insert(now);
-                ard.insert(primes[i] * k);
-                break;
+     n=read();
+    for (int i = 0; i <= n;i++){
+        fl[i] = 0;
+    }
+    for (int i = primes.size() - 1; i >= 0; i--)
+        {
+            if (primes[i] * 2 > n)
+            {
+                continue;
             }
-        }
-    }
-    for(int i=primes.size();i>=0;i--){
-      //  printf("adasdas");
-        if(primes[i]>n)
-            continue;
-        for (int k = 1; k < 100000;k++){
-            int now = primes[i]*k;
-            if(now > n) break;
-            if(ard.count(now))
-            continue;
-            while(primes[i]*(k+1)<=n){
-                k++;
-                if(ard.count(primes[i]*k)){
-                    continue;
-                }
-                ans2.push_back(make_pair(now, primes[i] * k));
-                ard.insert(now);
-                ard.insert(primes[i] * k);
-                break;
+            int cnt = 0;
+            now[cnt++] =primes[i];
+            for (int j = 2; j <10000000;j++){
+                if(primes[i]*j>n)
+                    break;
+                if (fl[primes[i]*j])
+                continue;
+                now[cnt++] = primes[i]*j;
             }
+            if(cnt==1){
+                continue;
+            }
+            if (cnt % 2 == 0)
+                {
+                    for (int j = 0; j < cnt; j += 2)
+                    {
+                        fl[now[j]] = fl[now[j+1]] = 1;
+                        ans.push_back(make_pair(now[j],now[j+1]));
+                    }
+                }
+                else
+                {
+                    fl[now[0]] = fl[now[2]] = 1;
+                    ans.push_back(make_pair(now[0], now[2]));
+                    for (int j = 3; j < cnt; j += 2)
+                    {
+                        fl[now[j]] = fl[now[j+1]] = 1;
+                        ans.push_back(make_pair(now[j], now[j+1]));
+                    }
+                }
         }
-    }
-    if(ans1.size()>ans2.size()){
-    printf("%d\n", ans1.size());
-    for(int i=0;i<ans1.size(); i++){
-        printf("%d %d\n",ans1[i].first,ans1[i].second);
-    }
-    }else{
-        for(int i=0;i<ans2.size(); i++){
-        printf("%d %d\n",ans2[i].first,ans2[i].second);
-    }
+    printf("%d\n",ans.size());
+    for (int i = 0;i<ans.size();i++){
+        printf("%d %d\n",ans[i].first,ans[i].second);
     }
 }
 signed main()
-{
+{   
     euler();
-    //freopen("in.txt", "r", stdin);
+   // freopen("in.txt", "r", stdin);
     int t = 1;
     t = read();
     //cout << t << endl;

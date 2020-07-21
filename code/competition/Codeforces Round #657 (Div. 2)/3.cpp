@@ -11,8 +11,10 @@ void work(){
     for (int i = 1; i <= m;i++){
         cin >> a[i].first >> a[i].second;
     }
-    sort(a+1, a + 1+m,greater<pair<int,int>>());
-    for (int i = 1; i <= m;i++)
+    a[m + 1].first = 0;
+    sort(a+1, a + 1+m);
+    reverse(a + 1, a + m + 1);
+    for (int i = 1; i <= m+1;i++)
         qz[i] = qz[i - 1] + a[i].first;
     int ans = 0;
     if(n==1){
@@ -22,25 +24,23 @@ void work(){
     for (int i = 1; i <= m;i++){
         af[m-i+1] = a[i].first;
     }
-        for (int i = 1; i <= m; i++)
-        {
+    for (int i = 1; i <= m; i++)
+    {
             int b = 1;
             int e = m+1;
             while (b < e)
             {
                 int mid = (b + e) >> 1;
-                if (a[mid].first < a[i].second)
+                if (!(a[mid].first >= a[i].second))
                     e = mid;
                 else
                     b = mid + 1;
             }
-            //; cout << "e=" << e << endl;
-            // int e = lower_bound(af + 1, af + m + 1, a[i].second) - (af);
-            e = m - e + 1;
-           // cout << "e=" << e <<' '<<af[e]<<' '<<a[i].second <<endl;
+            e--;
+        //    cout << "e=" << e<<endl;
             if (e >= n)
             {
-                ans = max(ans, qz[e]);
+                ans = max(ans, qz[n]);
                 continue;
             }
             else if (a[i].first < a[i].second)
@@ -58,12 +58,12 @@ void work(){
                 tt += a[i].second * last;
                 ans = max(ans, tt);
             }
-        }
+    }
     cout <<ans << endl;
 }   
 signed main(){
     int t;
-  freopen("in.txt", "r", stdin);
+  //freopen("in.txt", "r", stdin);
     cin >> t;
     while(t--){
         work();

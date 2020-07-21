@@ -1,13 +1,45 @@
-2
-4 2
-1 2
-2 3
-2 4
-ADD1 1 4 1
-ADD2 3 4 2
-4 2
-1 2
-2 3
-1 4
-ADD1 1 4 5
-ADD2 3 2 4
+4
+START
+1 + 2 = 3
+END
+
+
+
+
+
+
+
+
+
+
+
+START
+1+2=3
+END
+
+
+
+
+START
+1 + 2 = 3
+END
+START
+1 + 2 = 3
+
+
+
+
+
+END
+START
+1 + 2 = 3
+END
+START
+1 + 2 = 4
+END
+START
+1 + 2 = 3
+END
+START
+1	+	2	=	3
+END

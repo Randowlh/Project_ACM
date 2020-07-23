@@ -20,8 +20,10 @@ const ll mod = (0 ? 1000000007 : 998244353);
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
+int n, m;
 void work()
 {
+    rd(n), rd(m);
 }
 signed main()
 {
@@ -33,6 +35,7 @@ signed main()
     cin.tie(NULL);
     int t = 1;
     //cin>>t;
+    rd(t);
     while (t--)
     {
         work();

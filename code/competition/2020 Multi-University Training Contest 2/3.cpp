@@ -22,12 +22,20 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 void work()
 {
+    cout << 10 << endl;
+    for (int i = 0; i < 10;i++){
+        cout << 50 << ' ' << 25 << endl;
+        for (int i = 1; i <= 25;i++){
+            cout << i << ' ' << 1 << ' ' << 1 << ' ' << 1 << ' ' << 1 << endl;
+            cout << i << ' ' << 1 << ' ' << 1 << ' ' << 1 << ' ' << 1 << endl;
+        }
+    }
 }
 signed main()
 {
 #ifndef ONLINE_JUDGE
-    freopen("in.txt","r",stdin);
-    //freopen("out.txt","w",stdout);
+   // freopen("in.txt","r",stdin);
+    freopen("in.txt","w",stdout);
 #endif
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);

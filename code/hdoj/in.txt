@@ -1,45 +1,5 @@
-4
-START
-1 + 2 = 3
-END
-
-
-
-
-
-
-
-
-
-
-
-START
-1+2=3
-END
-
-
-
-
-START
-1 + 2 = 3
-END
-START
-1 + 2 = 3
-
-
-
-
-
-END
-START
-1 + 2 = 3
-END
-START
-1 + 2 = 4
-END
-START
-1 + 2 = 3
-END
-START
-1	+	2	=	3
-END
+2
+4 0
+3 2
+1 2
+1 3

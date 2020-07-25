@@ -76,11 +76,11 @@ void work()
 }
 signed main()
 {
-    freopen("in.txt", "r", stdin);
-// #ifndef ONLINE_JUDGE
-//    freopen("a.in","r",stdin);
-//     freopen("a.out","w",stdout);
-// #endif
+//    freopen("in.txt", "r", stdin);
+#ifndef ONLINE_JUDGE
+   freopen("a.in","r",stdin);
+    freopen("a.out","w",stdout);
+#endif
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;

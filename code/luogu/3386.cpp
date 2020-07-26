@@ -1,3 +1,5 @@
+#include <bits/stdc++.h>
+using namespace std;
 class DC
 {
 public:
@@ -9,13 +11,13 @@ public:
         int cap;
         Edge(int fr, int t, int f, int c) : from(fr), to(t), flow(f), cap(c) {}
     };
-    int book[10010];
-    int cur[10010];
-    int depth[10010];
-    int n, m, t, s;
+    int book[1010];
+    int cur[1010];
+    int depth[1010];
+    int n, t, s;
     int cnt = 0;
     vector<Edge> edge;
-    vector<int> mp[10010];
+    vector<int> mp[1010];
     int bfs(int s, int t)
     {
         memset(book, 0, sizeof(book));
@@ -66,7 +68,8 @@ public:
         int ans = 0;
         while (bfs(s, t))
         {
-            memset(cur, 0, sizeof(cur));
+            for(int i=0;i<=n;i++)
+            cur[i]=0;
             ans += dfs(s, 0x7FFFFFFF);
         }
         return ans;
@@ -78,4 +81,28 @@ public:
         mp[from].push_back(edge.size() - 2);
         mp[to].push_back(edge.size() - 1);
     }
+    void init(int nn,int ss,int tt){
+        n=nn,s=ss,t=tt;
+        for(int i=0;i<=n;i++)
+        mp[i].clear();
+        edge.clear();
+    }
 } fl;
+int main(){
+    int n,m,e;
+    cin>>n>>m>>e;   
+    fl.init(n+m+10,0,n+m+5);
+    for(int i=1;i<=n;i++){
+        fl.add_edge(0,i,1);
+    }
+    for(int i=n+1;i<=n+m;i++)
+    {
+        fl.add_edge(i,n+m+5,1);
+    }
+    int w,v;
+    for(int i=0;i<e;i++){
+        cin>>w>>v;
+        fl.add_edge(w,v+n,1);
+    }
+    cout<<fl.Dinic()<<endl;
+}

@@ -13,6 +13,7 @@ template<class T>inline void rd(T &x){
     while(o=getchar(),o>47);
     x*=f;
 }
+const int maxn = 510000;
 #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)

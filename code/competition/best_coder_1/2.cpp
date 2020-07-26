@@ -13,6 +13,7 @@ template<class T>inline void rd(T &x){
     while(o=getchar(),o>47);
     x*=f;
 }
+const int maxn = 510000;
 #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
@@ -22,11 +23,11 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 void work()
 {
-    int n;
-    rd(n);
-    int u, v;
-    vector<int> v;
-    int ans = 0;
+    double n;
+    cin>>n;
+    if(n<=1){
+        cout<<"Yes"<<endl;
+    }else cout<<"No"<<endl;
 }
 signed main()
 {
@@ -34,10 +35,11 @@ signed main()
     freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
+    //std::ios::sync_with_stdio(false);
+   // cin.tie(NULL);
     int t = 1;
-    //cin>>t;
+    //rd(t);
+    cin>>t;
     while (t--)
     {
         work();

@@ -20,8 +20,16 @@ const ll mod = (0 ? 1000000007 : 998244353);
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
+vector<int> mp[100010];
+int qz[100010];
+int n;
 void work()
 {
+    rd(n);
+    int u,v;
+    for(int i=0;i<n-1;i++)
+        rd(u), rd(v), mp[u].push_back(v), mp[v].push_back(u);
+
 }
 signed main()
 {

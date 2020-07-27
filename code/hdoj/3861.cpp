@@ -20,12 +20,13 @@ const ll mod = (0 ? 1000000007 : 998244353);
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
-const int maxn = 51000;
+const int maxn = 5100;
 vector<int> mp[maxn];
 int dfn[maxn], low[maxn],flag[maxn],belong[maxn];
 int ans =0;
 int cnt=0,cnt2=0;
 stack<int> s;
+vector<pair<int,int> > eg;
 class DC
 {
 public:
@@ -37,13 +38,13 @@ public:
         int cap;
         Edge(int fr, int t, int f, int c) : from(fr), to(t), flow(f), cap(c) {}
     };
-    int book[1010];
-    int cur[1010];
-    int depth[1010];
+    int book[10100];
+    int cur[10100];
+    int depth[10100];
     int n, t, s;
     int cnt = 0;
     vector<Edge> edge;
-    vector<int> mp[1010];
+    vector<int> mp[10100];
     int bfs(int s, int t)
     {
         memset(book, 0, sizeof(book));
@@ -143,21 +144,24 @@ void work()
     ans =cnt=cnt2=0;
     int n, m;
     rd(n), rd(m);
+    eg.clear();
     rep(i, 1, n)
         mp[i].clear(),dfn[i] = 0;
     int u, v;
     rep(i, 1, m)
-        rd(u),rd(v), mp[u].push_back(v);
+        rd(u),rd(v), mp[u].push_back(v),eg.push_back(make_pair(u, v));
     rep(i,1,n)
         if(!dfn[i])
         tarjan(i);
     fl.init(cnt2*2+10,0,cnt2*2+4);
     rep(i,1,cnt2)
         fl.add_edge(0,i,1);
-    rep(i,cnt2+1,cnt*2)
-        fl.add_edge(i,cnt*2+4,1);
-    
-    printf("%lld\n",ans);
+    rep(i,cnt2+1,cnt2*2)
+        fl.add_edge(i,cnt2*2+4,1);
+    for(int i=0;i<eg.size(); i++)
+        if(belong[eg[i].first]^belong[eg[i].second])
+        fl.add_edge(belong[eg[i].first],belong[eg[i].second]+cnt2,1);
+    printf("%lld\n",cnt2-fl.Dinic());
 }
 signed main()
 {
@@ -165,8 +169,8 @@ signed main()
     freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
+    //std::ios::sync_with_stdio(false);
+    //cin.tie(NULL);
     int t = 1;
     rd(t);
     while (t--)

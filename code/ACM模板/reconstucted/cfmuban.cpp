@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#pragma GCC optimize(2)
 using namespace std;
 const int inf = 0x7FFFFFFF;
 typedef long long ll;

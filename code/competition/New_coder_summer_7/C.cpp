@@ -38,7 +38,6 @@ template<class T>inline void rd(T &x){
 #define lr hope_you_will_be_happy_to_see_this
 const int maxn = 510000;
 #define int long long
-ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
 const ll mod = (0 ? 1000000007 : 998244353);

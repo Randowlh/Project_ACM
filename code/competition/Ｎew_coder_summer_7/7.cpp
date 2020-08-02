@@ -18,61 +18,57 @@ template<class T>inline void rd(T &x){
 #define yn A_muban_for_ACM
 #define j1 it_is just_an_eastegg
 #define lr hope_you_will_be_happy_to_see_this
+const ll mod = (1 ? 1e18 : 998244353);
+ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
 const int maxn = 510000;
 #define int long long
 const double delta=0.999999;
-const int stemp=5000;
+const int stemp=1283;
 #define MAX_TIME 940 
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
-const ll mod = (0 ? 1000000007 : 998244353);
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
+std::mt19937 myrand(time(0));
 int n;
 double l,r;
 int mx=-999999999;
 int re;
 double ans=0;
-pair<int,int> date[1000];
+pair<int,int> date[1000], t[1000];
+int tail=0;
 int calc(double a){
-    a=a-(int)a;
-    for(int i=0;i<n;i++){
-         a*=re*2;
-        date[i].first=(int)a/re*2;
-        date[i].first%=re*2;
-        date[i].first-=re;
-          a*=re*2;
-        date[i].second=(int)a/re*2;
-        date[i].second%=re*2;
-        date[i].second-=re;
+    a=abs(a);
+    int tt=powmod(tail,n);
+    while(a<tt){
+        a*=tail;
     }
-    // for(int i=0;i<n;i++){
-    //     if(date[i].first*date[i].first+date[i].second*date[i].second>re*re)
-    //     return 0;
-    // }
-    int ans=0;
+    int tta=(int)a;
     for(int i=0;i<n;i++){
-        for(int j=i+1;j<n;j++){
-            ans+=(date[i].first-date[j].first)*(date[i].first-date[j].first)+(date[i].second-date[j].second)*(date[i].second-date[j].second);
+        t[i]=date[tta%tail];
+        tta/=tail;
+    }
+    int ans=0;  
+    for(int i=0;i<n;i++){
+        for(int j=i+1;j<n;j++){ 
+            ans+=(t[i].first-t[j].first)*(t[i].first-t[j].first)+(t[i].second-t[j].second)*(t[i].second-t[j].second);
         }
     }
-   // exit(0);
     return ans;
 }
 void SA(){
     double now=ans;
     double temp=stemp;
-    while(temp>1e-14){
-        double tnow=now+((rand()<<1)-RAND_MAX)*temp;
-       // cout<<temp<<endl;
+    while(temp>1e-7){
+        double tnow=now+((myrand()<<1)-RAND_MAX)*temp;
         double new_ans=calc(tnow);
         double de=new_ans-mx;
         if(de>0){
             now=tnow;
             ans=tnow;
             mx=new_ans;
-        }else if(exp(-de/temp)*RAND_MAX>rand()){
+        }else if(exp(-de/temp)*RAND_MAX>myrand()){
             now=tnow;
         }
         temp*=delta;
@@ -84,21 +80,31 @@ void repeat(double t){
 void work()
 {
      l=0;
-    for(n=2;n<=8;n++){
-        for(re=1;re<=31;re++){
-            r=re;
+    n=8;
+        cout<<"{";
+        for(re=1;re<=30;re++){
+            tail=0;
             mx=0;
+            for(int k=-re;k<=re;k++){
+                date[tail].first=k;
+                date[tail++].second=(int)sqrt(re*re-k*k);
+                date[tail].first=k;
+                date[tail++].second=-date[tail-1].second;
+            }
+            sort(date,date+tail);
             ans=0;
-            repeat(1);
-            cout<<mx/2<<',';
+            SA();
+            cout<<mx;
+            if(re!=30)
+            cout<<',';
         }
-    }
+        cout<<"},\n";
 }
 signed main()
 {
 #ifndef ONLINE_JUDGE
     freopen("in.txt","r",stdin);
-   // freopen("out.txt","w",stdout);
+    freopen("out.txt","w",stdout);
 #endif
     //std::ios::sync_with_stdio(false);
     //cin.tie(NULL);

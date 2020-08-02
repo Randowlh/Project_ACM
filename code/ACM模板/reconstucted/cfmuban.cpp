@@ -18,6 +18,7 @@ const double delta=0.993;
 #define MAX_TIME 940 
 //mt19937 myrand(time(0));
 //uniform_int_distribution<int> randint {-down, up};
+ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
 #define y1 code_by_Rand0w
 #define yn A_muban_for_ACM
 #define j1 it_is just_an_eastegg

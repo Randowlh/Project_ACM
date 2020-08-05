@@ -1,5 +1,23 @@
-#include <bits/stdc++.h>
-#pragma GCC optimize(2)
+#include <iostream>
+#include <string>
+#include <cstdio>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <functional>
+#include <iomanip>
+#include <queue>
+#include <ciso646>
+#include <random>
+#include <map>
+#include <set>
+#include <bitset>
+#include <stack>
+#include <unordered_map>
+#include <utility>
+#include <cassert>
+#include <complex>
+#include <numeric>
 using namespace std;
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
@@ -14,11 +32,6 @@ template<class T>inline void rd(T &x){
     while(o=getchar(),o>47);
     x*=f;
 }
-const double delta=0.993;
-#define MAX_TIME 940 
-//mt19937 myrand(time(0));
-//uniform_int_distribution<int> randint {-down, up};
-
 #define y1 code_by_Rand0w
 #define yn A_muban_for_ACM
 #define j1 it_is just_an_eastegg
@@ -32,9 +45,6 @@ ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=re
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
-void SA(){
-    
-}
 void work()
 {
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include<cstring>
 #include <string>
 #include <cstdio>
 #include <vector>
@@ -45,8 +46,25 @@ ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=re
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
+int n;
+int dp[1010][40100];
+int date[1010];
+int ans=0;
 void work()
 {
+    rd(n);
+    for(int i=1;i<=n;i++)
+        rd(date[i]);
+    memset(dp,0,sizeof(dp));
+    for(int i=1;i<=n;i++){
+        ans++;
+        for(int j=i-1;j;j--){
+                dp[i][date[i]-date[j]+20010]+=(dp[j][date[i]-date[j]+20010]+1)%mod;
+                ans+=dp[j][date[i]-date[j]+20010]+1;
+                ans%=mod;
+        }
+    }
+    printf("%lld\n",ans);
 }
 signed main()
 {
@@ -54,8 +72,8 @@ signed main()
     freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
+    // std::ios::sync_with_stdio(false);
+    // cin.tie(NULL);
     int t = 1;
     //cin>>t;
     while (t--)

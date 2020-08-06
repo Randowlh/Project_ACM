@@ -22,7 +22,7 @@ const int maxn = 510000;
 #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
-const ll mod = (0 ? 1000000007 : 998244353);
+const ll mod = (1 ? 1000000007 : 998244353);
 ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
 const ll mod2 = 999998639;
 const double eps = 1e-7;
@@ -33,6 +33,7 @@ struct Edges{
 }edge[maxm];
 int head[maxm];
 int ecnt=0;
+int sum[210000];
 void add(int u,int v,int w){
     edge[++ecnt].next=head[u];
     edge[ecnt].to=v;
@@ -41,16 +42,31 @@ void add(int u,int v,int w){
 }
 void work()
 {
+    int n;
+    rd(n);
+    int tol=0;
+    int tmp;
+    for(int i=0;i<n;i++){
+        rd(tmp);
+        tol=tmp+tol;
+        tol%=mod;
+    }
+    printf("%lld\n",tol*sum[n]%mod);
 }
 signed main()
 {
+    for(int i=1;i<=200010;i++){
+        sum[i]+=(powmod(i,mod-2)+sum[i-1])%mod;
+        sum[i]%=mod;
+    }
 #ifndef ONLINE_JUDGE
     freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
+    //std::ios::sync_with_stdio(false);
+    //cin.tie(NULL);
     int t = 1;
+    rd(t);
     //cin>>t;
     while (t--)
     {

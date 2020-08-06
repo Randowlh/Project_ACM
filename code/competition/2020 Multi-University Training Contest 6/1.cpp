@@ -41,16 +41,16 @@ void add(int u,int v,int w){
 }
 void work()
 {
+    int x,b;
+    rd(b), rd(x);
+    if((b-1)%x==0)
+    cout<<"T"<<endl;
+    else cout<<"F"<<endl;
 }
 signed main()
 {
-#ifndef ONLINE_JUDGE
-    freopen("in.txt","r",stdin);
-    //freopen("out.txt","w",stdout);
-#endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
     int t = 1;
+    rd(t);
     //cin>>t;
     while (t--)
     {

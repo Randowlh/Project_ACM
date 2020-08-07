@@ -46,6 +46,10 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 void work()
 {
+    int a,b;
+    for(int i=0;i<n;i++){
+        cin>
+    }
 }
 signed main()
 {

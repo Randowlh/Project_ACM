@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#pragma GCC optimize(2)
 using namespace std;
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
@@ -39,8 +38,35 @@ void add(int u,int v,int w){
     edge[ecnt].w=w;
     head[u]=ecnt;
 }
+inline char df(char a){
+    for(char i='a';i<='z';i++)
+    if(i!=a)
+        return i;
+}
 void work()
 {
+    vector<int> v;
+    int n;
+    rd(n);
+    int tmp;
+    vector<int> v7;
+    string pre,now;
+    for(int i=0;i<n;i++)
+    rd(tmp),v.push_back(tmp);
+    for(int i=0;i<100;i++)
+        pre.push_back('a');
+    cout<<pre<<endl;
+    for(int i=0;i<n;i++){
+        now.clear();
+        for(int j=0;j<v[i];j++){
+            now.push_back(pre[j]);
+        }
+        for(int j=v[i];j<100;j++){
+            now.push_back(df(pre[j]));
+        }
+        cout<<now<<endl;
+        pre=now;
+    }
 }
 signed main()
 {
@@ -48,9 +74,8 @@ signed main()
     freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
     int t = 1;
+    rd(t);
     //cin>>t;
     while (t--)
     {

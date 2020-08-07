@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#pragma GCC optimize(2)
 using namespace std;
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
@@ -27,7 +26,7 @@ ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=re
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
-const int maxm= 1;
+const int maxm= 110000;
 struct Edges{
     int w,to,next;
 }edge[maxm];
@@ -39,8 +38,54 @@ void add(int u,int v,int w){
     edge[ecnt].w=w;
     head[u]=ecnt;
 }
+set<pair<int,int>> ss;
+int ans=0;
+int n,s;
+void dfs(int x,int sum,int fa){
+    int cnt=0;
+    while(sum>s){
+        // cnt++;
+        //  if(cnt>10)
+        //  exit(0);
+        pair<int,int> tt=*ss.rbegin();
+        // cout<<sum<<endl;
+        //  cout<<tt.first<<' '<<tt.second<<endl;
+        // for(auto i=ss.begin();i!=ss.end();i++)
+        //    cout<<">>"<<i->first<<' '<<i->second<<endl;
+        ss.erase(tt);
+        sum-=tt.first-(tt.first/2);
+        cout<<"jian"<<tt.first-(tt.first/2)<<endl;
+        tt.first>>=1;
+        edge[tt.second].w>>=1;
+        ss.insert(tt);
+        ans++;
+         cout<<"now="<<x<<endl;
+    }
+    for(int i=head[x];i;i=edge[i].next){
+        if(edge[i].to==fa)
+        continue;
+        ss.insert(make_pair(edge[i].w,i));
+        dfs(edge[i].to,sum+edge[i].w,x);
+        ss.erase(make_pair(edge[i].w,i));
+    }
+    return;
+}
 void work()
 {
+    cin>>n>>s; 
+    ss.clear();
+    for(int i=0;i<=n;i++)
+    head[i]=0;
+    ecnt=0;
+    ans=0;
+    int u,v,w;
+    for(int i=0;i<n-1;i++){
+        cin>>u>>v>>w;
+        add(u,v,w);
+        add(v,u,w);
+    }
+    dfs(1,0,-1);
+    cout<<ans<<endl;
 }
 signed main()
 {
@@ -51,6 +96,7 @@ signed main()
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
+    cin>>t;
     //cin>>t;
     while (t--)
     {

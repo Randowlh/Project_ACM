@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#pragma GCC optimize(2)
 using namespace std;
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
@@ -41,6 +40,19 @@ void add(int u,int v,int w){
 }
 void work()
 {
+    int n;
+    rd(n);
+    int tmp;
+    vector<int> v;
+    for(int i=0;i<n;i++)
+    rd(tmp),v.push_back(tmp);
+    sort(v.begin(),v.end());
+    for(int i=0;i<v.size()-1;i++)
+    if(abs(v[i]-v[i+1])>1){
+        cout<<"NO"<<endl;
+        return ;
+    }
+    cout<<"YES"<<endl;
 }
 signed main()
 {
@@ -51,6 +63,7 @@ signed main()
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
+    rd(t);
     //cin>>t;
     while (t--)
     {

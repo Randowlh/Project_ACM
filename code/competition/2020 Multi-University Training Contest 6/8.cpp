@@ -39,8 +39,10 @@ void add(int u,int v,int w){
     edge[ecnt].w=w;
     head[u]=ecnt;
 }
+int gcd(int a, int b){ return b ? gcd(b, a % b) : a;}
 void work()
 {
+    cout<<gcd(-2,2)<<endl;
 }
 signed main()
 {

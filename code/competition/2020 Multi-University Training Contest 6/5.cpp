@@ -41,12 +41,18 @@ void add(int u,int v,int w){
 }
 void work()
 {
+    cout<<1<<endl;
+    cout<<100<<" "<<4950<<endl;;
+    for(int i=1;i<=100;i++)
+        for(int j=i+1;j<=100;j++){
+            cout<<i<<' '<<j<<' '<<rand()<<endl;
+        }
 }
 signed main()
 {
 #ifndef ONLINE_JUDGE
-    freopen("in.txt","r",stdin);
-    //freopen("out.txt","w",stdout);
+    //freopen("in.txt","r",stdin);
+    freopen("out.txt","w",stdout);
 #endif
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);

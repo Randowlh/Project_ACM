@@ -1,5 +1,23 @@
-#include <bits/stdc++.h>
-#pragma GCC optimize(2)
+#include <iostream>
+#include <string>
+#include <cstdio>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <functional>
+#include <iomanip>
+#include <queue>
+#include <ciso646>
+#include <random>
+#include <map>
+#include <set>
+#include <bitset>
+#include <stack>
+#include <unordered_map>
+#include <utility>
+#include <cassert>
+#include <complex>
+#include <numeric>
 using namespace std;
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
@@ -14,6 +32,7 @@ template<class T>inline void rd(T &x){
     while(o=getchar(),o>47);
     x*=f;
 }
+const ll mod = (0 ? 1000000007 : 998244353);
 #define y1 code_by_Rand0w
 #define yn A_muban_for_ACM
 #define j1 it_is just_an_eastegg
@@ -22,25 +41,22 @@ const int maxn = 510000;
 #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
-const ll mod = (0 ? 1000000007 : 998244353);
 ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+inline int niyuan(int  a){return powmod(a,mod-2);}
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
-const int maxm= 1;
-struct Edges{
-    int w,to,next;
-}edge[maxm];
-int head[maxm];
-int ecnt=0;
-void add(int u,int v,int w){
-    edge[++ecnt].next=head[u];
-    edge[ecnt].to=v;
-    edge[ecnt].w=w;
-    head[u]=ecnt;
-}
+int n,k;
 void work()
 {
+    rd(n);
+    for(int i=1;i<=(n>>1);i++)
+    printf("0 ");
+    int tt=niyuan(n-(n>>1));
+    for(int i=(n>>1);i<n;i++){
+        printf("%lld ",tt);
+    }
+    printf("\n");
 }
 signed main()
 {
@@ -48,9 +64,10 @@ signed main()
     freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
+    // std::ios::sync_with_stdio(false);
+    // cin.tie(NULL);
     int t = 1;
+    rd(t);
     //cin>>t;
     while (t--)
     {

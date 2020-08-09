@@ -101,6 +101,23 @@ struct chair_man_tree{
         else return getfa(root,t);
     }
 }t;
+void merge(int a,int b){
+    int f1=t.getfa(root[root.size()-1],a);
+            int f2=t.getfa(root[root.size()-1],b);
+            if(f1==f2){
+                root.push_back(root[root.size()-1]);
+                return;
+            }
+            int d1=t.depth[t.query(root[root.size()-1],1,n,f1)];
+            int d2=t.depth[t.query(root[root.size()-1],1,n,f2)];
+            int tmp;
+            if(d1>d2)
+                swap(f1,f2);
+            tmp=t.update(root[root.size()-1],1,n,f1,f2);
+            if(d1==d2)
+                tmp=t.add(tmp,1,n,f2);
+            root.push_back(tmp);
+}
 void work()
 {
     rd(n),rd(m);

@@ -25,6 +25,7 @@ const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 int date[1100000];
+vector<int> root;
 struct chair_man_tree{
     struct node{
         int v;
@@ -71,7 +72,7 @@ struct chair_man_tree{
     }
 } a;
 int n,m;
-vector<int> root;
+
 void work()
 {
     rd(n),rd(m);

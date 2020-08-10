@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include<ext/pb_ds/priority_queue.hpp>
 #pragma GCC optimize(2)
 using namespace std;
 const int inf = 0x7FFFFFFF;

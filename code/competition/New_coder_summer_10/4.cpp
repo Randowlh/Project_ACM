@@ -52,6 +52,8 @@ signed main()
     cin.tie(NULL);
     int t = 1;
     //cin>>t;
+    int mod=0;
+    t=10%mod;
     while (t--)
     {
         work();

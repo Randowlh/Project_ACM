@@ -1,10 +1,26 @@
-#include <bits/stdc++.h>
-#pragma GCC optimize(2)
+#include<bits/stdc++.h>
 using namespace std;
-const int inf = 0x7FFFFFFF;
-typedef long long ll;
+#define int long long
+#define pb push_back
+#define rep(i,a,n) for(register int i=a;i<=n;++i)
+#define per(i,a,n) for(register int i=n;i>=a;--i)
+#define mst(x) memset(x,0,sizeof(x));
+#define yx_queue priority_queue
+#define PI acos(-1)
+typedef vector<int> VI;
+typedef pair<int,int> PII;
 typedef double db;
-typedef long double ld;
+typedef long long ll;
+const ll mod=( 1 ?998244353:1000000007);
+const int N=2;
+const int inf=1<<30;
+const ll llf=9e18;
+ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
+int f[200100];
+int find(int x){ return x==f[x] ? x : f[x] = find(f[x]); }
+int min(int a,int b){if(a>b)return b;else return a;}
+int max(int a,int b){if(a<b)return b;else return a;}
 template<class T>inline void MAX(T &x,T y){if(y>x)x=y;}
 template<class T>inline void MIN(T &x,T y){if(y<x)x=y;}
 template<class T>inline void rd(T &x){
@@ -14,100 +30,34 @@ template<class T>inline void rd(T &x){
     while(o=getchar(),o>47);
     x*=f;
 }
-#define y1 code_by_Rand0w
-#define yn A_muban_for_ACM
-#define j1 it_is just_an_eastegg
-#define lr hope_you_will_be_happy_to_see_this
-const int maxn = 510000;
-#define int long long
-#define rep(i, a, n) for (register int i = a; i <= n; ++i)
-#define per(i, a, n) for (register int i = n; i >= a; --i)
-const ll mod = (0 ? 1000000007 : 998244353);
-ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
-const ll mod2 = 999998639;
-const double eps = 1e-7;
-const ll llinf = 4223372036854775807;
-const int maxm= 1;
-struct Edges{
-    int w,to,next;
-}edge[maxm];
-int head[maxm];
-int ecnt=0;
-void add(int u,int v,int w){
-    edge[++ecnt].next=head[u];
-    edge[ecnt].to=v;
-    edge[ecnt].w=w;
-    head[u]=ecnt;
-}
-inline int gcd(int a,int b){ return b ? gcd(b, a % b) : a; }
-inline int lcm(int a,int b){ return a / gcd(a, b)*b;}
+//while(rp++)
 struct node{
     int zi,mu;
-    node(int a=0,int b=1):zi(a),mu(b){}
-    inline node huajian(node ans){
-        int t=gcd(abs(ans.zi),abs(ans.mu));
-        ans.zi/=t;
-        ans.mu/=t;
-        if(ans.mu<0){
-        ans.mu=-ans.mu,ans.zi=-ans.zi;
-        }
-        return ans;
-    }
-    node operator+(node a){
-        node ans;
-        ans.mu=lcm(mu,a.mu);
-        int tt=gcd(mu,a.mu);
-        ans.zi=zi*(mu/tt);
-        ans.zi+=a.zi*(a.mu/tt);
-        return huajian(ans);
-    }
-    node operator-(node a){
-        node ans;
-        ans.mu=lcm(mu,a.mu);
-        int tt=gcd(mu,a.mu);
-        ans.zi=zi*(mu/tt);
-        ans.zi-=a.zi*(a.mu/tt);
-        return huajian(ans);
-    }
-    node operator/(node a){
-        node ans;
-        ans=*this;
-        ans.zi*=a.mu;
-        ans.mu*=a.zi;
-        return huajian(ans);
-    }
-    node operator*(node a){
-        node ans;
-        ans=*this;
-        ans.zi*=a.zi;
-        ans.mu*=a.mu;
-        return huajian(ans);
-    }
 };
 int biao[][2]={{1,0},{0,1},{-1,0},{0,-1},{1,1},{1,-1},{-1,1},{-1,-1}};
 bool ck(int x,int y){
-    if(gcd(x,y)>1)
-    return true;
-    else return false;
+    return gcd(x,y)!=1;
 }
 int tail=0;
-vector<int> mp[1100000];
-pair<int,int> pnt[1100000];
+vector<int> mp[110000];
+pair<int,int> pnt[110000];
 map<pair<int,int>,int> M; 
 void work()
 {
     M.clear();
     tail=0;
     int x,y;
-    rd(x), rd(y);
+    cin>>x>>y;
     queue<pair<int,int>> q;
     q.push(make_pair(x,y));
     int f=0;
+    pair<int,int> t=q.front();
+    tail++;
+    M.insert(make_pair(t,tail));
+    pnt[tail]=t;
     while(!q.empty()){
         pair<int,int> t=q.front();
         q.pop();
-        M[t]=++tail;
-        pnt[tail]=t;
         if(t.first==t.second){
             f=1;
             break;
@@ -116,24 +66,23 @@ void work()
             if(ck(t.first+biao[i][0],t.second+biao[i][1])){
                 pair<int,int> to=make_pair(t.first+biao[i][0],t.second+biao[i][1]);
                 if(!M.count(to)){         
-                    q.push(to);
-            
-        }
-        }
+                q.push(to);
+                tail++;
+                M.insert(make_pair(to,tail));
+                pnt[tail]=to;
+                }
+            }
         }
     }
-    for(int i=1;i<=tail;i++)
+    for(int i=0;i<=tail+100;i++)
         mp[i].clear();
     if(f){
         printf("0/1\n");
         return;
     }
-    for(int i=1;i<=tail+1;i++){
-        date[1][i]=node(1,1);
-    }
     for(int i=1;i<=tail;i++){
         for(int j=0;j<8;j++){
-            pair<int,int> ta=make_pair(pnt[i].first+biao[j][0],pnt[i].second+biao[j][1]);=
+            pair<int,int> ta=make_pair(pnt[i].first+biao[j][0],pnt[i].second+biao[j][1]);
             if(M.count(ta)){
                 mp[i].push_back(M[ta]);
             }
@@ -142,13 +91,14 @@ void work()
     }
     node ans;
     ans.mu=0;
-    ans.zi=mp[1].size();
+    int tta=M[make_pair(x,y)];
+    ans.zi=mp[tta].size();
     for(int i=1;i<=tail;i++){
         ans.mu+=mp[i].size();
     }
     int tt=gcd(ans.zi,ans.mu);
     //int tt=1;
-    printf("%lld/%lld\n",ans.zi/tt,ans.mu/tt);
+   cout<<ans.zi<<'/'<<ans.mu<<endl;
 }
 signed main()
 {

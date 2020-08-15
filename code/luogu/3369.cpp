@@ -17,7 +17,7 @@ struct node
 class tzy_tree
 {
     public:
-    int alpha=0.75;
+    double alpha=0.75;
     node tzy[1100000];
     int root=0,cnt=0;
     vector<int> tt;

@@ -160,7 +160,7 @@ signed main()
             last=tree.pre(b);
             ans^=last;
         }else if(a==6){
-            last=tree.pre(b);
+            last=tree.aft(b);
             ans^=last;
         }
     }

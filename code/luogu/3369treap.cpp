@@ -96,37 +96,21 @@ struct fhq_treap
         root = merge(x, y);
         return ans;
     }
-    // inline int getnum(int rank)
-    // {
-    //     int now = root;
-    //     while (now)
-    //     {
-    //         if (fhq[fhq[now].l].size + 1 == rank)
-    //             break;
-    //         else if (fhq[fhq[now].l].size >= rank)
-    //             now = fhq[now].l;
-    //         else{
-    //             rank -= fhq[fhq[now].l].size + 1;
-    //             now = fhq[now].r;
-    //         }
-    //     }
-    //     return fhq[now].val;
-    // }
     inline int getnum(int rank)
     {
-    int now=root;
-    while(now)
-    {
-        if(fhq[fhq[now].l].size+1==rank)
-            break;
-        else if(fhq[fhq[now].l].size>=rank)
-            now=fhq[now].l;
-        else 
+        int now=root;
+        while(now)
         {
-            rank-=fhq[fhq[now].l].size+1;
-            now=fhq[now].r;
+            if(fhq[fhq[now].l].size+1==rank)
+                break;
+            else if(fhq[fhq[now].l].size>=rank)
+                now=fhq[now].l;
+            else
+            {
+                rank-=fhq[fhq[now].l].size+1;
+                now=fhq[now].r;
+            }  
         }
-    }
         return fhq[now].val;
     }
     inline int pre(int val)

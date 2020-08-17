@@ -1,5 +1,3 @@
-mt19937 rnd(114514);
-const int maxn = 110000;
 struct fhq_treap
 {
     struct node
@@ -81,16 +79,18 @@ struct fhq_treap
     }
     inline int getnum(int rank)
     {
-        int now = root;
-        while (now)
+        int now=root;
+        while(now)
         {
-            if (fhq[fhq[now].l].size + 1 == rank)
+            if(fhq[fhq[now].l].size+1==rank)
                 break;
-            else if (fhq[fhq[now].l].size >= rank)
-                now = fhq[now].l;
+            else if(fhq[fhq[now].l].size>=rank)
+                now=fhq[now].l;
             else
-                now = fhq[now].r;
-                rank -= fhq[fhq[now].l].size + 1;
+            {
+                rank-=fhq[fhq[now].l].size+1;
+                now=fhq[now].r;
+            }  
         }
         return fhq[now].val;
     }

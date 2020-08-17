@@ -91,17 +91,18 @@ struct fhq_treap
     }
     inline int getnum(int rank)
     {
-        int now = root;
-        while (now)
+        int now=root;
+        while(now)
         {
-            if (fhq[fhq[now].l].size + 1 == rank)
+            if(fhq[fhq[now].l].size+1==rank)
                 break;
-            else if (fhq[fhq[now].l].size >= rank)
-                now = fhq[now].l;
-            else{
-                now = fhq[now].r;
-                rank -= fhq[fhq[now].l].size + 1;
-            }
+            else if(fhq[fhq[now].l].size>=rank)
+                now=fhq[now].l;
+            else
+            {
+                rank-=fhq[fhq[now].l].size+1;
+                now=fhq[now].r;
+            }  
         }
         return fhq[now].val;
     }

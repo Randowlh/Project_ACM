@@ -1,15 +1,5 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define int long long
-template<class T>inline void rd(T &x){
-    x=0;char o,f=1;
-    while(o=getchar(),o<48)if(o==45)f=-f;
-    do x=(x<<3)+(x<<1)+(o^48);
-    while(o=getchar(),o>47);
-    x*=f;
-}
 mt19937 rnd(114514);
-const int maxn = 1100000;
+const int maxn = 110000;
 struct fhq_treap
 {
     struct node
@@ -98,10 +88,9 @@ struct fhq_treap
                 break;
             else if (fhq[fhq[now].l].size >= rank)
                 now = fhq[now].l;
-            else{
+            else
                 now = fhq[now].r;
                 rank -= fhq[fhq[now].l].size + 1;
-            }
         }
         return fhq[now].val;
     }
@@ -128,40 +117,3 @@ struct fhq_treap
         return ans;
     }
 } tree;
-signed main()
-{
-    //freopen("in.txt", "r", stdin);
-    int t;
-    int n;
-    rd(n);
-    int a, b;
-    rd(t);
-    for(int i=0;i<n;i++){
-        rd(a);
-        tree.insert(a);
-    }
-    int last=0;
-    int ans=0;
-    for(int q=0;q<t;q++){
-        rd(a),rd(b);
-        b^=last;
-        if(a==1){
-            tree.insert(b);
-        }else if(a==2){
-            tree.del(b);
-        }else if(a==3){
-            last=tree.getrk(b);
-            ans^=last;
-        }else if(a==4){
-            last=tree.getnum(b);
-            ans^=last;
-        }else if(a==5){
-            last=tree.pre(b);
-            ans^=last;
-        }else if(a==6){
-            last=tree.pre(b);
-            ans^=last;
-        }
-    }
-    printf("%lld\n",ans);
-}

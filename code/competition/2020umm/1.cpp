@@ -32,6 +32,7 @@ struct Edges{
 }edge[maxm];
 int head[maxm];
 int ecnt=0;
+int date[9][9];
 void add(int u,int v,int w){
     edge[++ecnt].next=head[u];
     edge[ecnt].to=v;
@@ -40,6 +41,23 @@ void add(int u,int v,int w){
 }
 void work()
 {
+    int tt=0;
+    for(int i=1;i<=3;i++)
+        for(int j=1;j<=3;j++)
+            rd(date[i][j]),tt|=date[i][j];
+    int aa=0;
+    for(int i=1;i<=9;i++)
+        for(int j=1;j<=9;j++){
+            int ans=tt;
+            for(int k=1;k<=3;k++)
+                for(int l=1;l<=3;l++)
+                    if((k-1)*3+l!=j&&(k-1)*3+l!=i){
+                        ans^=date[k][l];
+                    }
+            ans^=j;
+            if(!ans) aa++;   
+        }
+    cout<<aa<<endl;
 }
 signed main()
 {
@@ -47,9 +65,10 @@ signed main()
     freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
+    //std::ios::sync_with_stdio(false);
+    //cin.tie(NULL);
     int t = 1;
+    rd(t);
     //cin>>t;
     while (t--)
     {

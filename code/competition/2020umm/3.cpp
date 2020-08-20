@@ -38,8 +38,46 @@ void add(int u,int v,int w){
     edge[ecnt].w=w;
     head[u]=ecnt;
 }
+int ans=0;
+int flag[11000];
+int bt[11000];
+int n;
+void dfs(int now,int pre){
+    if(now==n){
+        ans++;
+        return ;
+    }
+    if(bt[now]==0){
+        for(int i=pre+1;i<=n;i++){
+            if(!flag[i]){
+                flag[i]=1;
+                dfs(now+1,i);
+                flag[i]=0;
+            }
+        }
+    }else{
+        for(int i=pre-1;i>=1;i--){
+            if(!flag[i]){
+                flag[i]=1;
+                dfs(now+1,i);
+                flag[i]=0;
+            }
+        }
+    }
+}
 void work()
 {
+    ans=0;
+    //int n;
+    rd(n);
+    for(int i=1;i<=n-1;i++)
+        rd(bt[i]);
+    for(int i=1;i<=n;i++){
+        flag[i]=1;
+        dfs(1,i);
+        flag[i]=0;
+    }
+    printf("%d\n",ans);
 }
 signed main()
 {
@@ -47,9 +85,8 @@ signed main()
     freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
     int t = 1;
+    rd(t);
     //cin>>t;
     while (t--)
     {

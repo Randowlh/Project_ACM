@@ -21,7 +21,7 @@ const int maxn = 510000;
 #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
-const ll mod = (0 ? 1000000007 : 998244353);
+const ll mod = (1 ? 1000000007 : 998244353);
 ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
 const ll mod2 = 999998639;
 const double eps = 1e-7;
@@ -32,6 +32,8 @@ struct Edges{
 }edge[maxm];
 int head[maxm];
 int ecnt=0;
+int dp[5100];
+int dt[5100];
 void add(int u,int v,int w){
     edge[++ecnt].next=head[u];
     edge[ecnt].to=v;
@@ -40,6 +42,24 @@ void add(int u,int v,int w){
 }
 void work()
 {
+    memset(dp,0,sizeof(dp));
+    int n;
+    rd(n);
+    for(int i=1;i<=n-1;i++){
+        rd(dt[i]);
+    }
+    for(int i=n;i>=1;i--){
+        dp[i]=dp[i+1]+(n-i)*(i-1)%mod;
+        dp[i]%=mod;
+    }
+    int ans=0;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=i-1;j++){
+            ans+=dp[j+1];
+            ans%=mod;
+        }
+    }
+    cout<<ans<<endl;
 }
 signed main()
 {
@@ -47,9 +67,8 @@ signed main()
     freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
     int t = 1;
+    rd(t);
     //cin>>t;
     while (t--)
     {

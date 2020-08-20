@@ -6,61 +6,14 @@
 using namespace std;
 template<class T>inline void MAX(T &x,T y){if(y>x)x=y;}
 template<class T>inline void MIN(T &x,T y){if(y<x)x=y;}
+template<class T>inline void rd(T &x){
+    x=0;char o,f=1;
+    while(o=getchar(),o<48)if(o==45)f=-f;
+    do x=(x<<3)+(x<<1)+(o^48);
+    while(o=getchar(),o>47);
+    x*=f;
+}
 #define int long long
-namespace FastIO
-{
-char buf[1 << 21], buf2[1 << 21], a[20], *p1 = buf, *p2 = buf, hh = '\n';
-int p, p3 = -1;
-void read() {}
-void print() {}
-inline int getc()
-{
-    return p1 == p2 && (p2 = (p1 = buf) + fread(buf, 1, 1 << 21, stdin), p1 == p2) ? EOF : *p1++;
-}
-inline void flush()
-{
-    fwrite(buf2, 1, p3 + 1, stdout), p3 = -1;
-}
-template <typename T, typename... T2>
-inline void read(T &x, T2 &... oth)
-{
-    int f = 0;
-    x = 0;
-    char ch = getc();
-    while (!isdigit(ch))
-    {
-        if (ch == '-')
-            f = 1;
-        ch = getc();
-    }
-    while (isdigit(ch)) 
-    {
-        x = x * 10 + ch - 48;
-        ch = getc();
-    }
-    x = f ? -x : x;
-    read(oth...);
-}
-template <typename T, typename... T2>
-inline void print(T x, T2... oth)
-{    if (p3 > 1 << 20)
-        flush();
-    if (x < 0)
-        buf2[++p3] = 45, x = -x;
-    do
-    {
-        a[++p] = x % 10 + 48;
-    } while (x /= 10);
-    do
-    {
-        buf2[++p3] = a[p];
-    } while (--p);
-    buf2[++p3] = hh;
-    print(oth...);
-}
-} // namespace FastIO
-#define rd FastIO::read
-#define wt FastIO::print
 #define ll long long
 const int maxn = 2e5 + 100;
 mt19937 rnd(114514);
@@ -215,7 +168,7 @@ public:
     inline void zx(int pos){
         if(T[pos].l)
             zx(T[pos].l);
-        wt(T[pos].val);
+        printf("%lld ",T[pos].val);
         if(T[pos].r)
             zx(T[pos].r);
     }
@@ -224,7 +177,7 @@ void work()
 {
     fhq.clear();
     int n,q;
-    rd(n,q);
+    rd(n),rd(q);
     int tmp;
     register int i;
     for(i=1;i<=n;++i){
@@ -235,17 +188,17 @@ void work()
     for(i=0;i<q;++i){
         rd(opt);
         if(opt==1){
-            rd(x,y);
+            rd(x),rd(y);
             if(fhq.getnum(x)<y){
-                wt(0);
+                printf("0\n");
                 continue;
             }
             int lft=fhq.find(1,x,y);
             if(lft==1){
-                wt(0);
+                printf("0\n");
                 continue;
             }   
-            wt(fhq.gettol(lft+1,x)-(y-1)*(x-lft));
+            printf("%lld\n",fhq.gettol(lft+1,x)-(y-1)*(x-lft));
             int lv=fhq.getnum(lft);
             lv+=fhq.getnum(lft+1)-y+1;
             fhq.reverse(lft,x);
@@ -255,12 +208,10 @@ void work()
         }else
         {
             rd(y);
-            wt(fhq.getnum(y));
+            printf("%lld\n",fhq.getnum(y));
         }
     }
-    FastIO::hh=' ';
     fhq.zx(fhq.root);
-    FastIO::flush();
     printf("\n");
 }
 signed main()
@@ -271,7 +222,6 @@ signed main()
 #endif
     int t = 1;
     rd(t);
-    t=1;
     //cin>>t;
     while (t--)
     {

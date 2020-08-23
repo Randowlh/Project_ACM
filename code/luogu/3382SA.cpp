@@ -19,8 +19,8 @@ template<class T>inline void rd(T &x){
 #define lr hope_you_will_be_happy_to_see_this
 const int maxn = 510000;
 #define int long long
-const double delta=0.993;
-const int stemp=50;
+const double delta=0.993;//退火常数，越接近1越优
+const int stemp=50;//初始温度
 #define MAX_TIME 940 
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
@@ -33,7 +33,7 @@ double l,r;
 double mx=-999999999;
 double ans=0;
 double date[10100];
-double calc(double a){
+double calc(double a){//函数计算函数
     double ans=0,now=1;
     for(int i=0;i<=n;i++)
         ans+=date[i]*now,now*=a;
@@ -50,7 +50,7 @@ void SA(){
         }
         double new_ans=calc(tnow);
         double de=new_ans-mx;
-        if(de>0){
+        if(de>0){//如果当前的解更优，如果求最小值应该写de<0
             now=tnow;
             ans=tnow;
             mx=new_ans;
@@ -73,7 +73,7 @@ void work()
         cin>>date[i];
     }
     reverse(date,date+n+1);
-    repeat(0.093);
+    repeat(0.093);//卡时限用执行 0.093ms
     printf("%.5f\n",ans);
 }
 signed main()

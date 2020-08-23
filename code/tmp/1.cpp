@@ -1,73 +1,91 @@
 #include <bits/stdc++.h>
-#define ll long long
-#define int ll
-const ll tt = 1e9 + 7;
-int _, n, a[25];
-ll p[25];
-struct record
-{
-    ll cnt, sum1, sum2;
-    void init() { cnt = -1, sum1 = 0, sum2 = 0; }
-} f[25][10][10];
-record dfs(int x, int y, int z, int limit)
-{
-    int i, r;
-    ll w;
-    record k, res;
-    if (!x)
-        return (record){y && z, 0, 0};
-    if (f[x][y][z].cnt >= 0 && !limit)
-        return f[x][y][z];
-    r = limit ? a[x] : 9;
-    res.cnt = res.sum1 = res.sum2 = 0;
-    for (i = 0; i <= r; i++)
-        if (i ^ 7)
-        {
-            k = dfs(x - 1, (y + i) % 7, (10 * z + i) % 7, limit && i == r);
-            if (!k.cnt)
-                continue;
-            res.cnt += k.cnt;
-            res.cnt %= tt;
-            //(res.cnt += k.cnt) %= tt;
-            w = i * p[x - 1] % tt;
-            if (x == 2)
-                printf("%d %d %d %d %d %d\n", x, y, z, i, k.cnt, w);
-            res.sum1 += k.cnt * w % tt + k.sum1 % tt;
-            res.sum1 %= tt;
-            res.sum2 += k.cnt * w % tt * w % tt + k.sum1 * 2 % tt * w % tt + k.sum2;
-            res.sum2 %= tt;
-        }
-    printf("%d %d %d %lld\n", x, y, z, res.sum2);
-    if (!limit)
-        f[x][y][z] = res;
-    return res;
+using namespace std;
+const int inf = 0x7FFFFFFF;
+typedef long long ll;
+typedef double db;
+typedef long double ld;
+template<class T>inline void MAX(T &x,T y){if(y>x)x=y;}
+template<class T>inline void MIN(T &x,T y){if(y<x)x=y;}
+template<class T>inline void rd(T &x){
+    x=0;char o,f=1;
+    while(o=getchar(),o<48)if(o==45)f=-f;
+    do x=(x<<3)+(x<<1)+(o^48);
+    while(o=getchar(),o>47);
+    x*=f;
 }
-ll solve(ll x)
-{
-    n = a[0] = 0;
-    while (x)
-    {
-        a[++n] = x % 10;
-        x /= 10;
+#define y1 code_by_Rand0w
+#define yn A_muban_for_ACM
+#define j1 it_is just_an_eastegg
+#define lr hope_you_will_be_happy_to_see_this
+const int maxn = 510000;
+#define int long long
+const double delta=0.997;//退火常数，越接近1越优
+const int stemp=1928;//初始温度
+#define MAX_TIME 940 
+#define rep(i, a, n) for (register int i = a; i <= n; ++i)
+#define per(i, a, n) for (register int i = n; i >= a; --i)
+const ll mod = (0 ? 1000000007 : 998244353);
+const ll mod2 = 999998639;
+const double eps = 1e-7;
+const ll llinf = 4223372036854775807;
+mt19937 rnd(114514);
+double l,r;
+double mx=llinf;
+double ans=0;
+double y;
+double calc(double x){//函数计算函数
+    return 7*x*x*x*x*x*x*x+6*x*x*x*x*x*x+2*x*x*x+8*x*x-y*x;
+}
+void SA(){
+    double now=ans;
+    double temp=stemp;
+    while(temp>1e-14){
+        double tnow=now+((rnd()<<1)-RAND_MAX)*temp;
+        if(tnow<l||tnow>r){
+            temp*=delta;
+            continue;
+        }
+        double new_ans=calc(tnow);
+        double de=new_ans-mx;
+        if(de<0){//如果当前的解更优，如果求最小值应该写de<0
+            now=tnow;
+            ans=tnow;
+            mx=new_ans;
+        }else if(exp(-de/temp)*RAND_MAX>rnd()){
+            now=tnow;
+        }
+        temp*=delta;
     }
-    return dfs(n, 0, 0, 1).sum2;
+}
+void repeat(double t){
+    while((double)clock()/CLOCKS_PER_SEC<t){
+        SA();
+    }
+}
+void work()
+{
+    cin>>y;
+    l=0;
+    r=100;
+    mx=llinf;
+    ans=9;
+    repeat(0.093);//卡时限用执行 0.093ms
+    cout<<mx<<endl;
 }
 signed main()
 {
-    freopen("in.txt", "r", stdin);
-    int i, j, k;
-    ll x, y;
-    p[0] = 1;
-    for (i = 1; i <= 20; i++)
-        p[i] = p[i - 1] * 10 % tt;
-    for (i = 0; i <= 20; i++)
-        for (j = 0; j < 10; j++)
-            for (k = 0; k < 10; k++)
-                f[i][j][k].init();
-    for (scanf("%d", &_); _; _--)
+#ifndef ONLINE_JUDGE
+    freopen("in.txt","r",stdin);
+    //freopen("out.txt","w",stdout);
+#endif
+    //std::ios::sync_with_stdio(false);
+    //cin.tie(NULL);
+    int t = 1;
+    cin>>t;
+    //cin>>t;
+    while (t--)
     {
-        scanf("%lld%lld", &x, &y);
-        printf("%lld\n", (solve(y) - solve(x - 1) + tt) % tt);
+        work();
     }
     return 0;
 }

@@ -19,8 +19,8 @@ template<class T>inline void rd(T &x){
 #define lr hope_you_will_be_happy_to_see_this
 const int maxn = 510000;
 #define int long long
-const double delta=0.997;//退火常数，越接近1越优
-const int stemp=1928;//初始温度
+const double delta=0.993;//退火常数，越接近1越优
+const int stemp=50;//初始温度
 #define MAX_TIME 940 
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
@@ -28,11 +28,12 @@ const ll mod = (0 ? 1000000007 : 998244353);
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
-mt19937 rnd(114514);
-double l,r;
-double mx=llinf;
-double ans=0;
+int n;
 double y;
+double l,r;
+double mx=-999999999;
+double ans=0;
+double date[10100];
 double calc(double x){//函数计算函数
     return 7*x*x*x*x*x*x*x+6*x*x*x*x*x*x+2*x*x*x+8*x*x-y*x;
 }
@@ -40,7 +41,7 @@ void SA(){
     double now=ans;
     double temp=stemp;
     while(temp>1e-14){
-        double tnow=now+((rnd()<<1)-RAND_MAX)*temp;
+        double tnow=now+((rand()<<1)-RAND_MAX)*temp;
         if(tnow<l||tnow>r){
             temp*=delta;
             continue;
@@ -51,26 +52,24 @@ void SA(){
             now=tnow;
             ans=tnow;
             mx=new_ans;
-        }else if(exp(-de/temp)*RAND_MAX>rnd()){
+        }else if(exp(-de/temp)*RAND_MAX>rand()){
             now=tnow;
         }
         temp*=delta;
     }
 }
 void repeat(double t){
-    while((double)clock()/CLOCKS_PER_SEC<t){
         SA();
-    }
 }
 void work()
 {
     cin>>y;
     l=0;
     r=100;
-    mx=llinf;
     ans=9;
+    mx=llinf;
     repeat(0.093);//卡时限用执行 0.093ms
-    cout<<mx<<endl;
+    printf("%.4f\n",mx);
 }
 signed main()
 {
@@ -82,7 +81,6 @@ signed main()
     //cin.tie(NULL);
     int t = 1;
     cin>>t;
-    //cin>>t;
     while (t--)
     {
         work();

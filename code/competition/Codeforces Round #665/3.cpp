@@ -27,8 +27,41 @@ const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
+struct Edges{
+    int w,to,next;
+}edge[maxm];
+int head[maxm];
+int ecnt=0;
+void add(int u,int v,int w){
+    edge[++ecnt].next=head[u];
+    edge[ecnt].to=v;
+    edge[ecnt].w=w;
+    head[u]=ecnt;
+}
 void work()
 {
+    int n;
+    cin>>n;
+    int tmp;
+    vector<int> v,s;
+    for(int i=0;i<n;i++){
+        cin>>tmp;
+        v.push_back(tmp);
+    }
+    s=v;
+    int flag=1;
+    sort(v.begin(), v.end());
+    for(int i=0;i<n;i++){
+        if(s[i]==v[i])
+            continue;
+        if(s[i]%v[0]==0&&v[i]%v[0]==0)
+            continue;
+        flag=0;
+        break;
+    }
+    if(flag)
+        cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
 }
 signed main()
 {
@@ -39,6 +72,7 @@ signed main()
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
+    cin>>t;
     //cin>>t;
     while (t--)
     {

@@ -27,28 +27,59 @@ const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
+struct eg{
+    int to,w,next;
+}egs[1100];
+int ecnt=0;
+int head[1100];
+int tree[1100];
+int date[1100];
+int n;
+int cnt = 0;
+inline int lowbit(int x)
+{
+    return x & -x;
+}
+inline int update(int x, int v)
+{
+    int t=x;
+    int tt=date[x];
+    while(t<=n){
+        tree[x]^=tt;
+        t+=lowbit(t);
+    }
+    date[x]=v;
+    while (x <= n)
+    {
+        tree[x] ^= v;
+        x += lowbit(x);
+    }
+}
+inline int query(int x)
+{
+    ll ans = 0;
+    while (x > 0)
+    {
+        ans ^= tree[x];
+        x -= lowbit(x);
+    }
+    return ans;
+}
+inline int get_range(int l, int r)
+{
+    return query(r) ^ query(l - 1);
+}
+struct node
+{
+    int depth, top, sz, fa, hson;
+    node(int a = 0, int b = 0, int c = 0, int d = 0, int e = 0) : depth(a), top(b), sz(c), fa(d), hson(e) {}
+    inline void init() { depth = 0, top = 0, sz = 0, fa = 0, hson = 0; }
+} tree[maxn];
+
+int n,q;
 void work()
 {
-    stack<int> s;
-    int n;
-    cin>>n;
-    int tmp;
-    vector<int> v;
-    for(int i=0; i < n; i++){
-        cin>>tmp;
-        v.push_back(tmp);
-    }
-    int ans=0;
-    s.push(0);
-    for(int i=0;i<n;i++){
-        while(s.top()>v[i])
-            s.pop();
-        if(s.top()<v[i]){
-            s.push(v[i]);
-            ans++;
-        }
-    }
-    cout<<ans<<endl;
+    rd(n),rd(q);
 }
 signed main()
 {
@@ -59,6 +90,7 @@ signed main()
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
+    rd(t);
     //cin>>t;
     while (t--)
     {

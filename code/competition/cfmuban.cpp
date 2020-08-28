@@ -13,6 +13,12 @@ template<class T>inline void rd(T &x){
     while(o=getchar(),o>47);
     x*=f;
 }
+template<class T>
+void wt(T x){
+    if(x < 0) putchar('-'), x = -x;
+    if(x >= 10) write(x / 10);
+    putchar('0' + x % 10);
+}
 #define y1 code_by_Rand0w
 #define yn A_muban_for_ACM
 #define j1 it_is just_an_eastegg

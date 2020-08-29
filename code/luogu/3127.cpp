@@ -23,7 +23,7 @@ void wt(T x){
 #define yn A_muban_for_ACM
 #define j1 it_is just_an_eastegg
 #define lr hope_you_will_be_happy_to_see_this
-
+const int maxn = 510000;
 #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
@@ -33,9 +33,58 @@ const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
-const int maxn = 510000;
+bool iscap[110000];
+int len[110000];
+pair<int,int> wall[110000];
+int n;
+inline void ck(int x){
+    int flag=1;
+    int now=len[x];
+    int l=x-1;
+    int r=x;
+    int f=0;
+    while(flag){
+        flag=0;
+        while(now>wall[r].second){
+            r++;
+            if(iscap[r]){
+                f=1;
+                break;
+            }
+            flag=1;
+            now+=len[r];
+        }
+        while(!f&&now>wall[l].second){
+            l--;
+            flag=1;
+            if(iscap[l+1]){
+                f=1;
+                break;
+            }
+            now+=len[l+1];
+        }
+        if(f)
+        break;
+    }
+    iscap[x]=f;
+}
 void work()
 {
+    rd(n);
+    iscap[0]=iscap[n]=1;
+    for(int i=0;i<n;i++)
+        rd(wall[i].second),rd(wall[i].first);
+    sort(wall,wall+n);
+    for(int i=1;i<n;i++)
+        len[i]=wall[i].first-wall[i-1].first;
+    for(int i=n-1;i>=1;i--)
+            ck(i);
+    int ans=0;
+    for(int i=n-1;i>=1;i--)
+        if(!iscap[i])
+            ans+=len[i];
+    wt(ans);
+    putchar('\n');
 }
 signed main()
 {
@@ -43,8 +92,6 @@ signed main()
     freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
     int t = 1;
     //cin>>t;
     while (t--)

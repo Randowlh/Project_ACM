@@ -23,19 +23,44 @@ void wt(T x){
 #define yn A_muban_for_ACM
 #define j1 it_is just_an_eastegg
 #define lr hope_you_will_be_happy_to_see_this
-
 #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
-const ll mod = (0 ? 1000000007 : 998244353);
+const ll mod = (1 ? 1000000007 : 998244353);
 ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
 const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
-const int maxn = 510000;
+const int maxn = 505;
+int dp[2][maxn][maxn];
+char mp[maxn][maxn];
+int n;
 void work()
-{
+{   
+    cin>>n;
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=n;j++)
+            cin>>mp[i][j];
+    dp[0][1][n]=1;
+    for(int i=1;i<=n-1;i++){
+        for(int j=1;j<=i+1;j++)
+            for(int k=n;k>=n-i;k--){
+                if(mp[j][i-j+2]==mp[k][n-(i-(n-k))]){
+                    dp[1][j][k]=(dp[0][j][k]+dp[0][j-1][k]+dp[0][j][k+1]+dp[0][j-1][k+1])%mod;
+                }else dp[1][j][k]=0;
+            }
+        for(int j=1;j<=i+1;j++)
+            for(int k=n;k>=n-i;k--){
+                    dp[0][j][k]=dp[1][j][k];
+            }
+    }
+    int ans=0;
+    for(int i=1;i<=n;i++){
+        ans+=dp[1][i][i]; 
+        ans%=mod;
+    }  
+    cout<<ans<<endl;
 }
 signed main()
 {

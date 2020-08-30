@@ -1,8 +1,14 @@
+double ans=0;
+double stemp=1997;
+double delta=0.997;
+mt19937 rnd(233);
+double calc(double x){
+}
 void SA(){
     double now=ans;
     double temp=stemp;
     while(temp>1e-14){
-        double tnow=now+((rand()<<1)-RAND_MAX)*temp;
+        double tnow=now+((rnd()<<1)-RAND_MAX)*temp;
         if(tnow<l||tnow>r){
             temp*=delta;
             continue;
@@ -13,7 +19,7 @@ void SA(){
             now=tnow;
             ans=tnow;
             mx=new_ans;
-        }else if(exp(-de/temp)*RAND_MAX>rand()){
+        }else if(exp(-de/temp)*RAND_MAX>rnd()){
             now=tnow;
         }
         temp*=delta;

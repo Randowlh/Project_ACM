@@ -1,0 +1,13 @@
+{
+	"cpp":{
+		"prefix":"fwrite",
+		"body":[
+			"void wt(T x){",
+    		"   if(x < 0) putchar('-'), x = -x;",
+       		"   if(x >= 10) wt(x / 10);",
+    		"   putchar('0' + x % 10);",
+			"}"
+		],
+		"description": "快写"
+	},
+}

@@ -1,0 +1,15 @@
+{
+	"cpp":{
+		"prefix":"fread",
+		"body": [
+			"template<class T>inline void rd(T &x){",
+    		"   x=0;char o,f=1;",
+    		"   while(o=getchar(),o<48)if(o==45)f=-f;",
+    		"   do x=(x<<3)+(x<<1)+(o^48);",
+    		"   while(o=getchar(),o>47);",
+			"   x*=f;",
+			"}"
+		],
+		"description": "快读"
+	},
+}

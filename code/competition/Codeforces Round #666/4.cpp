@@ -34,6 +34,33 @@ const int maxm= 1;
 const int maxn = 510000;
 void work()
 {
+   int n;
+   cin>>n;
+   int tmp;
+   vector<int> v;
+   for(int i=0; i<n;i++){
+      cin>>tmp;
+      v.push_back(tmp);
+   }
+   if(n==1){
+      cout<<"T"<<endl;
+      return ;
+   }
+   int f=0;
+   for(int i=0;i<v.size();i++){
+            int now=0;
+            for(int k=0;k<v.size();k++){
+               if(k^i)
+                  now^=v[k];
+            }
+            if(!now){
+               f=1;
+            break;
+            }
+   }
+   if(f)
+      cout<<"T"<<endl;
+   else cout<<"HL"<<endl;
 }
 signed main()
 {
@@ -44,6 +71,7 @@ signed main()
 std::ios::sync_with_stdio(false);
 cin.tie(NULL);
 int t = 1;
+cin>>t;
 //cin>>t;
 while (t--)
 {

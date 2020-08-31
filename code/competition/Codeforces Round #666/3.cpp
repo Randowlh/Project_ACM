@@ -34,6 +34,37 @@ const int maxm= 1;
 const int maxn = 510000;
 void work()
 {
+   int n;
+   cin>>n;
+   int tmp;
+   vector<int> v;
+   for(int i=0; i<n;i++){
+      cin>>tmp;
+      v.push_back(tmp);
+   }
+   if(n==1){
+      cout<<1<<' '<<1<<endl;
+      cout<<-v[0]<<endl;
+      cout<<1<<' '<<1<<endl;
+      cout<<0<<endl;
+      cout<<1<<' '<<1<<endl;
+      cout<<0<<endl;
+      return;
+   }
+   int t=v[0];
+   cout<<2<<' '<<n<<endl;
+   for(int i=1;i<v.size();i++){
+      cout<<v[i]*(n-1)<<' ';
+   }
+   cout<<endl;
+   cout<<1<<' '<<n<<endl;
+   t-=v[0]*n;
+   for(int i=0;i<v.size();i++){
+      cout<<-v[i]*(n)<<' ';
+   }
+   cout<<endl;
+   cout<<1<<' '<<1<<endl;
+   cout<<-t<<endl;
 }
 signed main()
 {

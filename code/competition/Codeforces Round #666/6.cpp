@@ -34,6 +34,7 @@ const int maxm= 1;
 const int maxn = 510000;
 void work()
 {
+    
 }
 signed main()
 {

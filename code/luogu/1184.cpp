@@ -34,6 +34,31 @@ const int maxm= 1;
 const int maxn = 510000;
 void work()
 {
+    string tmp;
+    int n,m;
+    cin>>n>>m;
+    set<string> a;
+    int ans=0;
+    if(n==1&&m==1){
+        cout<<1<<endl;
+        return;
+    }
+    getline(cin, tmp);
+    for(int i=0;i<n;i++){
+        getline(cin,tmp);
+        // if(tmp[tmp.size()-1]!=' ')
+        //     tmp.push_back(' ');
+        a.insert(tmp);
+    }
+    for(int i=0;i<m;i++){
+        getline(cin,tmp);
+        // if(tmp[tmp.size()-1]!=' ')
+        //     tmp.push_back(' ');
+        if(a.find(tmp)!=a.end()){
+            ans++;
+        }
+    }
+    cout<<ans<<endl;
 }
 signed main()
 {
@@ -41,8 +66,6 @@ signed main()
    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
-std::ios::sync_with_stdio(false);
-cin.tie(NULL);
 int t = 1;
 //cin>>t;
 while (t--)

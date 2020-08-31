@@ -32,8 +32,25 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
+int cnt[300];
 void work()
 {
+    memset(cnt, 0, sizeof(cnt));
+    int n;
+    cin>>n;
+    string tmp;
+    for(int i=0; i<n;i++){
+        cin>>tmp;
+        for(int j=0; j<tmp.length();j++)
+            cnt[tmp[]]++;
+    }
+    for(int i=1;i<=280;i++){
+        if(cnt[i]%n!=0) {  
+        cout<<"NO"<<endl;
+        return ;
+        }
+    }
+    cout<<"YES"<<endl;
 }
 signed main()
 {
@@ -44,6 +61,7 @@ signed main()
 std::ios::sync_with_stdio(false);
 cin.tie(NULL);
 int t = 1;
+cin>>t;
 //cin>>t;
 while (t--)
 {

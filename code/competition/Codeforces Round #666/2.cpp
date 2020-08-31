@@ -34,6 +34,33 @@ const int maxm= 1;
 const int maxn = 510000;
 void work()
 {
+    int n;
+    cin>>n;
+    vector<int> v;
+    int tmp;
+    for(int i=0; i<n;i++){
+       cin>>tmp;
+       v.push_back(tmp);
+    }
+    sort(v.begin(), v.end());
+    int ans=llinf;
+    for(int i=1;i<=v[v.size()-1];i++){
+         int now=1;
+         int tcnt=0;
+         int f=0;
+         for(int j = 0; j <v.size();j++){
+            tcnt+=abs(now-v[j]);
+            now*=i;
+            if(now>llinf||tcnt>=ans){
+               f=1;
+               break;
+            }
+         }
+         if(!f)
+            ans=min(tcnt,ans);
+         else break;
+    }
+    cout<<ans<<endl;
 }
 signed main()
 {

@@ -38,29 +38,22 @@ void work()
    cin>>n;
    int tmp;
    vector<int> v;
+   int tol=0;
    for(int i=0; i<n;i++){
       cin>>tmp;
+      tol+=tmp;
       v.push_back(tmp);
    }
-   if(n==1){
+   sort(v.begin(), v.end());
+   tol-=v[v.size()-1];
+   if(tol<v[v.size()-1]){
       cout<<"T"<<endl;
-      return ;
+      return;
    }
-   int f=0;
-   for(int i=0;i<v.size();i++){
-            int now=0;
-            for(int k=0;k<v.size();k++){
-               if(k^i)
-                  now^=v[k];
-            }
-            if(!now){
-               f=1;
-            break;
-            }
-   }
-   if(f)
-      cout<<"T"<<endl;
-   else cout<<"HL"<<endl;
+   tol+=v[v.size()-1];
+   if(tol%2==0){
+      cout<<"HL"<<endl;
+   }else cout<<"T"<<endl;
 }
 signed main()
 {

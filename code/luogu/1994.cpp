@@ -32,31 +32,54 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
-int n,r1,r2,r3,d;
-int date[1100000];
-int a[1100000],b[1100000];
-int dp[1100000];
 void work()
-{ 
-   rd(n),rd(r1),rd(r2),rd(r3),rd(d);
-   int tol=0;
-   for(int i=1;i<=n;i++)
-      rd(date[i]);   
-   for(int i=1;i<=n;i++){
-      a[i]=r1*date[i]+r3;
-      b[i]=min((date[i]+2)*r1,r1+r2);
-   }
-   dp[0]=0;
-   for(int i=1;i<=n;i++)
-      dp[i]=llinf;
-   for(int i=1;i<=n;i++){
-
-   }
+{
+    string tmp;
+    cin>>tmp;
+    int cnt=-1;
+    int  date[1100];
+    memset(date,0,sizeof(date));
+    char pre;
+    int flag=0;
+    for(int i=0; i<tmp.size(); i++){
+        if(tmp[i]<='9'&&tmp[i]>='0'){
+            if(cnt==-1)
+                cnt=tmp[i]-'0';
+            else{
+            cnt*=10;
+            cnt+=tmp[i]-'0';
+            }
+        }else{
+            if(!flag)
+                flag=1;
+            else{
+                if(cnt==-1)
+                cnt=1;
+                date[pre]+=cnt;
+                cnt=-1;
+            }
+            pre=tmp[i];
+        }
+    }
+     if(!flag)
+                flag=1;
+            else{
+                if(cnt==-1)
+                cnt=1;
+                date[pre]+=cnt;
+                cnt=-1;
+            }
+    int cc=1;
+    if(date['H']&1)
+    cc=2;
+    if((date['H']/2*cc+date['C']*2*cc-date['O'])&1)
+    cc=2;
+    cout<<date['C']*cc<<' '<<date['H']/2*cc<<endl;
 }
 signed main()
 {
-#ifndef ONLINE_JUDGE
-freopen("in.txt","r",stdin);
+   #ifndef ONLINE_JUDGE
+   freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
 std::ios::sync_with_stdio(false);

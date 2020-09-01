@@ -32,31 +32,41 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
-int n,r1,r2,r3,d;
-int date[1100000];
-int a[1100000],b[1100000];
-int dp[1100000];
 void work()
-{ 
-   rd(n),rd(r1),rd(r2),rd(r3),rd(d);
-   int tol=0;
-   for(int i=1;i<=n;i++)
-      rd(date[i]);   
-   for(int i=1;i<=n;i++){
-      a[i]=r1*date[i]+r3;
-      b[i]=min((date[i]+2)*r1,r1+r2);
-   }
-   dp[0]=0;
-   for(int i=1;i<=n;i++)
-      dp[i]=llinf;
-   for(int i=1;i<=n;i++){
-
-   }
+{
+    int a,b,c;
+    rd(a),rd(b),rd(c);
+    int f=0;
+    for(int i=100;i<1000;i++){
+        if(i%a)
+            continue;
+        int j=i/a*b,k=i/a*c;
+        if(j>=1000)
+        continue;
+        if(k>=1000)
+        continue;
+        set<int> s;
+        int t=i;
+        while(t)
+        s.insert(t%10),t/=10;
+        while(j)
+        s.insert(j%10),j/=10;
+        while(k)
+        s.insert(k%10),k/=10;
+        if(s.count(0))
+        continue;
+        if(s.size()!=9)
+        continue;
+        wt(i),putchar(' '),wt(i/a*b),putchar(' '),wt(i/a*c),putchar('\n');
+        f=1;
+    }
+    if(!f)
+        printf("No!!!\n");
 }
 signed main()
-{
-#ifndef ONLINE_JUDGE
-freopen("in.txt","r",stdin);
+{   
+   #ifndef ONLINE_JUDGE
+   freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
 std::ios::sync_with_stdio(false);

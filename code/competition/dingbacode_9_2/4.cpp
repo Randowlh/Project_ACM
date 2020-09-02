@@ -32,40 +32,41 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
-struct seg{
-	#define rson(pos) (pos<<1|1)
-	#define lson(pos) (pos<<1)
-	int T[2010000];
-	inline void pushup(int pos){
-		MAX(T[pos],T[lson(pos)]);
-		MAX(T[pos],T[lson(pos)]);
-	}
-	void update(int pos,int l,int r,int x,int val){
-		if(l==r){
-			T[pos]=val;
-			return;
-		}
-		int mid=(l+r)>>1;
-		if(x<=mid)
-			update(lson(pos),l,mid,x,val);
-		else update(rson(pos),mid+1,r,x,val);
-		pushup(pos);
-	}
-	int query(int pos,int l,int r,int ql,int qr){
-		if(ql>=l&&qr<=r){
-			return T[pos];
-		}
-		int ans=-llinf;
-		int mid=(l+r)>>1;
-		if(ql<=mid)
-			MIN(ans,query(lson(pos),l,mid,ql,mid));
-		if(qr>=mid+1)
-			MIN(ans,query(rson(pos),mid+1,r,mid+1,qr));
-	}
-}a;
+unordered_set<string> fr,bk;
 void work()
 {
-	
+   fr.clear();
+   bk.clear();
+   int n;
+   cin>>n;
+   string a,b;
+   cin>>a>>b;
+   string tmp,l,r;
+   for(int i=0;i<n;i++){
+      tmp.push_back(b[i]);
+      fr.insert(tmp);
+   }
+   tmp.clear();
+   for(int i=n-1;i>=0;i--){
+      tmp.push_back(b[i]);
+      bk.insert(tmp);
+   }
+   r.clear();
+   for(int i=1;i<=n;i++)    
+      r.push_back(a[i]);
+   l.clear();
+   for(int i=0;i<llinf;i++){
+      if((l.empty()||bk.count(l))&&(r.empty()||fr.count(r))){
+         cout<<"YES"<<endl;
+         return;
+      }
+      //cout<<"l="<<l<<' '<<"r="<<r<<endl;
+      l.push_back(a[i]);
+      if(r.empty())
+      break;
+      r.pop_back();
+   }
+   cout<<"NO"<<endl;
 }
 signed main()
 {
@@ -76,6 +77,7 @@ signed main()
 std::ios::sync_with_stdio(false);
 cin.tie(NULL);
 int t = 1;
+cin>>t;
 //cin>>t;
 while (t--)
 {

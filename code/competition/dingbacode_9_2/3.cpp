@@ -32,40 +32,61 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
-struct seg{
-	#define rson(pos) (pos<<1|1)
-	#define lson(pos) (pos<<1)
-	int T[2010000];
-	inline void pushup(int pos){
-		MAX(T[pos],T[lson(pos)]);
-		MAX(T[pos],T[lson(pos)]);
-	}
-	void update(int pos,int l,int r,int x,int val){
-		if(l==r){
-			T[pos]=val;
-			return;
-		}
-		int mid=(l+r)>>1;
-		if(x<=mid)
-			update(lson(pos),l,mid,x,val);
-		else update(rson(pos),mid+1,r,x,val);
-		pushup(pos);
-	}
-	int query(int pos,int l,int r,int ql,int qr){
-		if(ql>=l&&qr<=r){
-			return T[pos];
-		}
-		int ans=-llinf;
-		int mid=(l+r)>>1;
-		if(ql<=mid)
-			MIN(ans,query(lson(pos),l,mid,ql,mid));
-		if(qr>=mid+1)
-			MIN(ans,query(rson(pos),mid+1,r,mid+1,qr));
-	}
-}a;
+inline ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+inline int niyuan(int x) { return powmod(x, mod - 2); }
+int y[500005],x[500005];
+int k,n;
+int a[1100];
+int calc(int x){
+   int ans=0;
+   for(int i=1;i<=k;i++){
+      ans+=(a[i]*powmod(x,a[i]))%mod;
+      ans%=mod;
+   }
+   return ans;
+}
 void work()
 {
-	
+   rd(k),rd(n);
+   int ma=1;
+   for(int i=1;i<=k;i++){
+      rd(a[i]);
+      MAX(ma,a[i]);
+   }
+   //int vl=n;
+   //n=ma;
+   int ans=0;
+   for(int i=1;i<=n;i++){
+      ans+=calc(i);
+      ans%=mod;
+   }
+   cout<<ans<<endl;
+   return ;
+   // for(int i=1;i<=n;i++){
+   //    int t=y[i];
+   //    for(int j=1;j<=n;j++){
+   //       if(i==j)
+   //          continue;
+   //       t=(t*niyuan(i-j))%mod;
+   //    }
+   //    for(int j=0;j<=n;j++)
+   //       x[j]=t;
+   //    int now=1;
+   //    for(int j=n-1;j>=0;j--){
+   //       x[j]=(x[j]*now)%mod;
+   //       now*=-(j+1);
+   //       now%=mod;
+   //    }
+   // }
+   // for(int i=n;i>=1;i--)
+   //    x[i]=x[i-1]*niyuan(i)%mod;
+   // int ans=0;
+   // for(int i=1;i<=n;i++){
+   //    //cout<<"x[i]="<<x[i]<<endl;
+   //    ans+=x[i]*powmod(vl,i)%mod;
+   //    ans%=mod;
+   // }
+   // cout<<ans<<endl;
 }
 signed main()
 {

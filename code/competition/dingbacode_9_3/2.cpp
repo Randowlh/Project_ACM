@@ -49,7 +49,6 @@ const ll mod = (0 ? 1000000007 : 998244353);
 const ll mod2 = 999998639;
 const int m1 = 998244353;
 const int m2 = 1000001011;
-const int K = 233;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm = 1;
@@ -58,6 +57,7 @@ int n;
 int mp[330][330];
 int lt[330][330];
 int dis[330][330];
+int vis[330][330];
 int lj[330];
 int flag[330];
 int ans = 0;
@@ -95,21 +95,22 @@ void work()
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
             rd(mp[i][j]);
-    int ans=n*(n-1)/2;
+    int ans=n*(n-1);
+    int jian=0;
     for (int k = 1; k <= n; k++)
     {
         for (int i = 1; i <= n; i++)
         {
-            for (int j = i+1; j <= n; j++)
+            for (int j = 1; j <= n; j++)
             {
-                if(k==i||k==j)
+                if(k==i||k==j||i==j)
                     continue;
-                if(mp[i][j]==mp[i][k]+mp[k][j])
-                    ans--;
+                if(mp[i][j]==mp[i][k]+mp[k][j]&&!vis[i][j])
+                    ans--,vis[i][j]=1;
             }
         }
     }
-    cout<<ans<<endl;
+    cout<<ans/2<<endl;
     return ;
     for (int i = 1; i <= n; i++)
         dis[i][i] = 0;

@@ -114,10 +114,11 @@ public:
             zx(T[x].r);
     }
 }fhq;
+vector<pair<int,int>> xl;
 int main(){
     //freopen("in.txt", "r", stdin);
-    int n,m;
-    rd(n),rd(m);
+    int n,m,k;
+    rd(n),rd(m),rd(k);
     for(int i=1;i<=n;i++){
         fhq.root=fhq.merge(fhq.root,fhq.newnode(i));
     }

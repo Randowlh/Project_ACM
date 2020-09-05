@@ -23,6 +23,7 @@
        		"   if(x >= 10) wt(x / 10);",
     		"   putchar('0' + x % 10);",
 			"}",
+			"#define yx_queue priority_queue",
 			"#define lson(pos) (pos<<1)",
 			"#define rson(pos) (pos<<1|1)",
 			"#define y1 code_by_Rand0w",

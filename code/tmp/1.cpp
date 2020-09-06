@@ -32,8 +32,85 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
+class Solution {
+public:
+   int d[2][12]={{31,28,31,30,31,30,31,31,30,31,30,31},{31,29,31,30,31,30,31,31,30,31,30,31}};
+    /**
+     * @param inputQueries: input Queries, means [[m1, d1, m2, d2, x], [m1, d1, m2, d2, x],...]
+     * @return: guess whether y1 is leep year
+     */
+    string guessYear(vector<vector<int>> &inputQueries) {
+        // write your code here
+        string ans;
+        ans.clear();
+         for(int i=0;i<inputQueries.size();i++){
+            int m1,d1,m2,d2;
+            m1=inputQueries[i][0]-1;
+            d1=inputQueries[i][1];
+            m2=inputQueries[i][2]-1;
+            d2=inputQueries[i][3];
+            int x=inputQueries[i][4];
+            int tm1=m1,td1=d1;
+            int cnt=0;
+            int aa=0;
+            while(tm1!=m2||td1!=d2){
+             //  cout<<tm1<<' '<<td1<<' '<<m2<<' '<<d2<<endl;
+               if(td1<d[0][tm1]){
+                  td1++;
+                  cnt++;
+                  continue;
+               }
+               tm1++;
+               tm1%=12;
+               td1=1;
+               cnt++;
+               continue;
+            }
+            //cout<<"cnt="<<cnt<<' '<<"x="<<x<<endl;
+            if(cnt==x&&m1<2){
+               ans.push_back('P');
+               continue;
+            }
+            cnt=0;
+            tm1=m1,td1=d1;
+            while(tm1!=m2||td1!=d2){
+               if(td1<d[1][tm1]){
+                 // cout<<tm1<<" "<<td1<<" "<<m2<<' '<<d2<<endl;
+                  td1++;
+                  cnt++;
+                  continue;
+               }
+               //cout<<tm1<<" "<<td1<<" "<<m2<<' '<<d2<<endl;
+               tm1++;
+               tm1%=12;
+               td1=1;
+               cnt++;
+               continue;
+            }
+            if(cnt==x){
+               if(m1==m2)
+                  ans.push_back('?');
+               else 
+            }
+               ans.push_back('?');
+         }
+         return  ans;
+    }
+}a;
 void work()
 {
+   int t = 4;
+   int tmp;
+   vector<vector<int>> tt;
+   for(int i=1;i<=t;i++){
+      vector<int> aa;
+      for(int i=1;i<=5;i++){
+         cin>>tmp;
+         aa.push_back(tmp);
+      }
+      tt.push_back(aa);
+   }
+   cout<<a.guessYear(tt)<<endl;
 }
 signed main()
 {

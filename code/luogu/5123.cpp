@@ -19,7 +19,6 @@ void wt(T x){
    if(x >= 10) wt(x / 10);
    putchar('0' + x % 10);
 }
-#define pt putchar
 #define yx_queue priority_queue
 #define lson(pos) (pos<<1)
 #define rson(pos) (pos<<1|1)
@@ -37,70 +36,60 @@ const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
-const int maxm= 210000;
-const int maxn = 210000;
-struct edge{
-   int w,to,nxt;
-}eg[maxm];
-int head[maxn];
-int ecnt=0;
-inline void add(int u,int v,int w){
-   eg[++ecnt].nxt=head[u];
-   eg[ecnt].w=w;
-   eg[ecnt].to=v;
-   head[u]=ecnt;
-}
-inline void cl(int n){
-    for(int i=0;i<=n;i++)
-        head[i]=0;
-    ecnt=0;
-}
-int n,m;
-int dis[maxn];
-bool vis[maxn];
-int cnt[maxn];
-bool spfa(int s){
-    for(int i=1;i<=n;i++)
-        vis[i]=cnt[i]=0,dis[i]=llinf;
-    cnt[s]=vis[s]=1;
-    dis[s]=0;
-    queue<int> q;
-    q.push(s);
-    while(!q.empty()){
-        int t=q.front();
-        q.pop();
-        vis[t]=0;
-        for(int i=head[t];i;i=eg[i].nxt){
-            int to=eg[i].to,w=eg[i].w;
-            if(dis[to]>dis[t]+w){
-                dis[to]=dis[t]+w;
-                if(!vis[to]){
-                    vis[to]=1;
-                    q.push(to);
-                    cnt[to]++;
-                    if(cnt[to]>=n){
-                        return false;
-                    }
-                }
-            }
-        }
+const int maxm= 1;
+const int maxn = 510000;
+struct node{
+    int  T[5];
+    int    sz;
+    inline bool operator<(const node a)const {
+        if(sz!=a.sz)
+            return sz < a.sz;
+        for(int i=0;i<5;i++)
+            if(T[i]!=a.T[i])
+                return T[i]<a.T[i];
+        return false;
     }
-    return true;
-}
+};
+map<node,int> M;
+vector<vector<int>> v2,v3;
 void work()
 {
-    rd(n),rd(m);
-    int u,v,w;
-    cl(n);
-    for(int i=0;i<m;i++){
-        rd(u),rd(v),rd(w);
-        add(u,v,w);
-        if(w>=0)
-            add(v,u,w);
+    int n;
+    rd(n);
+    int a[5];
+    for(int i=1;i<=n;i++){
+        for(int j=0;j<5;j++)
+            rd(a[j]);
+        sort(a,a+5);
+        for(int j=1;j<(1<<5);j++){
+            int t=j;
+            node tt;
+            int cnt=0,tail=0;
+            while(t){
+                if(t&1){
+                    tt.T[tail]=a[cnt];
+                    tail++;
+                }
+                cnt++;
+                t>>=1;
+            }
+            for(int j=tail;j<5;j++)
+                tt.T[j]=0;
+            tt.sz=tail;
+            M[tt]++;
+        }
     }
-    if(spfa(1))
-        cout<<"NO"<<endl;
-    else cout<<"YES"<<endl;
+    int ans=0;
+    for(auto i=M.begin();i!=M.end();i++){
+        pair<node,int> t=*i;
+        int j=t.second*(t.second-1)/2;
+        if(t.first.sz%2==0){
+            ans-=j;
+        }else{
+            ans+=j;
+        }
+    }
+    cout<<n*(n-1)/2-ans<<endl;;
 }
 signed main()
 {
@@ -109,7 +98,6 @@ signed main()
 //freopen("out.txt","w",stdout);
 #endif
 int t = 1;
-rd(t);
 //cin>>t;
 while (t--)
 {

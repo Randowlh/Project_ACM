@@ -43,6 +43,7 @@ int tw;
 int fo;
 void work()
 {
+    M.clear();
     int n;
     rd(n);
     int tt;
@@ -92,7 +93,7 @@ void work()
 signed main()
 {
 #ifndef ONLINE_JUDGE
-    freopen("in.txt","r",stdin);
+  //  freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
     int t = 1;

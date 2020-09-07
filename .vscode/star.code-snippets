@@ -1,0 +1,24 @@
+{
+	"cpp":{
+		"prefix": "star",
+		"body":[
+			"struct edge{",
+			"   int w,to,nxt;",
+			"}eg[maxm];",
+			"int head[maxn];",
+			"int ecnt=0;",
+			"inline void add(int u,int v,int w){",
+			"   eg[++ecnt].nxt=head[u];",
+			"   eg[ecnt].w=w;",
+			"   eg[ecnt].to=v;",
+			"   head[u]=ecnt;",
+			"}",
+			"inline void cl(int n){"
+			"	for(int i=0;i<=n;i++)",
+			"		head[i]=0;",
+			"	ecnt=0;",
+			"}"
+		],
+		"description": "链式前向星"
+	}
+}

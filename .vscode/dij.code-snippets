@@ -1,0 +1,41 @@
+{
+	"cpp":{
+		"prefix": "dij",
+		"body":[
+			"struct edge{",
+			"   int w,to,nxt;",
+			"}eg[maxm];",
+			"int head[maxn]",
+			"int ecnt=0;",
+			"inline void add(int u,int v,int w){",
+			"   eg[++ecnt].nxt=head[u];",
+			"   eg[ecnt].w=w;",
+			"   eg[ecnt].to=v;",
+			"   head[u]=ecnt;",
+			"}",
+			"int n;",
+			"int dis[maxn];",
+			"void dij(int a){",
+			"   for(int i=1;i<=n;i++)",  
+			"      dis[i]=llinf;",
+			"   dis[a]=0;",
+			"   priority_queue<pair<int,int>,vector<pair<int,int>>, greater<pair<int,int>>>q;",
+			"   q.push(pair<int,int>(0,a));",
+			"   while(!q.empty()){",
+			"      pair<int,int> t=q.top();",
+			"      q.pop();",
+			"      if(dis[t.second]<t.first)",
+			"         continue;",
+			"		for(int i=head[t.second];i;i = eg[i].nxt){",
+			"			int& to=eg[i].to;",
+			"			if(eg[i].w+dis[t.second]<dis[to]){",
+			"				dis[to]=eg[i].w+dis[t.second];",
+			"				q.push(make_pair(dis[to],to));",
+			"			}",
+			"		}",
+			"	}",
+			"}"
+		],
+		"description": "dij队列优化"
+	}
+}

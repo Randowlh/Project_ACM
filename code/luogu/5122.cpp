@@ -19,7 +19,6 @@ void wt(T x){
    if(x >= 10) wt(x / 10);
    putchar('0' + x % 10);
 }
-#define pt putchar
 #define yx_queue priority_queue
 #define lson(pos) (pos<<1)
 #define rson(pos) (pos<<1|1)
@@ -37,70 +36,57 @@ const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
-const int maxm= 210000;
-const int maxn = 210000;
-struct edge{
-   int w,to,nxt;
-}eg[maxm];
-int head[maxn];
+const int maxm= 1;
+const int maxn = 510000;
 int ecnt=0;
+struct edge{
+    int w,to,nxt;
+}eg[110000];
+int head[50005];
 inline void add(int u,int v,int w){
-   eg[++ecnt].nxt=head[u];
-   eg[ecnt].w=w;
-   eg[ecnt].to=v;
-   head[u]=ecnt;
+    eg[++ecnt].nxt=head[u];
+    eg[ecnt].to;
+    eg[ecnt].w=w;
+    head[u]=ecnt;
 }
-inline void cl(int n){
-    for(int i=0;i<=n;i++)
-        head[i]=0;
-    ecnt=0;
-}
-int n,m;
-int dis[maxn];
-bool vis[maxn];
-int cnt[maxn];
-bool spfa(int s){
-    for(int i=1;i<=n;i++)
-        vis[i]=cnt[i]=0,dis[i]=llinf;
-    cnt[s]=vis[s]=1;
-    dis[s]=0;
-    queue<int> q;
-    q.push(s);
+int flag[50005];
+int dis[50005];
+vector<int> v;
+int n,m,k;
+void dij(int a){
+    for(int i=1;i<=n;i++)  
+        dis[i]=llinf;
+    dis[a]=0;
+    priority_queue<pair<int,int>,vector<pair<int,int>>, greater<pair<int,int>>>q;
+    q.push(pair<int,int>(0,a));
     while(!q.empty()){
-        int t=q.front();
+        pair<int,int> t=q.top();
         q.pop();
-        vis[t]=0;
-        for(int i=head[t];i;i=eg[i].nxt){
-            int to=eg[i].to,w=eg[i].w;
-            if(dis[to]>dis[t]+w){
-                dis[to]=dis[t]+w;
-                if(!vis[to]){
-                    vis[to]=1;
-                    q.push(to);
-                    cnt[to]++;
-                    if(cnt[to]>=n){
-                        return false;
-                    }
-                }
+        if(dis[t.second]<t.first)
+            continue;
+        for(int i=head[t.first];i; i = eg[i].nxt){
+            int& to=eg[i].to;
+            if(eg[i].w+dis[t.second]<dis[to]){
+                dis[to]=eg[i].w+dis[t.second];
+                q.push(make_pair(dis[to],to));
             }
         }
     }
-    return true;
 }
 void work()
 {
-    rd(n),rd(m);
+    rd(n),rd(m),rd(k);
+    memset(dis,-1,sizeof(dis));
     int u,v,w;
-    cl(n);
-    for(int i=0;i<m;i++){
+    for(int i=1;i<=m;i++){
         rd(u),rd(v),rd(w);
         add(u,v,w);
-        if(w>=0)
-            add(v,u,w);
+        add(v,u,w);
     }
-    if(spfa(1))
-        cout<<"NO"<<endl;
-    else cout<<"YES"<<endl;
+    int pos,v;
+    for(int i=1;i<=n;i++){
+        rd(pos),rd(v);
+    }
 }
 signed main()
 {
@@ -108,8 +94,9 @@ signed main()
    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
+std::ios::sync_with_stdio(false);
+cin.tie(NULL);
 int t = 1;
-rd(t);
 //cin>>t;
 while (t--)
 {

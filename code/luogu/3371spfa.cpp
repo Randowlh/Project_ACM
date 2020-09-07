@@ -19,7 +19,6 @@ void wt(T x){
    if(x >= 10) wt(x / 10);
    putchar('0' + x % 10);
 }
-#define pt putchar
 #define yx_queue priority_queue
 #define lson(pos) (pos<<1)
 #define rson(pos) (pos<<1|1)
@@ -37,8 +36,8 @@ const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
-const int maxm= 210000;
-const int maxn = 210000;
+const int maxm= 1;
+const int maxn = 510000;
 struct edge{
    int w,to,nxt;
 }eg[maxm];
@@ -50,57 +49,9 @@ inline void add(int u,int v,int w){
    eg[ecnt].to=v;
    head[u]=ecnt;
 }
-inline void cl(int n){
-    for(int i=0;i<=n;i++)
-        head[i]=0;
-    ecnt=0;
-}
-int n,m;
-int dis[maxn];
-bool vis[maxn];
-int cnt[maxn];
-bool spfa(int s){
-    for(int i=1;i<=n;i++)
-        vis[i]=cnt[i]=0,dis[i]=llinf;
-    cnt[s]=vis[s]=1;
-    dis[s]=0;
-    queue<int> q;
-    q.push(s);
-    while(!q.empty()){
-        int t=q.front();
-        q.pop();
-        vis[t]=0;
-        for(int i=head[t];i;i=eg[i].nxt){
-            int to=eg[i].to,w=eg[i].w;
-            if(dis[to]>dis[t]+w){
-                dis[to]=dis[t]+w;
-                if(!vis[to]){
-                    vis[to]=1;
-                    q.push(to);
-                    cnt[to]++;
-                    if(cnt[to]>=n){
-                        return false;
-                    }
-                }
-            }
-        }
-    }
-    return true;
-}
 void work()
 {
-    rd(n),rd(m);
-    int u,v,w;
-    cl(n);
-    for(int i=0;i<m;i++){
-        rd(u),rd(v),rd(w);
-        add(u,v,w);
-        if(w>=0)
-            add(v,u,w);
-    }
-    if(spfa(1))
-        cout<<"NO"<<endl;
-    else cout<<"YES"<<endl;
+    
 }
 signed main()
 {
@@ -108,8 +59,9 @@ signed main()
    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
+std::ios::sync_with_stdio(false);
+cin.tie(NULL);
 int t = 1;
-rd(t);
 //cin>>t;
 while (t--)
 {

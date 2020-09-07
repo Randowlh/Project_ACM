@@ -36,56 +36,86 @@ const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
-const int maxm= 1;
-const int maxn = 510000;
-int ecnt=0;
+const int maxm= 210000;
+const int maxn = 51000;
 struct edge{
     int w,to,nxt;
-}eg[110000];
-int head[50005];
-inline void add(int u,int v,int w){
+ }eg[maxm];
+ int head[maxn];
+ int ecnt=0;
+ inline void add(int u,int v,int w){
     eg[++ecnt].nxt=head[u];
-    eg[ecnt].to;
     eg[ecnt].w=w;
+    eg[ecnt].to=v;
     head[u]=ecnt;
+ }
+ inline void cl(int n){
+     for(int i=0;i<=n;i++)
+         head[i]=0;
+     ecnt=0;
 }
-int flag[50005];
-int dis[50005];
-vector<int> v;
-int n,m,k;
-void dij(int a){
-    for(int i=1;i<=n;i++)  
-        dis[i]=llinf;
-    dis[a]=0;
-    priority_queue<pair<int,int>,vector<pair<int,int>>, greater<pair<int,int>>>q;
-    q.push(pair<int,int>(0,a));
+int n,m;
+int dui[maxn];
+int tdis[maxn];
+int dis[maxn];
+bool vis[maxn];
+int cnt[maxn];
+vector<int> tt;
+queue<int> q;
+bool spfa(int s){
     while(!q.empty()){
-        pair<int,int> t=q.top();
+        int t=q.front();
         q.pop();
-        if(dis[t.second]<t.first)
-            continue;
-        for(int i=head[t.first];i; i = eg[i].nxt){
-            int& to=eg[i].to;
-            if(eg[i].w+dis[t.second]<dis[to]){
-                dis[to]=eg[i].w+dis[t.second];
-                q.push(make_pair(dis[to],to));
-            }
-        }
-    }
+        vis[t]=0;
+         for(int i=head[t];i;i=eg[i].nxt){
+             int to=eg[i].to,w=eg[i].w;
+             if(dis[to]>dis[t]+w){
+                 dis[to]=dis[t]+w;
+                 if(!vis[to]){
+                     vis[to]=1;
+                     q.push(to);
+                 }
+             }
+         }
+     }
+     return true;
 }
 void work()
 {
+    int k;
     rd(n),rd(m),rd(k);
-    memset(dis,-1,sizeof(dis));
     int u,v,w;
     for(int i=1;i<=m;i++){
         rd(u),rd(v),rd(w);
         add(u,v,w);
         add(v,u,w);
     }
-    int pos,v;
+     for(int i=1;i<=n;i++)
+         vis[i]=cnt[i]=0,dis[i]=llinf;
+     cnt[n]=vis[n]=1;
+     dis[n]=0;
+     q.push(n);
+    spfa(n);
+    for(int i=1;i<=n;i++)
+        tdis[i]=dis[i],dui[i]=0;
+    int a,b;
+    for(int i=1;i<=k;i++){
+        rd(a),rd(b);
+        dui[a]=max(b,dui[a]);
+    }
     for(int i=1;i<=n;i++){
-        rd(pos),rd(v);
+        if(dui[i]){
+            q.push(i);
+            vis[i]=1;
+            dis[i]-=dui[i];
+        }else{ 
+        dis[i]=llinf;
+        vis[i]=0;
+        }
+    }
+    spfa(n);
+    for(int i=1;i<n;i++){
+        wt(tdis[i]>=dis[i]),putchar('\n');
     }
 }
 signed main()

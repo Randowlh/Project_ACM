@@ -38,21 +38,23 @@ const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
 struct seg{
-    int date[maxn<<2];
-    void cl(int n){for(int i=0;i<=n*4;i++)date[i]=0;}
-    inline void pushup(int pos){date[pos]=date[lson(pos)]+date[rson(pos)]; }
+    int date[maxn<<3];
+    inline void pushup(int pos){
+        date[i]=max(date[lson(pos)],date[rson(pos)]);
+    }
     void update(int pos,int l,int r,int x,int v){
-        if(l==r)
-            date[pos]+=v;
-        int mid=l+r>>1;
+        if(l==r){
+            date[pos]=v;
+        }
+        int mix=l+r>>1;
         if(x<=mid)
             update(lson(pos),l,mid,x,v);
         else update(rson(pos),mid+1,r,x,v);
         pushup(pos);
     }
     int query(int pos,int l,int r,int ql,int qr){
-        if(l<=qr&&r>=qr){
-            return date[pos];
+        if(l>=ql&&r<=qr){
+            return date[i];
         }
         int ans=0;
         int mid=l+r>>1;
@@ -60,7 +62,7 @@ struct seg{
             ans+=query(lson(pos),l,mid,ql,qr);
         if(qr>=mid+1)
             ans+=query(rson(pos),mid+1,r,ql,qr);
-          return ans;
+        return ans;
     }
 }T;
 void work()
@@ -71,6 +73,12 @@ void work()
     for(int i=0;i< n; i++){
         cin>>tmp;
         v.push_back(tmp);
+    }
+    for(int i=0;i<n;i++){
+        rd(a);
+        for(int j=0;j<n;j++){
+            
+        }
     }
     sort(v.begin(), v.end());
 }

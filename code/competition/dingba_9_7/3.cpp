@@ -59,7 +59,7 @@ void work()
     }
     for(int i=1;i<=n;i++)
         sort(mp[i].begin(),mp[i].end(),greater<pair<int, int>>());
-    sort(aa.begin(), aa.end(),greater<pair<int,pair<int, int>>>());
+    sort(aa.begin(), aa.end());
     int aans=0;
     for(int i=0;i<aa.size();i++){
         int ans=0;
@@ -69,8 +69,8 @@ void work()
         // if(!M[make_tuple(u,v,w)])
         //     continue;
         for(int j=0;j<mp[u].size();j++){
-            if(mp[u][j].first<=w)
-                break;
+            if(mp[u][j].first>=w)
+                continue;
             int to=mp[u][j].second;
             int fr=u;
             int ww=mp[u][j].first;
@@ -79,8 +79,8 @@ void work()
             MAX(ans,M[make_tuple(fr,to,ww)]);
         }
         for(int j=0;j<mp[v].size();j++){
-            if(mp[v][j].first<=w)
-                 break;
+            if(mp[v][j].first>=w)
+                 continue;
             int to=mp[v][j].second;
             int fr=v;
             int ww=mp[v][j].first;

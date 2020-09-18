@@ -38,8 +38,35 @@ void add(int u,int v,int w){
     edge[ecnt].w=w;
     head[u]=ecnt;
 }
+int date[310000];
+int pr[310000],af[310000];
+int n,l,k;
 void work()
-{
+{ 
+    cin>>n>>k>>l;
+    for(int i=1;i<=n;i++){
+        cin>>date[i];
+    }
+    int t=0;
+    for(int i=1;i<=n;i++){
+        if(l-date[i]<0){
+            cout<<"NO"<<endl;
+            return;
+        }
+        pr[i]=min(k,l-date[i]);
+        af[i]=2*k-pr[i];
+    }
+    int R=k;
+    for(int i=1;i<=n;i++){
+        if(pr[i]>=af[i]) {R=k; continue; }
+        R++;
+        MAX(R,af[i]);
+        if(R>=k*2&&pr[i]<(R)%(2*k)){
+            cout<<"NO"<<endl;
+            return ;
+        }
+    }
+    cout<<"YES"<<endl;
 }
 signed main()
 {
@@ -50,6 +77,7 @@ signed main()
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
+    cin>>t;
     //cin>>t;
     while (t--)
     {

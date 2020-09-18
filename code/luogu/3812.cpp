@@ -39,9 +39,43 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
+struct xxj{
+    int p[110];
+    void insert(int x){
+        for(int i=55;i+1;i--){
+            if(!(x>>i))
+                continue;
+            if(!p[i]){
+                p[i]=x;
+                break;
+            }
+            x^=p[i];
+        }
+    }
+    void clear(){
+        for(int i=0;i<110;i++)
+            p[i]=0;
+    }
+}a;
 void work()
 {
-    return;
+    a.clear();
+    int n;
+    cin>>n;
+    int tmp;
+    vector<int> v;
+    for(int i=1;i<=n;i++){
+        cin>>tmp;
+        v.push_back(tmp);
+    }
+    a.clear();
+    for(int i=0;i<n;i++)
+        a.insert(v[i]);
+    int ans=0;
+    for(int i=100;i>=0;i--){
+        MAX(ans,ans^a.p[i]);
+    }
+    cout<<ans<<endl;
 }
 signed main()
 {

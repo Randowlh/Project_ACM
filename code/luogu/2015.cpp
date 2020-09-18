@@ -28,31 +28,75 @@ const ll mod2 = 999998639;
 const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1000;
-struct Edges{
-    int w,to,next;
-}edge[maxm];
-int head[maxm];
+int n,q;
+struct edge{
+   int w,to,nxt;
+}eg[maxm];
+int head[maxn];
 int ecnt=0;
-void add(int u,int v,int w){
-    edge[++ecnt].next=head[u];
-    edge[ecnt].to=v;
-    edge[ecnt].w=w;
-    head[u]=ecnt;
+inline void add(int u,int v,int w){
+   eg[++ecnt].nxt=head[u];
+   eg[ecnt].w=w;
+   eg[ecnt].to=v;
+   head[u]=ecnt;
 }
-int q,n;
-int dp[100][100];
-void dfs(int now,int fa){
-    
+inline void cl(int n){
+    for(int i=0;i<=n;i++)
+        head[i]=0;
+    ecnt=0;
+}
+int dp[110][110];
+int sz[110];
+int sg[110];
+int dfs(int pos,int fa,int now){
+    if(dp[pos][now]!=-1)
+        return dp[pos][now];
+    if(now==0)
+        return 0;
+    vector<int> v;
+    int ans=0;
+    for(int i=head[pos];i;i=eg[i].nxt){
+        if(eg[i].to!=fa)
+            v.push_back(eg[i].to);
+    }
+    if(v.size()==0){
+        ans=0;
+    }else
+    if(v.size()==1)
+        ans=dfs(v[0],pos,now-1);
+    else
+    for(int i=max(0LL,now-1-sz[v[1]]);i<=min(sz[v[0]],now-1)&&now-i-1>=0;i++){
+            int tans=0;
+            tans=dfs(v[0],pos,i);
+            tans+=dfs(v[1],pos,now-i-1);   
+            MAX(ans,tans);
+    }
+    ans+=sg[pos];
+    dp[pos][now]=ans;
+    return ans;
+}
+void pre(int pos,int fa){
+    sz[pos]=1;
+    for(int i=head[pos];i;i=eg[i].nxt){
+        if(eg[i].to==fa)
+            continue;
+        sg[eg[i].to]=eg[i].w;
+        pre(eg[i].to,pos);
+        sz[pos]+=sz[eg[i].to];
+    }
 }
 void work()
 {
-    rd(n),rd(q);
+    cin>>n>>q;
     int u,v,w;
+    memset(dp,-1, sizeof(dp));
     for(int i=1;i<n;i++){
-        rd(u), rd(v),rd(w);
-        add(u,v,w),add(v,u,w);
+        cin>>u>>v>>w;
+        add(u,v,w);
+        add(v,u,w);
     }
-    dfs(1,-1);
+    pre(1,-1);
+    cout<<dfs(1,-1,q+1)<<endl;
 }
 signed main()
 {

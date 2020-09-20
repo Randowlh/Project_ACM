@@ -39,29 +39,19 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
+int mm=1e18+100;
+vector<int> v;
 void work()
-{
-    int x,y;
-    cin>>x>>y;
-    if(x<0 || y<0){
-        cout<<"awsl"<<endl;
-        return;
+{    
+    int x;
+    cin>>x;
+    int ans=0;
+    for(int i=0;i<v.size();i++){
+        if(x>=v[i]){
+            ans++;
+        }else break;
     }
-    int flag=0;
-    int t=x/3*2+(x%3>0);
-    if(t%2){
-        flag=1;
-    }
-    t=y/3*2+(y%3>0);
-    if(t%2){
-        if(flag){
-            cout<<"awsl"<<endl;
-        }else cout<<"yyds"<<endl;
-    }else{
-        if(flag)
-            cout<<"yyds"<<endl;
-        else cout<<"awsl"<<endl;
-    }
+    cout<<ans<<endl;
 }
 signed main()
 {
@@ -72,6 +62,18 @@ signed main()
 std::ios::sync_with_stdio(false);
 cin.tie(NULL);
 int t = 1;
+int now=1;
+    int jia=2;
+    while(now<mm){
+        v.push_back(now);
+        now*=4;
+        now+=jia;
+        jia*=2;
+    }
+for(int i=1;i<v.size();i++){
+    v[i]+=v[i-1];
+}
+//cin>>t;
 cin>>t;
 while (t--)
 {

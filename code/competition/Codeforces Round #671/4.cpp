@@ -41,27 +41,32 @@ const int maxm= 1;
 const int maxn = 510000;
 void work()
 {
-    int x,y;
-    cin>>x>>y;
-    if(x<0 || y<0){
-        cout<<"awsl"<<endl;
-        return;
+    int n;
+    cin>>n;
+    int tmp;
+    vector<int> v;
+    for(int i=1;i<=n;i++){
+        cin>>tmp;
+        v.push_back(tmp);
     }
-    int flag=0;
-    int t=x/3*2+(x%3>0);
-    if(t%2){
-        flag=1;
+    sort(v.begin(),v.end());
+    cout<<(n-1)/2<<endl;
+    deque<int> q;
+    for(int i=0;i<n;i++){
+        q.push_back(v[i]);
     }
-    t=y/3*2+(y%3>0);
-    if(t%2){
+    int flag=1;
+    while(!q.empty()){
         if(flag){
-            cout<<"awsl"<<endl;
-        }else cout<<"yyds"<<endl;
-    }else{
-        if(flag)
-            cout<<"yyds"<<endl;
-        else cout<<"awsl"<<endl;
+            cout<<q.back()<<' ';
+            q.pop_back();
+        }else{
+            cout<<q.front()<<' ';
+            q.pop_front();
+        }
+        flag^=1;
     }
+    cout<<endl;
 }
 signed main()
 {
@@ -72,7 +77,7 @@ signed main()
 std::ios::sync_with_stdio(false);
 cin.tie(NULL);
 int t = 1;
-cin>>t;
+//cin>>t;
 while (t--)
 {
 work();

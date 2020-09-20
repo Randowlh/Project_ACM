@@ -1,0 +1,3 @@
+begin
+    writeln("lol");
+end.

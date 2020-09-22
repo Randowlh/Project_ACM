@@ -28,6 +28,7 @@ vector<pair<int, int>> eg;
 stack<int> s;
 int n, m;
 void tarjan(int x){
+    cout<<"x="<<x<<endl;
     low[x] = dfn[x] = ++cnt;
     s.push(x);
     flag[x] = 1;
@@ -40,6 +41,7 @@ void tarjan(int x){
             low[x] = min(low[x], dfn[t]);
     }
     if(low[x]==dfn[x]){
+        cout<<"{x}"<<x<<endl;
         belong[x] = ++cnt2;
         while(s.top()!=x){
             belong[s.top()] = cnt2;

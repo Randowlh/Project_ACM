@@ -23,6 +23,8 @@
        		"   if(x >= 10) wt(x / 10);",
     		"   putchar('0' + x % 10);",
 			"}",
+			"#define MP make_pair",
+			"#define pb push_back",
 			"#define pt putchar",
 			"#define yx_queue priority_queue",
 			"#define lson(pos) (pos<<1)",

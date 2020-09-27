@@ -73,7 +73,6 @@ struct link_list{
     }
 }test;
 int main(){
-    freopen("in.txt", "r", stdin);
     int n;
     rd(n);//输入原始数据 
     int tmp;

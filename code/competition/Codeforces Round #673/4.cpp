@@ -41,39 +41,60 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
-int date[maxn];
+int date[11000];
+struct node{
+    int i,j,x;
+    node(int a,int b,int c):i(a),j(b),x(c){}
+};
 void work()
 {
-    int n,q;
-    cin>>n>>q;
-    for(int i=1;i<=n;i++)
-        cin>>date[i];
-    date[n+1]=0;
-    int ans=0;
+    vector<node> ans;
+    int n;
+    cin>>n;
+    int tol=0;
     for(int i=1;i<=n;i++){
-        ans+=max(0LL,date[i-1]-date[i]);
+        cin>>date[i];
+        tol+=date[i];
     }
-    ans+=date[n];
-    cout<<ans<<endl;
-    int l,r;
-    for(int i=1;i<=q;i++){
-        cin>>l>>r;
-        if(l==r)
+    if(tol%n){
+        cout<<-1<<endl;
+        return ;
+    }
+    for(int i=2;i<=n;i++){
+        if(date[i]/i==0)
             continue;
-        ans-=max(0LL,date[l-1]-date[l]);
-        ans-=max(0LL,date[l]-date[l+1]);
-        if(l+1<r)
-            ans-=max(0LL,date[r-1]-date[r]);
-        ans-=max(0LL,date[r]-date[r+1]);
-        swap(date[l],date[r]);
-        ans+=max(0LL,date[l-1]-date[l]);
-        ans+=max(0LL,date[l]-date[l+1]);
-        if(l+1<r)
-            ans+=max(0LL,date[r-1]-date[r]);
-        ans+=max(0LL,date[r]-date[r+1]);
-        cout<<ans<<endl;
+        ans.push_back(node(i,1,date[i]/i));
+        date[1]+=date[i]/i*i;
+        date[i]%=i;
+    }   
+    yx_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>q;
+    for(int i=2;i<=n;i++){
+        if(date[i])
+            q.push(make_pair(i-date[i],i));
     }
-
+    while(!q.empty()){
+        pair<int,int>t=q.top();
+        q.pop();
+        if(date[1]<t.first){
+            break;
+        }
+        ans.push_back(node(1,t.second,t.first));
+        ans.push_back(node(t.second,1,1));
+        date[1]+=date[t.second];
+        date[t.second]=0;
+    }
+    for(int i=2;i<=n;i++){
+        if(date[i]>tol/n){
+            cout<<-1<<endl;
+            return;
+        }
+        ans.push_back(node(1,i,tol/n-date[i]));
+        date[1]-=(tol/n-date[i]);
+    }
+    cout<<ans.size()<<endl;
+    for(int i=0;i<ans.size();i++){
+        cout<<ans[i].i<<' '<<ans[i].j<<' '<<ans[i].x<<endl;
+    }
 }
 signed main()
 {
@@ -85,6 +106,7 @@ std::ios::sync_with_stdio(false);
 cin.tie(NULL);
 int t = 1;
 cin>>t;
+//cin>>t;
 while (t--)
 {
 work();

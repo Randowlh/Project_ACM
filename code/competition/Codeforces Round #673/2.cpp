@@ -41,39 +41,36 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
-int date[maxn];
 void work()
 {
-    int n,q;
-    cin>>n>>q;
-    for(int i=1;i<=n;i++)
-        cin>>date[i];
-    date[n+1]=0;
-    int ans=0;
-    for(int i=1;i<=n;i++){
-        ans+=max(0LL,date[i-1]-date[i]);
+    int n,t;
+    cin>>n>>t;
+    int tmp;
+    vector<int> v;
+    for(int i=0; i < n; i++){
+        cin>>tmp;
+        v.push_back(tmp);
     }
-    ans+=date[n];
-    cout<<ans<<endl;
-    int l,r;
-    for(int i=1;i<=q;i++){
-        cin>>l>>r;
-        if(l==r)
+    int cnt=0;
+    if(t%2==0)
+        for(int i=0;i<n;i++){
+            if(v[i]==t/2)
+                cnt++;
+        }
+    cnt/=2;
+    for(int i=0;i<n;i++){
+        if(v[i]==t/2&&t%2==0){
+            if(cnt){
+                cout<<0<<' ';
+                cnt--;
+            }else cout<<1<<' ';
             continue;
-        ans-=max(0LL,date[l-1]-date[l]);
-        ans-=max(0LL,date[l]-date[l+1]);
-        if(l+1<r)
-            ans-=max(0LL,date[r-1]-date[r]);
-        ans-=max(0LL,date[r]-date[r+1]);
-        swap(date[l],date[r]);
-        ans+=max(0LL,date[l-1]-date[l]);
-        ans+=max(0LL,date[l]-date[l+1]);
-        if(l+1<r)
-            ans+=max(0LL,date[r-1]-date[r]);
-        ans+=max(0LL,date[r]-date[r+1]);
-        cout<<ans<<endl;
+        }
+        if(v[i]>t/2){
+            cout<<1<<' ';
+        }else cout<<0<<' ';
     }
-
+    cout<<endl;
 }
 signed main()
 {

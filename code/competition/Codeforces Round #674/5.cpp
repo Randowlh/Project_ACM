@@ -32,46 +32,106 @@ void wt(T x){
 #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
+const ll llinf = (9223372036854775807>>1)-100;
 const ll mod = (1 ? 1000000007 : 998244353);
 const ll mod2 = 999998639;
 const int m1 = 998244353;
 const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
-const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
+class mint{
+    public:
+    int powmod(int a,int b) {int res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+    inline int niyuan(int x, int mod) { return powmod(x, mod - 2); }
+    int  n;
+    mint() : n(0) { ; }
+    mint(ll m) : n(m)
+    {
+        if (n >= mod)
+            n %= mod;
+        else if (n < 0)
+            n = (n % mod + mod) % mod;
+    }
+    operator int() { return n; }
+    inline mint operator=(mint a){n=a.n;return n;}
+    inline bool operator==(mint a){return n==a.n;}
+    inline bool operator!=(mint a){return n!=a.n;}
+    inline bool operator<(mint a){return n<a.n;}
+    inline bool operator>(mint a){return n>a.n;}
+    inline bool operator<=(mint a){return n<=a.n;}
+    inline bool operator>=(mint a){return n>=a.n;}
+    inline mint operator+(mint a){int res=n+a.n;if(res>=mod)res-=mod; return res;}
+    inline mint operator-(mint a){int res=n-a.n;if(res<0)res+=mod;return res;}
+    inline mint operator*(mint a){int res=n*a.n%mod;return res;}
+    inline mint operator/(mint a){int res=n*niyuan(a.n,mod)%mod;return res;}
+    inline mint operator+=(mint a){*this=*this+a;return *this;}
+    inline mint operator-=(mint a){*this=*this-a;return *this;}
+    inline mint operator*=(mint a){*this=*this*a;return *this;}
+    inline mint operator/=(mint a){*this=*this/a;return *this;}
+    inline mint operator++(){n++;n%=mod;return n;}
+};
+ll powmod(ll a, ll n, ll m = mod)
+{
+    ll res = 1;
+    while (n)
+    {
+        if (n & 1)
+            res = res * a % m;
+        a = a * a % m;
+        n >>= 1;
+    }
+    return res;
+}
 struct node{
-    int a,b,c;
-}dp[210000];
+    mint a,b;
+}dp[210000][3];
+mint ans[210000];
 string tmp;
 void work()
 {
     int n;
     cin>>n;
     cin>>tmp;
-    int ans=0;
+    int cnt=0;
+    for(int i=0;i<n;i++){
+        if(tmp[i]=='?')
+            cnt++;
+    }
     for(int i=1;i<=n;i++){
         if(tmp[i-1]=='a')
-            dp[i].a=1;
-        if(tmp[i-1]=='b')
-            dp[i].b=dp[i-1].a;
-        if(tmp[i-1]=='c')
-            dp[i].c=dp[i-1].b;
-        if(tmp[i-1]=='?'){
-            dp[i].a=1;
-            dp[i].b=dp[i-1].a;
-            dp[i].c=dp[i-1].b;
+            dp[i][0].a=1;
+        if(tmp[i-1]=='b'){
+            dp[i][0].b+=dp[i-1][0].a;
+            dp[i][1].b+=dp[i-1][1].a;
         }
-        dp[i].a+=dp[i-1].a;
-        dp[i].b+=dp[i-1].b;
-        dp[i].c+=dp[i-1].c;
-        dp[i].a%=mod;
-        dp[i].b%=mod;
-        dp[i].c%=mod;
-        cout<<"a "<<dp[i].a<<" b "<<dp[i].b<<" c "<<dp[i].c<<endl;
+        if(tmp[i-1]=='c'){
+            if(dp[i-1][0].b)
+            ans[i]+=dp[i-1][0].b*(mint)powmod(3,cnt);
+            if(dp[i-1][1].b)
+            ans[i]+=dp[i-1][1].b*(mint)powmod(3,cnt-1);
+            if(dp[i-1][2].b)
+            ans[i]+=dp[i-1][2].b*(mint)powmod(3,cnt-2);
+        }
+        if(tmp[i-1]=='?'){
+            dp[i][1].a+=1;
+            dp[i][1].b+=dp[i-1][0].a;
+            dp[i][2].b+=dp[i-1][1].a;
+            if(dp[i-1][0].b)
+            ans[i]+=dp[i-1][0].b*(mint)powmod(3,cnt-1);
+            if(dp[i-1][1].b)
+            ans[i]+=dp[i-1][1].b*(mint)powmod(3,cnt-2);
+            if(dp[i-1][2].b)
+            ans[i]+=dp[i-1][2].b*(mint)powmod(3,cnt-3);
+        }
+        ans[i]+=ans[i-1];
+        for(int j=0;j<3;j++){
+            dp[i][j].a+=dp[i-1][j].a;
+            dp[i][j].b+=dp[i-1][j].b;
+        }
     }
-    cout<<dp[n].c<<endl;
+    cout<<ans[n]<<endl;
 }
 signed main()
 {

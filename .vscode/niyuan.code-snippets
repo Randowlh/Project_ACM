@@ -3,7 +3,7 @@
 		"prefix":"niyuan",
 		"body": [
 			"ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}",
-			"inline int niyuan(int x, int mod) { return powmod(x, mod - 2, mod); }"
+			"inline int niyuan(int x, int mod) { return powmod(x, mod - 2); }"
 		],
 		"description": "get niyuan"
 	},

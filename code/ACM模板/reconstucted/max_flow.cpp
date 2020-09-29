@@ -3,22 +3,17 @@ class DC
 public:
     struct Edge
     {
-        int from;
-        int to;
-        int flow;
-        int cap;
+        int from,to,flow,cap;
         Edge(int fr, int t, int f, int c) : from(fr), to(t), flow(f), cap(c) {}
     };
-    int book[10010];
-    int cur[10010];
-    int depth[10010];
-    int n, m, t, s;
-    int cnt = 0;
+    bool book[maxn];
+    int cur[maxn],depth[maxn],n, t, s;
     vector<Edge> edge;
-    vector<int> mp[10010];
+    vector<int> mp[maxn];
     int bfs(int s, int t)
     {
-        memset(book, 0, sizeof(book));
+        for(int i=0;i<=n;i++)
+            book[i]=0;
         queue<int> q;
         q.push(s);
         book[s] = 1;
@@ -66,7 +61,8 @@ public:
         int ans = 0;
         while (bfs(s, t))
         {
-            memset(cur, 0, sizeof(cur));
+            for(int i=0;i<=n;i++)
+                cur[i]=0;
             ans += dfs(s, 0x7FFFFFFF);
         }
         return ans;
@@ -78,4 +74,10 @@ public:
         mp[from].push_back(edge.size() - 2);
         mp[to].push_back(edge.size() - 1);
     }
-} fl;
+    void init(int ss,int tt,int nn){
+        s=ss,t=tt,n=nn;
+        for(int i=0;i<=n;i++)
+            mp[i].clear();
+        edge.clear();
+    }
+}

@@ -1,5 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
+#pragma optimize(2)
+//#pragma GCC optimize("Ofast,no-stack-protector")
+//#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,tune=native")
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
 typedef double db;
@@ -32,46 +35,70 @@ void wt(T x){
 #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
+const ll llinf = 4223372036854775807;
 const ll mod = (0 ? 1000000007 : 998244353);
 const ll mod2 = 999998639;
 const int m1 = 998244353;
 const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
-const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
-int date[1100];
+struct node{
+    int l,r,fa,val,dis;
+}lt[110000];
 int find(int x){
-    if(date[x]==x)
+    if(lt[x].fa==x)
         return x;
-    else return date[x]=find(date[x]);
+    else return lt[x].fa=find(lt[x].fa);
 }
-void merge(int a,int b){
-    int l=find(a);
-    int r=find(b);
-    date[l]=r;
+int merge(int x,int y){
+    if(!x||!y)  return x+y;
+    if(lt[x].val>lt[y].val||(lt[x].val==lt[y].val&&x>y))
+        swap(x,y);
+    lt[x].r=merge(lt[x].r,y);
+    lt[lt[x].r].fa=x;
+    if(lt[lt[x].l].dis<lt[lt[x].r].dis)
+        swap(lt[x].l,lt[x].r);
+    lt[x].dis=lt[lt[x].r].dis+1;
+    return x;
 }
-pair<int,pair<int,int>> eg[110000];
-int cnt=0;
+void pop(int x){
+    lt[x].val=-1;
+    lt[lt[x].l].fa=lt[x].l;
+    lt[lt[x].r].fa=lt[x].r;
+    lt[x].fa=merge(lt[x].l,lt[x].r);
+}
 void work()
 {
-    cnt++;
     int n,m;
     cin>>n>>m;
-    for(int i=1;i<=m;i++)
-        cin>>eg[i].second.first>>eg[i].second.second>>eg[i].first;
-    sort(eg+1,eg+m+1);
+    lt[0].dis=-1;
     for(int i=1;i<=n;i++)
-        date[i]=i;
-    int ans=0;
+        cin>>lt[i].val,lt[i].fa=i;
+    int opt,x,y;
     for(int i=1;i<=m;i++){
-        if(find(eg[i].second.first)==find(eg[i].second.second))
-            continue;
-        ans+=eg[i].first;
-        merge(eg[i].second.first,eg[i].second.second);
+        cin>>opt;
+        if(opt==1){
+            cin>>x>>y;
+            if(lt[x].val==-1||lt[y].val==-1)
+                continue;
+            x=find(x);
+            y=find(y);
+            if(x==y)
+                continue;
+            lt[x].fa=lt[y].fa=merge(x,y);
+        }else{
+            cin>>x;
+            if(lt[x].val==-1){
+                cout<<-1<<endl;
+                continue;
+            }
+            x=find(x);
+            cout<<lt[x].val<<endl;
+            pop(x);
+        }
     }
-    cout<<"Case #"<<cnt<<": "<<ans<<" meters"<<endl;
 }
 signed main()
 {
@@ -79,11 +106,10 @@ signed main()
    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
-std::ios::sync_with_stdio(false);
-cin.tie(NULL);
+// //std::ios::sync_with_stdio(false);
+// //cin.tie(NULL);
 int t = 1;
 //cin>>t;
-cin>>t;
 while (t--)
 {
 work();

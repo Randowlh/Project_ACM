@@ -44,36 +44,50 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-bool cmp(string a,string b){
-	if(a.size()!=b.size())
-		return a.size()<b.size();
-	for(int i=0;i<min(a.size(),b.size());i++){
-		cout<<"a[i]"<<a[i]<<' '<<b[i]<<endl;
-		if(a[i]<='9'&&a[i]>='0'&&b[i]>='A'&&b[i]<='Z')
-			return true;
-		if(b[i]<='9'&&b[i]>='0'&&a[i]>='A'&&a[i]<='Z')
-			return false;
-		if(a[i]!=b[i])
-			return a[i]<b[i];
-	}
-	
+int xx,yy;
+inline int exgcd(int a, int b, int& x=xx, int& y=yy) {
+    x = 1, y = 0;
+    int x1 = 0, y1 = 1, a1 = a, b1 = b;
+    while (b1) {
+      int q = a1 / b1;
+      tie(x, x1) = make_tuple(x1, x - q * x1);
+      tie(y, y1) = make_tuple(y1, y - q * y1);
+      tie(a1, b1) = make_tuple(b1, a1 - q * b1);
+    }
+    return a1;
 }
+inline int lcm(int a,int b){return a/exgcd(a,b)*b;}
+inline int niyuan(int a,int b){ int tmp,ans;exgcd(a,b,ans,tmp);return (ans%b+b)%b;}
+int a[100],tol[100],b[100],t[100];
 void work()
 {
-	string a;
-	int n;
-	cin>>n>>a;
-	string tmp;
-	for(int i=1;i<=n;i++){
-		cin>>tmp;
-		if(tmp==a){
-			cout<<"+"<<endl;
-			continue;
-		}
-		if(cmp(a,tmp)){
-			cout<<"+"<<endl;
-		}else cout<<"-"<<endl;
-	}
+    int N,n;
+    cin>>N>>n;
+    for(int i=1;i<=n;i++)
+        cin>>a[i];
+    for(int i=1;i<=n;i++)
+        cin>>b[i];
+    int now=1;
+    for(int i=1;i<=n;i++)
+        now=lcm(now,a[i]);
+    for(int i=1;i<=n;i++){   
+        tol[i]=now/a[i];
+    }
+    for(int i=1;i<=n;i++){
+        cout<<tol[i]<<' '<<niyuan(tol[i],a[i])<<endl;
+        t[i]=tol[i]*niyuan(tol[i],a[i]);
+    }
+    int aa=0;
+    for(int i=1;i<=n;i++)
+        (aa+=t[i]*b[i])%now;
+    aa%=now;
+    cout<<aa<<endl;
+    if(aa>N){
+        cout<<0<<endl;
+        return;
+    }
+    int dis=N-aa;
+    cout<<dis/now+1<<endl;
 }
 signed main()
 {
@@ -81,10 +95,10 @@ signed main()
    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
-//std::ios::sync_with_stdio(false);
-//cin.tie(NULL);
+std::ios::sync_with_stdio(false);
+cin.tie(NULL);
 int t = 1;
-//cin>>t;
+cin>>t;
 while (t--)
 {
 work();

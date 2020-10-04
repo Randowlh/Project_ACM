@@ -44,36 +44,18 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-bool cmp(string a,string b){
-	if(a.size()!=b.size())
-		return a.size()<b.size();
-	for(int i=0;i<min(a.size(),b.size());i++){
-		cout<<"a[i]"<<a[i]<<' '<<b[i]<<endl;
-		if(a[i]<='9'&&a[i]>='0'&&b[i]>='A'&&b[i]<='Z')
-			return true;
-		if(b[i]<='9'&&b[i]>='0'&&a[i]>='A'&&a[i]<='Z')
-			return false;
-		if(a[i]!=b[i])
-			return a[i]<b[i];
-	}
-	
-}
 void work()
 {
-	string a;
-	int n;
-	cin>>n>>a;
-	string tmp;
-	for(int i=1;i<=n;i++){
-		cin>>tmp;
-		if(tmp==a){
-			cout<<"+"<<endl;
-			continue;
-		}
-		if(cmp(a,tmp)){
-			cout<<"+"<<endl;
-		}else cout<<"-"<<endl;
-	}
+    int n,m;
+    cin>>n>>m;
+    int ans=n*m;
+    for(int l=1,r;l<=n;l=r+1){
+        if(m/l){
+            r=min(m/(m/l),n);
+        }else break;
+        ans-=(m/l)*(r-l+1)*(l+r)/2;
+    }
+    cout<<ans<<endl;
 }
 signed main()
 {

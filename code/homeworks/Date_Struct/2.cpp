@@ -20,7 +20,7 @@ template<class T> class fhq_treap
 		T val;
 		int key;
 		int size;
-	} ;
+	};
 	node fhq[11000];
 	int cnt, root;
 	inline int newnode(T val)

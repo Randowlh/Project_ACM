@@ -7,7 +7,7 @@ int tvis[110][110];
 int b[][2]={{0,0},{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 int br[][2]={{0,0},{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 pair<int,int> q[11000];
-//⏩⏪⏫⏬
+//⏩⏪⏫⏬⬛⬜⭐❌←→↓↑
 int tail,head,flag;
 int n;
 pair<int,int> s(1,1),e(20,20);
@@ -150,21 +150,21 @@ void flsh(){
 		for(int j=0;j<=n+1;j++){
 			if(!mp[i][j]){
 				if(!vis[i][j])
-					cout<<"⬛";
+					cout<<"□";
 				else if(vis[i][j]==1)
-					cout<<"⏬";
+					cout<<"↓";
 				else if(vis[i][j]==2)
-					cout<<"⏩";
+					cout<<"→";
 				else if(vis[i][j]==3)
-					cout<<"⏫";
+					cout<<"↑";
 				else if(vis[i][j]==4)
-					cout<<"⏪";
+					cout<<"←";
 				else if(vis[i][j]==6)
-                cout<<"⭐";
+                cout<<"﹡";
                 else 
-                cout<<"❌";
+                cout<<"﹟";
 			}
-			else cout<<"⬜";
+			else cout<<"■";
 		}
 		cout<<endl;
 	}

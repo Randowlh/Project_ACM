@@ -1,0 +1,24 @@
+{
+	"cpp":{
+		"prefix": "excrt",
+		"body":[
+			"int excrt(int a[],int b[],int n)",
+			"{",
+			"	int lc=1;",
+			"	for(int i=1;i<=n;i++)",
+			"		lc=lcm(lc,a[i]);",
+			"	for(int i=1;i<n;i++){",  
+			"		 int p,q,g;",
+			"		g=exgcd(a[i],a[i+1],p,q);",
+			"		int k=(b[i+1]-b[i])/g;",
+			"		q=-q;p*=k;q*=k;",
+			"		b[i+1]=a[i]*p%lc+b[i];",
+			"		b[i+1]%=lc;",
+			"		a[i+1]=lcm(a[i],a[i+1]);",
+			"	}",
+			"	return (b[n]%lc+lc)%lc;",
+			"}"
+		],
+		"description": "扩展中国剩余定理"
+	}
+}

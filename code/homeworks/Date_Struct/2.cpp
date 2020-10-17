@@ -7,6 +7,27 @@ int tvis[110][110];
 int b[][2]={{0,0},{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 int br[][2]={{0,0},{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 pair<int,int> q[11000];
+int fa[11000];
+int find(int x){
+	if(fa[x]==x)
+		return x;
+	return fa[x]=find(fa[x]);
+}
+void merge(int a,int b){
+	a=find(a);
+	b=find(b);
+	if(a^b)
+	fa[a]=b;
+}
+struct node{
+	int key;
+	int x,y;
+	int fr,to;
+	inline bool operator<(node a){
+		return key < a.key;
+	}
+}eg[41000];
+mt19937 rnd(233);
 //⏩⏪⏫⏬⬛⬜⭐❌←→↓↑
 int tail,head,flag;
 int n;
@@ -195,22 +216,51 @@ void gen(){
 	system("cls");
 	cout<<"Please input the size of maze"<<endl;
 	cin>>n;
-	do{
+	n*=2;
+	n++;
+	for(int i=0;i<=(n+1)*(n+1);i++)
+		fa[i]=i;
 	for(int i=0;i<=n+1;i++)
 		for(int j=0;j<=n+1;j++)
-			mp[i][j]=1;
-	for(int i=1;i<=n;i++)
-		for(int j=1;j<=n;j++)
-			if(rand()%10<5)
-				mp[i][j]=0;
-			else mp[i][j]=1;
-		mp[1][1]=0;
-		mp[n][n]=0;
-	}while(!test());
-	for(int i=1;i<=n;i++)
-		for(int j=1;j<=n;j++)
-			vis[i][j]=0;
-	system("cls");
+			mp[i][j]=1,vis[i][j]=0;
+	for(int i=1;i<=n;i+=2)
+		for(int j=1;j<=n;j+=2)
+			mp[i][j]=0;
+	int tt=0;
+	for(int x=1;x<=n;x++)
+		for(int y=1;y<=n;y++)
+			for(int i=1;i<=4;i++)
+				if(x+b[i][0]*2>0&&x+b[i][0]*2<=n&&y+b[i][1]*2>0&&y+b[i][1]*2<=n){
+					eg[++tt].key=rnd();eg[tt].x=x+b[i][0];eg[tt].y=y+b[i][1];
+					eg[tt].fr=(x-1)*n+(y-1);
+					eg[tt].to=(x+b[i][0]*2-1)*n+y+b[i][1]*2-1;
+				}
+	sort(eg+1,eg+tt+1);
+	for(int i=1;i<=tt;i++){
+		if(find(eg[i].fr)==find(eg[i].to)){
+			int t=rnd();
+			// if(t%10==1)
+			// 	mp[eg[i].x][eg[i].y]=0;
+		}else{
+			merge(eg[i].fr,eg[i].to);
+			mp[eg[i].x][eg[i].y]=0;
+		}
+	}
+	for(int i=0;i<=n*n-1;i++)
+		cout<<find(i)<<endl;
+	// do{
+	// for(int i=1;i<=n;i++)
+	// 	for(int j=1;j<=n;j++)
+	// 		if(rand()%10<5)
+	// 			mp[i][j]=0;
+	// 		else mp[i][j]=1;
+	// 	mp[1][1]=0;
+	// 	mp[n][n]=0;
+	// }while(!test());
+	// for(int i=1;i<=n;i++)
+	// 	for(int j=1;j<=n;j++)
+	// 		vis[i][j]=0;
+	//system("cls");
 	cout<<"Generated successfully!"<<endl;
 	flsh();
 	system("pause");

@@ -190,28 +190,6 @@ void flsh(){
 		cout<<endl;
 	}
 }
-bool test(){
-	for(int i=1;i<=n;i++)
-		for(int j=1;j<=n;j++)
-			vis[i][j]=0;
-	tail=head=0;
-	q[tail]=s;
-	tail++;
-	while(tail^head){
-		pair<int,int> t=q[head];
-		head++;
-		if(t.first==n&&t.second==n)
-			return true;
-		for(int i=1;i<=4;i++){
-			if(ck(t.first+b[i][0],t.second+b[i][1])){
-				vis[t.first+b[i][0]][t.second+b[i][1]]=1;
-				q[tail]=make_pair(t.first+b[i][0],t.second+b[i][1]);
-				tail++;
-			}
-		}
-	}
-	return false;
-}
 void gen(){
 	system("cls");
 	cout<<"Please input the size of maze"<<endl;
@@ -227,8 +205,8 @@ void gen(){
 		for(int j=1;j<=n;j+=2)
 			mp[i][j]=0;
 	int tt=0;
-	for(int x=1;x<=n;x++)
-		for(int y=1;y<=n;y++)
+	for(int x=1;x<=n;x+=2)
+		for(int y=1;y<=n;y+=2)
 			for(int i=1;i<=4;i++)
 				if(x+b[i][0]*2>0&&x+b[i][0]*2<=n&&y+b[i][1]*2>0&&y+b[i][1]*2<=n){
 					eg[++tt].key=rnd();eg[tt].x=x+b[i][0];eg[tt].y=y+b[i][1];
@@ -239,28 +217,14 @@ void gen(){
 	for(int i=1;i<=tt;i++){
 		if(find(eg[i].fr)==find(eg[i].to)){
 			int t=rnd();
-			// if(t%10==1)
-			// 	mp[eg[i].x][eg[i].y]=0;
+			if(t%20==1)
+				mp[eg[i].x][eg[i].y]=0;
 		}else{
 			merge(eg[i].fr,eg[i].to);
 			mp[eg[i].x][eg[i].y]=0;
 		}
 	}
-	for(int i=0;i<=n*n-1;i++)
-		cout<<find(i)<<endl;
-	// do{
-	// for(int i=1;i<=n;i++)
-	// 	for(int j=1;j<=n;j++)
-	// 		if(rand()%10<5)
-	// 			mp[i][j]=0;
-	// 		else mp[i][j]=1;
-	// 	mp[1][1]=0;
-	// 	mp[n][n]=0;
-	// }while(!test());
-	// for(int i=1;i<=n;i++)
-	// 	for(int j=1;j<=n;j++)
-	// 		vis[i][j]=0;
-	//system("cls");
+	system("cls");
 	cout<<"Generated successfully!"<<endl;
 	flsh();
 	system("pause");

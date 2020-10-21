@@ -256,7 +256,7 @@ void dfs(int x,int y){
 	}
 	cout<<"processing"<<endl;
 	flsh();
-	Sleep(100);
+	//Sleep(100);
 	int t[5];
 	memset(t,0,sizeof(t));
 	int cnt=0;

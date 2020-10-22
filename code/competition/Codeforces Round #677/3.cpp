@@ -42,71 +42,34 @@ const int m1 = 998244353;
 const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
-const int maxm= 100;
-const int maxn = 50;
-struct edge{
-   int w1,w2,to,nxt;
-}eg[maxm];
-int head[maxn];
-int ecnt=0;
-inline void add(int u,int v,int w,int ww){
-   	eg[++ecnt].nxt=head[u];
-	eg[ecnt].w1=w;	
-	eg[ecnt].w2=ww;
-   	eg[ecnt].to=v;
-   	head[u]=ecnt;
-}
-inline void cl(int n){
-	for(int i=0;i<=n;i++)
-		head[i]=0;
-	ecnt=0;
-}
-vector<vector<int>> v;
-vector<int>tmp;
-int ans=llinf;
-int lim=3000;
-void dfs(int now,int tol,int sj){
-	if(sj>ans){
-		return;
-	}
-	if(tol>lim){
-		if(ans>sj){
-			ans=sj;
-			v.clear();
-		}
-		v.push_back(tmp);
-		return;
-	}
-	for(int i=head[now];i;i=eg[i].nxt){
-		tmp.push_back(eg[i].to);
-		dfs(eg[i].to,tol+eg[i].w1,sj+eg[i].w2);
-		tmp.pop_back();
-	}
-}
+const int maxm= 1;
+const int maxn = 510000;
 void work()
 {
-	cl(4);
-	add(1,2,530,380);
-	add(2,1,530,380);
-	add(2,3,610,450);
-	add(3,2,610,450);
-	add(1,4,380,370);
-	add(4,1,380,370);
-	add(3,4,530,460);
-	add(4,3,530,460);
-	for(int i=1;i<=4;i++){
-		tmp.push_back(i);
-		dfs(i,0,0);
-		tmp.pop_back();
-	}
-	cout<<"the minial distants="<<ans<<endl;
-	cout<<"there are "<<v.size()<<" way(s)"<<endl;
-	for(int i=0;i<v.size();i++){
-		for(int j=0;j<v[i].size()-1;j++){
-			cout<<v[i][j]<<"->";
-		}
-		cout<<v[i][v[i].size()-1]<<endl;
-	}
+    int n;
+    cin>>n;
+    int tmp;
+    vector<int> v;
+    set<int> s;
+    for(int i=1;i<=n;i++){
+        cin>>tmp;
+        v.push_back(tmp);
+        s.insert(tmp);
+    }
+    if(s.size()==1){
+        cout<<-1<<endl;
+        return;
+    }
+    int tt=*s.rbegin();
+    for(int i=0;i<n;i++){
+        if(v[i]!=tt)
+            continue;
+        if((i>0&&v[i]>v[i-1])||(i<n-1&&v[i]>v[i+1])){
+            cout<<i+1<<endl;
+            return;
+        }
+    }
+
 }
 signed main()
 {
@@ -114,10 +77,10 @@ signed main()
    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
-//std::ios::sync_with_stdio(false);
-//cin.tie(NULL);
+std::ios::sync_with_stdio(false);
+cin.tie(NULL);
 int t = 1;
-//cin>>t;
+cin>>t;
 while (t--)
 {
 work();

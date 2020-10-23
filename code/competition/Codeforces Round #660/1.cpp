@@ -35,6 +35,21 @@ const int maxm= 1;
 const int maxn = 510000;
 void work()
 {
+    int n;
+    cin>>n;
+    if(n<=30){
+        cout<<"NO"<<endl;
+        return ;
+    }
+    set<int> s;
+    s.insert(6),s.insert(10),s.insert(14);
+    if(s.count(n-30)){
+        cout<<"YES"<<endl;
+        cout<<"6 10 15 "<<n-31<<endl;
+        return ;
+    }
+    cout<<"YES"<<endl;
+    cout<<"6 10 14 "<<n-30<<endl;
 }
 signed main()
 {
@@ -45,7 +60,7 @@ signed main()
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    //cin>>t;
+    cin>>t;
     while (t--)
     {
         work();

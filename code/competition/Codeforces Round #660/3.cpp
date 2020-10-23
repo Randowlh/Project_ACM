@@ -34,8 +34,68 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
+int sz[110000];
+vector<int> mp[110000];
+int ps[110000];
+int hp[110000];
+int flag=0;
+void dfs1(int now,int fa){
+    sz[now]=ps[now];
+    for(int i=0;i<mp[now].size();i++){
+        if(mp[now][i]==fa)
+            continue;
+        dfs1(mp[now][i],now);
+        sz[now]+=sz[mp[now][i]];
+    }
+}
+void dfs(int now,int fa){
+    for(int i=0;i<mp[now].size();i++){
+        if(mp[now][i]==fa)
+            continue;
+        if(flag)
+            return;
+        dfs(mp[now][i],now);    
+    }
+    int h=0,u=0;
+    for(int i=0;i<mp[now].size();i++){
+        if(mp[now][i]==fa)
+            continue;
+        h+=hp[mp[now][i]];
+    }
+    if(h>hp[now]+ps[now]){
+        flag=1;
+    }
+    return ;
+}
 void work()
 {
+    flag=0;
+    int n,m;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++){
+        mp[i].clear();
+    }
+    for(int i=1;i<=n;i++)
+        cin>>ps[i];
+    for(int i=1;i<=n;i++)
+        cin>>hp[i];
+    int u,v;
+    for(int i=1;i<=n-1;i++){
+        cin>>u>>v;
+        mp[u].push_back(v);
+        mp[v].push_back(u);
+    }
+    dfs1(1,-1);
+    for(int i=1;i<=n;i++){
+        if((sz[i]-hp[i])<0||(sz[i]-hp[i])%2){
+            cout<<"NO"<<endl;
+            return ;
+        }
+    }
+    dfs(1,-1);
+    if(flag)
+        cout<<"NO"<<endl;
+    else cout<<"YES"<<endl;
 }
 signed main()
 {
@@ -46,7 +106,7 @@ signed main()
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    //cin>>t;
+    cin>>t;
     while (t--)
     {
         work();

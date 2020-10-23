@@ -44,46 +44,41 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int mp[500][500];
-int n,m;
-int b[][2]={{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-bool ck(int x,int y){
-   if(x<=0||x>n)
-      return false;
-   if(y<=0||y>m)
-      return false;
-   return true;
-}
+struct node{
+    int val;
+    int pre,nxt;
+}date[210000];
+set<pair<int,int>> s;
 void work()
 {
-   cin>>n>>m;
-   for(int i=1;i<=n;i++)
-      for(int j=1;j<=m;j++)
-         cin>>mp[i][j];
-   int flag=0;
-   for(int i=1;i<=n;i++)
-      for(int j=1;j<=m;j++){
-         int now=0;
-         for(int k=0;k<4;k++){
-            if(ck(i+b[k][0],j+b[k][1]))
-               now++;
-         }
-         if(now<mp[i][j]){
-            flag=1;
-            break;
-         }
-         mp[i][j]=now;
-      }
-   if(flag){
-      cout<<"NO"<<endl;
-      return ;
-   }
-   cout<<"YES"<<endl;
-   for(int i=1;i<=n;i++){
-      for(int j=1;j<=m;j++)
-         cout<<mp[i][j]<<' ';
-      cout<<endl;
-   }
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        cin>>date[i].val;
+        s.insert(make_pair(date[i].val,i));
+    }
+    for(int i=0;i<n;i++){
+        date[i].pre=(i-1+n)%n;
+        date[i].nxt=(i+1)%n;
+    }
+    while(s.size()>3){
+        int lo=s.begin()->second;
+        s.erase(s.begin());
+        int v=date[date[lo].nxt].val+date[date[lo].pre].val;
+        date[lo].val=v;
+        s.erase(s.find(make_pair(date[date[lo].pre].val,date[lo].pre)));
+        s.erase(s.find(make_pair(date[date[lo].nxt].val,date[lo].nxt)));
+        date[date[date[lo].nxt].nxt].pre=lo;
+        date[date[date[lo].pre].pre].nxt=lo;
+        date[lo].nxt=date[date[lo].nxt].nxt;
+        date[lo].pre=date[date[lo].pre].pre;
+        s.insert(make_pair(date[lo].val,lo));
+    }
+    int tol=0;
+    for(auto i=s.begin();i!=s.end();i++)
+        tol+=i->first;
+    tol-=s.begin()->first;
+    cout<<tol<<endl;
 }
 signed main()
 {
@@ -91,10 +86,10 @@ signed main()
    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
-std::ios::sync_with_stdio(false);
-cin.tie(NULL);
+//std::ios::sync_with_stdio(false);
+//cin.tie(NULL);
 int t = 1;
-cin>>t;
+//cin>>t;
 while (t--)
 {
 work();

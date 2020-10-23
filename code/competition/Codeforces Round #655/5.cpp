@@ -44,46 +44,26 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int mp[500][500];
-int n,m;
-int b[][2]={{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-bool ck(int x,int y){
-   if(x<=0||x>n)
-      return false;
-   if(y<=0||y>m)
-      return false;
-   return true;
-}
+int date[410000];
+int pre[410000][2];
 void work()
 {
-   cin>>n>>m;
-   for(int i=1;i<=n;i++)
-      for(int j=1;j<=m;j++)
-         cin>>mp[i][j];
-   int flag=0;
-   for(int i=1;i<=n;i++)
-      for(int j=1;j<=m;j++){
-         int now=0;
-         for(int k=0;k<4;k++){
-            if(ck(i+b[k][0],j+b[k][1]))
-               now++;
-         }
-         if(now<mp[i][j]){
-            flag=1;
-            break;
-         }
-         mp[i][j]=now;
-      }
-   if(flag){
-      cout<<"NO"<<endl;
-      return ;
-   }
-   cout<<"YES"<<endl;
+   int n;
+   cin>>n;
    for(int i=1;i<=n;i++){
-      for(int j=1;j<=m;j++)
-         cout<<mp[i][j]<<' ';
-      cout<<endl;
+      cin>>date[i];
+      date[i+n]=date[i];
    }
+   for(int i=1;i<=n*2;i++){
+      pre[i][0]=pre[i-1][0];
+      pre[i][1]=pre[i-1][1];
+      pre[i][i%2]+=date[i];
+   }
+   int ans=0;
+   for(int i=1;i<=n;i++){
+      MAX(ans,pre[i+n][i%2]-pre[i-1][i%2]);
+   }
+   cout<<ans<<endl;
 }
 signed main()
 {
@@ -94,7 +74,7 @@ signed main()
 std::ios::sync_with_stdio(false);
 cin.tie(NULL);
 int t = 1;
-cin>>t;
+//cin>>t;
 while (t--)
 {
 work();

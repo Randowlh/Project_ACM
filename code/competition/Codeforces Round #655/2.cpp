@@ -44,46 +44,19 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int mp[500][500];
-int n,m;
-int b[][2]={{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-bool ck(int x,int y){
-   if(x<=0||x>n)
-      return false;
-   if(y<=0||y>m)
-      return false;
-   return true;
-}
 void work()
 {
-   cin>>n>>m;
-   for(int i=1;i<=n;i++)
-      for(int j=1;j<=m;j++)
-         cin>>mp[i][j];
-   int flag=0;
-   for(int i=1;i<=n;i++)
-      for(int j=1;j<=m;j++){
-         int now=0;
-         for(int k=0;k<4;k++){
-            if(ck(i+b[k][0],j+b[k][1]))
-               now++;
-         }
-         if(now<mp[i][j]){
-            flag=1;
-            break;
-         }
-         mp[i][j]=now;
-      }
-   if(flag){
-      cout<<"NO"<<endl;
-      return ;
-   }
-   cout<<"YES"<<endl;
-   for(int i=1;i<=n;i++){
-      for(int j=1;j<=m;j++)
-         cout<<mp[i][j]<<' ';
-      cout<<endl;
-   }
+    int n;
+    cin>>n;
+    //vector<int> yz;
+    int tn=n;
+    for(int i=2;i*i<=n;i++){
+        if(n%i==0){
+            cout<<n/i<<' '<<n-n/i<<endl;
+            return ;
+        }
+    }
+    cout<<n-1<<' '<<1<<endl;
 }
 signed main()
 {

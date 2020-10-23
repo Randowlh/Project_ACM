@@ -44,46 +44,61 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int mp[500][500];
-int n,m;
-int b[][2]={{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-bool ck(int x,int y){
-   if(x<=0||x>n)
-      return false;
-   if(y<=0||y>m)
-      return false;
-   return true;
-}
+map<int,set<int>> M;
+int date[1100];
 void work()
 {
-   cin>>n>>m;
-   for(int i=1;i<=n;i++)
-      for(int j=1;j<=m;j++)
-         cin>>mp[i][j];
-   int flag=0;
-   for(int i=1;i<=n;i++)
-      for(int j=1;j<=m;j++){
-         int now=0;
-         for(int k=0;k<4;k++){
-            if(ck(i+b[k][0],j+b[k][1]))
-               now++;
-         }
-         if(now<mp[i][j]){
-            flag=1;
-            break;
-         }
-         mp[i][j]=now;
-      }
-   if(flag){
-      cout<<"NO"<<endl;
-      return ;
-   }
-   cout<<"YES"<<endl;
-   for(int i=1;i<=n;i++){
-      for(int j=1;j<=m;j++)
-         cout<<mp[i][j]<<' ';
-      cout<<endl;
-   }
+    int n;
+    cin>>n;
+    M.clear();
+    for(int i=0;i<n;i++){
+        cin>>date[i];
+        M[date[i]].insert(i);
+    }
+    int mx=0;
+    vector<int> ans;
+    while(!M[mx].empty())
+        mx++;
+    for(int i=0;i<n;i++){
+        if(date[i]==i)
+            continue;
+        if(mx==i){
+            M[date[i]].erase(i);
+            date[i]=mx;
+            ans.push_back(i);
+            M[mx].insert(i);
+            mx=0;
+            while(!M[mx].empty())
+                mx++;
+            continue;
+        }
+        for(auto j=M[i].begin(); j!=M[i].end();j++){
+            date[*j]=mx;
+            M[mx].insert(*j);
+            M[i].erase(*j);
+            mx=0;
+            while(!M[mx].empty())
+                mx++;
+            ans.push_back(*j);
+        }
+        M[i].clear();
+        M[i].insert(i);
+        date[i]=i;
+        ans.push_back(i);
+        mx=0;
+        while(!M[mx].empty())
+                mx++;
+        cout<<"mx="<<mx<<endl;
+        cout<<"i="<<i<<endl;
+        for(int j=0;j<n;j++)
+            cout<<date[j]<<' ';
+        cout<<endl;
+    }
+    cout<<ans.size()<<endl;
+    for(int i=0;i<ans.size();i++){
+        cout<<ans[i]+1<<' ';
+    }
+    cout<<endl;
 }
 signed main()
 {
@@ -91,8 +106,8 @@ signed main()
    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
-std::ios::sync_with_stdio(false);
-cin.tie(NULL);
+//std::ios::sync_with_stdio(false);
+//cin.tie(NULL);
 int t = 1;
 cin>>t;
 while (t--)

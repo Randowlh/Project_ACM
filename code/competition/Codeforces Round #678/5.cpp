@@ -44,9 +44,39 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
+int seg[maxn<<2];
+inline void pushup(int pos){
+    seg[pos]=max(seg[lson(pos)],seg[rson(pos)]);
+}
+void update(int pos,int l,int r,int x,int val){
+    if(l==r){
+        seg[pos]=val;
+        return;
+    }
+    int mid=(l+r)>>1;
+    if(x<=mid)
+        update(lson(pos),l,mid,x,val);
+    else update(rson(pos),mid+1,r,x,val);
+    pushup(pos);
+}
+int query(int pos,int l,int r,int ql,int qr){
+    if(l>=ql&&r<=qr)
+        return seg[pos];
+    int mid=l+r >> 1;
+    int ans=-llinf;
+    if(ql<=mid)
+        MAX(ans,query(lson(pos),l,mid,ql,qr));
+    if(qr>=mid+1)
+        MAX(ans,query(rson(pos),mid+1,r,ql,qr));
+    return ans;
+}
+int n;
+int date[maxn];
 void work()
 {
-    
+   cin>>n;
+   for(int i=1;i<=n;i++)
+      cin>>date[i];
 }
 signed main()
 {
@@ -54,8 +84,8 @@ signed main()
    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
-//std::ios::sync_with_stdio(false);
-//cin.tie(NULL);
+std::ios::sync_with_stdio(false);
+cin.tie(NULL);
 int t = 1;
 //cin>>t;
 while (t--)

@@ -44,18 +44,17 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
+set<pair<int,int>> s;
 void work()
 {
-	int date[110];
-	int n;
-	cin>>n;	
-	for(int i=1;i<=n;i++){
-		cin>>date[i];
-	}
-	for(int i=1;i<=n;i+=2){
-		cout<<-date[i+1]<<' '<<date[i]<<' ';
-	}
-   cout<<endl;
+    cout<<10<<' '<<40<<endl;
+    for(int i=1;i<=40;i++){
+        int a=rand()%10+1;
+        int b=rand()%10+1;
+        if(!s.count(make_pair(a,b))&&!s.count(make_pair(b,a))){
+            cout<<a<<' '<<b<<endl;
+        }
+    }   
 }
 signed main()
 {
@@ -66,7 +65,7 @@ signed main()
 //std::ios::sync_with_stdio(false);
 //cin.tie(NULL);
 int t = 1;
-cin>>t;
+//cin>>t;
 while (t--)
 {
 work();

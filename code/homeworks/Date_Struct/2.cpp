@@ -29,7 +29,7 @@ struct node{
 }eg[41000];
 mt19937 rnd(233);
 //⏩⏪⏫⏬⬛⬜⭐❌←→↓↑
-int tail,head,flag;
+int tail,head,flag; 
 int n;
 pair<int,int> s(1,1),e(20,20);
 template<class T> class fhq_treap
@@ -209,7 +209,7 @@ void gen(){
 		for(int y=1;y<=n;y+=2)
 			for(int i=1;i<=4;i++)
 				if(x+b[i][0]*2>0&&x+b[i][0]*2<=n&&y+b[i][1]*2>0&&y+b[i][1]*2<=n){
-					eg[++tt].key=rnd();eg[tt].x=x+b[i][0];eg[tt].y=y+b[i][1];
+					eg[++tt].key=rand();eg[tt].x=x+b[i][0];eg[tt].y=y+b[i][1];
 					eg[tt].fr=(x-1)*n+(y-1);
 					eg[tt].to=(x+b[i][0]*2-1)*n+y+b[i][1]*2-1;
 				}
@@ -256,7 +256,7 @@ void dfs(int x,int y){
 	}
 	cout<<"processing"<<endl;
 	flsh();
-	//Sleep(100);
+	Sleep(300);
 	int t[5];
 	memset(t,0,sizeof(t));
 	int cnt=0;

@@ -28,7 +28,6 @@ struct node{
 	}
 }eg[41000];
 mt19937 rnd(233);
-//⏩⏪⏫⏬⬛⬜⭐❌←→↓↑
 int tail,head,flag; 
 int n;
 pair<int,int> s(1,1),e(20,20);
@@ -224,6 +223,8 @@ void gen(){
 			mp[eg[i].x][eg[i].y]=0;
 		}
 	}
+	mp[1][0]=0;
+	mp[n][n+1]=0;
 	system("cls");
 	cout<<"Generated successfully!"<<endl;
 	flsh();

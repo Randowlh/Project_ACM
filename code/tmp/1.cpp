@@ -36,26 +36,83 @@ void wt(T x){
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
 const ll llinf = 4223372036854775807;
-const ll mod = (0 ? 1000000007 : 998244353);
+const ll mod =  1000000007;
 const ll mod2 = 999998639;
 const int m1 = 998244353;
 const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
-const int maxn = 510000;
+const int maxn = 110000;
+inline int exgcd(int a, int b, int& x, int& y) {
+   x = 1, y = 0;
+   int x1 = 0, y1 = 1, a1 = a, b1 = b;
+   while (b1) {
+     int q = a1 / b1;
+     tie(x, x1) = make_tuple(x1, x - q * x1);
+     tie(y, y1) = make_tuple(y1, y - q * y1);
+     tie(a1, b1) = make_tuple(b1, a1 - q * b1);
+   }
+   return a1;
+}
+ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+inline int niyuan(int a,int b){ int tmp,ans;exgcd(a,b,ans,tmp);return (ans%b+b)%b;}
+int a[maxn],b[maxn],xs[maxn],flag[maxn];
 void work()
 {
-	int date[110];
-	int n;
-	cin>>n;	
-	for(int i=1;i<=n;i++){
-		cin>>date[i];
-	}
-	for(int i=1;i<=n;i+=2){
-		cout<<-date[i+1]<<' '<<date[i]<<' ';
-	}
-   cout<<endl;
+   int n,x;
+   while(scanf("%lld%lld",&n,&x)!=EOF){
+      int cnt=0;
+      int bg=1;
+      for(int i=1;i<=n;i++){
+         rd(a[i]);
+         flag[i]=0;
+      }
+      for(int i=1;i<=n;i++)
+         rd(b[i]);
+      int ans=0;
+      for(int i=1;i<=n;i++){
+         ans+=a[i]*b[i];
+         ans%=mod;
+      }
+      ans=ans*powmod(x,n-1)%mod;
+      ans+=powmod(x,n);
+      ans%=mod;
+      cout<<ans<<endl;
+      continue;
+      /*
+      while(bg<=n&&(!a[bg]||!b[bg]))
+         bg++;
+      if(bg>n){
+         cout<<powmod(x,n)<<endl;
+         continue;
+      }
+      int ans=1;
+      for(int i=1;i<=n;i++){
+         if(a[i])
+         ans=(ans*a[i])%mod;
+         else cnt++,flag[i]=1;
+      }
+      for(int i=1;i<=n;i++){
+         if(b[i])
+         ans=(ans*b[i])%mod;
+         else if(!flag[i])
+            cnt++,flag[i]=1;
+      }
+      for(int i=bg;i<=n;i++)
+         xs[i]=niyuan(a[i]*b[i]%mod,mod);
+      int ys=(1+(x)*xs[bg])%mod;
+      for(int i=bg+1;i<=n;i++){
+         if(!flag[i])
+            ys=(ys+(a[i]*b[i]%mod*xs[bg]%mod))%mod;
+      }
+      int rs=1;
+      // for(int i=bg+1;i<=n;i++)
+      //    if(!flag[i])
+      //       rs=(rs*x%mod*xs[i]%mod)%mod;
+      cout<<ans*ys%mod*rs%mod*powmod(x,cnt+bg-1)%mod<<endl;
+   */
+   }
 }
 signed main()
 {
@@ -66,7 +123,7 @@ signed main()
 //std::ios::sync_with_stdio(false);
 //cin.tie(NULL);
 int t = 1;
-cin>>t;
+//cin>>t;
 while (t--)
 {
 work();

@@ -44,24 +44,57 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int dp[410][310];
-int date[210];
+int powmod(int a,int b){
+    int ans=1;
+    int tmp=a;
+    while(b){
+        if(b&1)
+            ans*=tmp;
+        tmp=tmp*tmp;
+        b>>=1;
+    }
+    return ans;
+}
 void work()
 {
-   int n;
-   cin>>n;
-   int tmp;
-   for(int i=1;i<=n;i++)
-      cin>>date[i];
-   sort(date+1,date+n+1);
-   memset(dp,63, sizeof(dp));
-   dp[0][0]=0;
-   for(int i=0;i<=n+200;i++)
-      for(int j=0;j<=n;j++){
-         MIN(dp[i+1][j],dp[i][j]);
-         MIN(dp[i+1][j+1],dp[i][j]+abs((i+1)-date[j+1]));
-      }
-   cout<<dp[n+200][n]<<endl;
+    int p,q,tp,tq;
+    cin>>p>>q;
+    if(p%q!=0){
+        cout<<q<<endl;
+        return;
+    }
+    tp=p;
+    tq=q;
+    map<int,int> m1,m2;
+    for(int i=2;i*i<=q;i++){
+        while(q%i==0){
+            m2[i]++;
+            q/=i;
+        }
+    }
+    if(q!=1)
+        m2[q]++;
+    for(int i=2;i*i<=p;i++){
+        while(p%i==0){
+            m1[i]++;
+            p/=i;
+        }
+    }
+    if(p!=1)
+        m1[p]++;
+    p=tp;
+    q=tq;
+    int ans=1;
+    for(auto i=m2.begin();i!=m2.end();i++){
+        pair<int,int> t=*i;
+        int dis=m1[t.first]-t.second;
+        if(dis<0){
+            cout<<p<<endl;
+            return;
+        }
+        MAX(ans,p/powmod(t.first,dis+1));
+    }
+    cout<<ans<<endl;
 }
 signed main()
 {
@@ -78,4 +111,3 @@ while (t--)
 work();
 }
 return 0;
-}

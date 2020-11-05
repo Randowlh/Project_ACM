@@ -44,57 +44,30 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int powmod(int a,int b){
-    int ans=1;
-    int tmp=a;
-    while(b){
-        if(b&1)
-            ans*=tmp;
-        tmp=tmp*tmp;
-        b>>=1;
-    }
-    return ans;
-}
 void work()
 {
-    int p,q,tp,tq;
-    cin>>p>>q;
-    if(p%q!=0){
-        cout<<q<<endl;
-        return;
-    }
-    tp=p;
-    tq=q;
-    map<int,int> m1,m2;
-    for(int i=2;i*i<=q;i++){
-        while(q%i==0){
-            m2[i]++;
-            q/=i;
-        }
-    }
-    if(q!=1)
-        m2[q]++;
-    for(int i=2;i*i<=p;i++){
-        while(p%i==0){
-            m1[i]++;
-            p/=i;
-        }
-    }
-    if(p!=1)
-        m1[p]++;
-    p=tp;
-    q=tq;
-    int ans=1;
-    for(auto i=m2.begin();i!=m2.end();i++){
-        pair<int,int> t=*i;
-        int dis=m1[t.first]-t.second;
-        if(dis<0){
-            cout<<p<<endl;
-            return;
-        }
-        MAX(ans,p/powmod(t.first,dis+1));
-    }
-    cout<<ans<<endl;
+   int n,x;
+   cin>>n>>x;
+   int tmp;
+   vector<int> v,v2;
+   for(int i=1;i<=n;i++){
+      cin>>tmp;
+      v.push_back(tmp);
+   }
+   for(int i=1;i<=n;i++){
+      cin>>tmp;
+      v2.push_back(tmp);
+   }
+   sort(v.begin(),v.end());
+   sort(v2.begin(),v2.end());
+   reverse(v.begin(),v.end());
+   for(int i=0;i<n;i++){
+      if(v[i]+v2[i]>x){
+         cout<<"NO"<<endl;
+         return;
+      }
+   }
+   cout<<"YES"<<endl;
 }
 signed main()
 {
@@ -102,8 +75,8 @@ signed main()
    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
-std::ios::sync_with_stdio(false);
-cin.tie(NULL);
+//std::ios::sync_with_stdio(false);
+//cin.tie(NULL);
 int t = 1;
 cin>>t;
 while (t--)
@@ -111,3 +84,4 @@ while (t--)
 work();
 }
 return 0;
+}

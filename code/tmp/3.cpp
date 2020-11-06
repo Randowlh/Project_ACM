@@ -39,12 +39,25 @@ const double eps = 1e-7;
 const ll llinf = 4223372036854775807;
 const int maxm= 1;
 const int maxn = 510000;
-int   dp[maxn];
+struct node{
+   int x,y;
+   node(int a,int b):x(a),y(b){}
+}pnt[6];
 void work()
 {
-   int n,m;
-   while(cin>>n>>m){
-      
+   int n;
+   cin>>n;
+   pnt[1].x=1, pnt[1].y=1;
+   pnt[2].x=1, pnt[2].y=n;
+   pnt[3].x=n, pnt[3].y=n;
+   pnt[4]=pnt[3];
+   pnt[5]=pnt[2];
+   while(1){
+      cout<<"? 3 ";
+      for(int i=1;i<=3;i++){
+         cout<<pnt[i].x<<' '<<pnt[i].y<<' ';
+      }
+      cout<<endl;
    }
 }
 signed main()

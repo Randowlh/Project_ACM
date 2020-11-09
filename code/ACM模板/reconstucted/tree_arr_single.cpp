@@ -7,11 +7,7 @@ int lowbit(int x)
 }
 int update(int x, int v)
 {
-    while (x <= n)
-    {
-        tree[x] += v;
-        x += lowbit(x);
-    }
+    while (x <= n){tree[x] += v;x += lowbit(x);}
 }
 ll query(int x)
 {
